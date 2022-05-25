@@ -4,6 +4,90 @@ import torch.nn as nn
 import torch.nn.functional as F
 from torch.autograd.function import Function
 from torch.autograd import Variable
+device = 'cuda:0' if torch.cuda.is_available() else 'cpu'
+
+
+def binarize(T, classes):
+    T = T.cpu().numpy()
+    import sklearn.preprocessing
+    T = sklearn.preprocessing.label_binarize(
+        T, classes = classes
+    )
+    T = torch.FloatTensor(T).to(device)
+    return T
+
+def l2_norm(input):
+    input_size = input.size()
+    buffer = torch.pow(input, 2)
+    normp = torch.sum(buffer, 1).add_(1e-12)
+    norm = torch.sqrt(normp)
+    _output = torch.div(input, norm.view(-1, 1).expand_as(input))
+    output = _output.view(input_size)
+    return output
+
+def cal_p2p_loss(X, T, alpha=32, mrg=0.1):
+    X = torch.split(X, 4)
+    T = torch.split(T, 4)
+    P = None
+    T_P = None
+    for (x,t) in zip(X, T):
+        x = torch.mean(x, dim=0, keepdim=True)
+        t = torch.unique(t)
+        if P is None and T_P is None:
+            P = x
+            T_P = t
+        else:
+            P = torch.cat((P, x), dim=0)
+            T_P = torch.cat((T_P,t))
+    
+    P = l2_norm(P)
+    cos = F.linear(P, P)
+    neg_exp = torch.exp(alpha * (cos + mrg))
+    neg_exp = torch.triu(neg_exp, diagonal=1).sum()
+    
+    neg_term = torch.log(1 + neg_exp)
+    
+    return neg_term, P, T_P
+
+def cal_p2e_loss(X, P, T, T_P, alpha=32, mrg=0.1):
+    P_one_hot = binarize(T, T_P.cpu())
+    
+    
+    cos = F.linear(l2_norm(X), l2_norm(P))
+    pos_exp = torch.exp(-alpha * (cos - mrg))
+    
+    with_pos_proxies = torch.nonzero(P_one_hot.sum(dim=0) != 0).squeeze(dim=1)
+    num_valid_proxies = len(with_pos_proxies)
+    
+    P_sim_sum = torch.where(P_one_hot == 1, pos_exp, torch.zeros_like(pos_exp)).sum(dim=0)
+    pos_term = torch.log(1 + P_sim_sum).sum() / num_valid_proxies
+    
+    return pos_term
+    
+    
+
+
+
+class two_level_Proxy_Anchor(nn.Module):
+    def __init__(self, sz_embed, num_classes, mrg=0.1, alpha=32, batch_size=8):
+        super().__init__()
+        
+        self.sz_embed = sz_embed
+        self.num_classes = num_classes
+        self.mrg = mrg
+        self.alpha = alpha
+        self.batch_size = batch_size
+        
+    def forward(self, X, T):
+        
+        T = torch.split(T, [self.batch_size*8, self.batch_size*4], dim=0)
+        X = torch.split(X, [self.batch_size*8, self.batch_size*4], dim=0)
+        
+        p2p_loss, P, T_P = cal_p2p_loss(X[-1], T[-1])
+        p2e_loss = cal_p2e_loss(X[0], P, T[0], T_P)
+        
+        return p2p_loss, p2e_loss
+        
 
 
 class OriTripletLoss(nn.Module):

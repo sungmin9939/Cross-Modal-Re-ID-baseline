@@ -4,9 +4,9 @@ import torch.utils.data as data
 
 
 class SYSUData(data.Dataset):
-    def __init__(self, data_dir,  transform=None, colorIndex = None, thermalIndex = None):
+    def __init__(self, data_dir,  transform=None, colorIndex = None, thermalIndex = None, transform_gray=None):
         
-        data_dir = '../Datasets/SYSU-MM01/'
+        data_dir = './dataset/SYSU-MM01/'
         # Load training images (path) and labels
         train_color_image = np.load(data_dir + 'train_rgb_resized_img.npy')
         self.train_color_label = np.load(data_dir + 'train_rgb_resized_label.npy')
@@ -18,6 +18,7 @@ class SYSUData(data.Dataset):
         self.train_color_image   = train_color_image
         self.train_thermal_image = train_thermal_image
         self.transform = transform
+        self.transform_gray = transform_gray
         self.cIndex = colorIndex
         self.tIndex = thermalIndex
 
@@ -28,8 +29,12 @@ class SYSUData(data.Dataset):
         
         img1 = self.transform(img1)
         img2 = self.transform(img2)
+        img3 = self.transform_gray(img1)
+        
+        target3 = self.train_color_label[self.cIndex[index]]
+        
 
-        return img1, img2, target1, target2
+        return img1, img2, img3, target1, target2, target3
 
     def __len__(self):
         return len(self.train_color_label)

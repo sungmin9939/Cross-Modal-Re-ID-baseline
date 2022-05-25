@@ -3,7 +3,7 @@ from PIL import Image
 import pdb
 import os
 
-data_path = '/home/datasets/prml/computervision/re-id/sysu-mm01/ori_data'
+data_path = '/data/Cross-Modal-Re-ID-baseline/dataset/SYSU-MM01'
 
 rgb_cameras = ['cam1','cam2','cam4','cam5']
 ir_cameras = ['cam3','cam6']

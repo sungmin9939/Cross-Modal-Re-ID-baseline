@@ -104,7 +104,7 @@ if not os.path.isdir(vis_log_dir):
     os.makedirs(vis_log_dir)
 writer = SummaryWriter(vis_log_dir)
 print("==========\nArgs:{}\n==========".format(args))
-device = 'cuda:0' if torch.cuda.is_available() else 'cpu'
+device = 'cuda:1' if torch.cuda.is_available() else 'cpu'
 best_acc = 0  # best test accuracy
 start_epoch = 0
 
@@ -187,8 +187,15 @@ if args.method =='base':
 else:
     net = embed_net(n_class, no_local= 'on', gm_pool = 'on', arch=args.arch)
 net.to(device)
-net = nn.DataParallel(net, device_ids=[0, 1, 2, 3])
+#net = nn.DataParallel(net, device_ids=[0, 1])
 
+##test forward
+input1 = Variable(torch.randn(32,3,288,144).to(device))
+input2 = Variable(torch.randn(32,3,288,144).to(device))
+input3 = Variable(torch.randn(32,3,288,144).to(device))
+
+feat, out = net(input1, input2, input3)
+print("test passed")
 cudnn.benchmark = True
 
 if len(args.resume) > 0:
@@ -216,18 +223,31 @@ criterion_id.to(device)
 criterion_tri.to(device)
 criterion_two.to(device)
 
+##test forward
+input1 = torch.randn(64,512).cuda()
+input2 = torch.randn(32,512).cuda()
+input3 = torch.Tensor([167, 167, 167, 167, 222, 222, 222, 222, 384, 384, 384, 384, 286, 286,
+        286, 286, 289, 289, 289, 289, 147, 147, 147, 147,  31,  31,  31,  31,
+        145, 145, 145, 145, 167, 167, 167, 167, 222, 222, 222, 222, 384, 384,
+        384, 384, 286, 286, 286, 286, 289, 289, 289, 289, 147, 147, 147, 147,
+         31,  31,  31,  31, 145, 145, 145, 145]).cuda()
+input4 = torch.Tensor([167, 167, 167, 167, 222, 222, 222, 222, 384, 384, 384, 384, 286, 286,
+        286, 286, 289, 289, 289, 289, 147, 147, 147, 147,  31,  31,  31,  31,
+        145, 145, 145, 145]).cuda()
 
+p2p, p2e = criterion_two(torch.cat((input1, input2),dim=0), torch.cat((input3, input4)))
+print("test passed")
 if args.optim == 'sgd':
-    ignored_params = list(map(id, net.module.bottleneck.parameters())) \
-                     + list(map(id, net.module.ca.parameters())) + list(map(id, net.module.sa.parameters()))
+    ignored_params = list(map(id, net.bottleneck.parameters())) \
+                     + list(map(id, net.ca.parameters())) + list(map(id, net.sa.parameters()))
 
-    base_params = filter(lambda p: id(p) not in ignored_params, net.module.parameters())
+    base_params = filter(lambda p: id(p) not in ignored_params, net.parameters())
 
     optimizer = optim.SGD([
         {'params': base_params, 'lr': 0.1 * args.lr},
-        {'params': net.module.bottleneck.parameters(), 'lr': args.lr},
-        {'params': net.module.ca.parameters(), 'lr': args.lr},
-        {'params': net.module.sa.parameters(), 'lr': args.lr}],
+        {'params': net.bottleneck.parameters(), 'lr': args.lr},
+        {'params': net.ca.parameters(), 'lr': args.lr},
+        {'params': net.sa.parameters(), 'lr': args.lr}],
         weight_decay=5e-4, momentum=0.9, nesterov=True)
 
 # exp_lr_scheduler = lr_scheduler.StepLR(optimizer, step_size=30, gamma=0.1)
@@ -279,18 +299,18 @@ def train(epoch):
         labels = Variable(labels.to(device))
         data_time.update(time.time() - end)
 
+        print('in')
         feat, out0, = net(input1, input2, input3)
         
-       
+        print('out')
+        print('in')
         loss_p2p, loss_p2e = criterion_two(out0, labels)
-        # loss_id = criterion_id(out0, labels)
-        
-        '''
+        print('out')
+        loss_id = criterion_id(out0, labels)
         loss_tri, batch_acc = criterion_tri(feat, labels)
         correct += (batch_acc / 2)
         _, predicted = out0.max(1)
         correct += (predicted.eq(labels).sum().item() / 2)
-        '''
 
         #loss = loss_id + loss_tri
         loss = loss_p2p + loss_p2e
@@ -300,8 +320,8 @@ def train(epoch):
 
         # update P
         train_loss.update(loss.item(), 3 * input1.size(0))
-        # id_loss.update(loss_id.item(), 2 * input1.size(0))
-        # tri_loss.update(loss_tri.item(), 2 * input1.size(0))
+        id_loss.update(loss_id.item(), 2 * input1.size(0))
+        tri_loss.update(loss_tri.item(), 2 * input1.size(0))
         p2p_loss.update(loss_p2p.item(), 3 * input1.size(0))
         p2e_loss.update(loss_p2e.item(), 3 * input1.size(0))
         total += labels.size(0)
@@ -329,9 +349,6 @@ def train(epoch):
     writer.add_scalar('lr', current_lr, epoch)
     writer.add_scalar('p2p_loss', p2p_loss.avg, epoch)
     writer.add_scalar('p2e_loss', p2e_loss.avg, epoch)
-    
-    #memory deallocation
-    del input1, input2, input3, labels, loss
 
 
 def test(epoch):
@@ -346,7 +363,7 @@ def test(epoch):
         for batch_idx, (input, label) in enumerate(gall_loader):
             batch_num = input.size(0)
             input = Variable(input.to(device))
-            feat, feat_att = net(x1=input, modal=test_mode[0])
+            feat, feat_att = net(input, input,input, test_mode[0])
             gall_feat[ptr:ptr + batch_num, :] = feat.detach().cpu().numpy()
             gall_feat_att[ptr:ptr + batch_num, :] = feat_att.detach().cpu().numpy()
             ptr = ptr + batch_num
@@ -363,7 +380,7 @@ def test(epoch):
         for batch_idx, (input, label) in enumerate(query_loader):
             batch_num = input.size(0)
             input = Variable(input.to(device))
-            feat, feat_att = net(x2=input, modal=test_mode[1])
+            feat, feat_att = net(input, input, input, test_mode[1])
             query_feat[ptr:ptr + batch_num, :] = feat.detach().cpu().numpy()
             query_feat_att[ptr:ptr + batch_num, :] = feat_att.detach().cpu().numpy()
             ptr = ptr + batch_num
@@ -389,10 +406,6 @@ def test(epoch):
     writer.add_scalar('rank1_att', cmc_att[0], epoch)
     writer.add_scalar('mAP_att', mAP_att, epoch)
     writer.add_scalar('mINP_att', mINP_att, epoch)
-    
-    # memory deallocation
-    del input, label
-    
     return cmc, mAP, mINP, cmc_att, mAP_att, mINP_att
 
 
@@ -420,8 +433,7 @@ for epoch in range(start_epoch, 81 - start_epoch):
     # training
     train(epoch)
 
-    if epoch > 0 and epoch % 2 == 1:
-        time.sleep(10)
+    if epoch > 0 and epoch % 2 == 0:
         print('Test Epoch: {}'.format(epoch))
 
         # testing

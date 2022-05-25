@@ -1,7 +1,10 @@
+
 import torch
 import torch.nn as nn
 from torch.nn import init
 from resnet import resnet50, resnet18
+
+device = 'cuda:0' if torch.cuda.is_available() else 'cpu'
 
 class Normalize(nn.Module):
     def __init__(self, power=2):
@@ -122,7 +125,22 @@ class thermal_module(nn.Module):
         x = self.thermal.relu(x)
         x = self.thermal.maxpool(x)
         return x
+    
+class gray_module(nn.Module): ## modified
+    def __init__(self, arch='resnet50'):
+        super(gray_module, self).__init__()
 
+        model_t = resnet50(pretrained=True,
+                           last_conv_stride=1, last_conv_dilation=1)
+        # avg pooling to global pooling
+        self.gray = model_t
+
+    def forward(self, x):
+        x = self.gray.conv1(x)
+        x = self.gray.bn1(x)
+        x = self.gray.relu(x)
+        x = self.gray.maxpool(x)
+        return x
 
 class base_resnet(nn.Module):
     def __init__(self, arch='resnet50'):
@@ -141,13 +159,60 @@ class base_resnet(nn.Module):
         x = self.base.layer4(x)
         return x
 
+class ChannelAttention(nn.Module): ##modified
+    def __init__(self, channel, reduction=16):
+        super().__init__()
+        self.avgpool = nn.AdaptiveAvgPool2d(1)
+        self.se = nn.Sequential(
+            nn.Conv2d(channel, channel//reduction, 1, bias=False),
+            nn.ReLU(),
+            nn.Conv2d(channel//reduction, channel, 1, bias=False)
+        )
+        self.sigmoid = nn.Sigmoid()
+        
+        self.apply(weights_init_kaiming)
+        
+    def forward(self, x):
+        avg_result = self.avgpool(x)
+        avg_out = self.se(avg_result)
+        output = self.sigmoid(avg_out)
+        
+        return output
+    
+class SpatialAttnetion(nn.Module): ##modified
+    def __init__(self, channel, channel_reduction=2, kernel_size=3, dilations=[1,2,3]):
+        super().__init__()
+        self.channel_reduction = channel//channel_reduction
+        self.conv1 = nn.Conv2d(channel, self.channel_reduction, 1)
+        self.conv2 = nn.Conv2d(self.channel_reduction, self.channel_reduction, 3, dilation=dilations[0], padding=1)
+        self.conv3 = nn.Conv2d(self.channel_reduction, self.channel_reduction, 3, dilation=dilations[1], padding=2)
+        self.conv4 = nn.Conv2d(self.channel_reduction, self.channel_reduction, 3, dilation=dilations[2], padding=3)
+        
+        self.conv5 = nn.Conv2d(self.channel_reduction*4, 1, 1)
+        
+        self.apply(weights_init_kaiming)
+        
+    def forward(self, x):
+        conv1_result = self.conv1(x)
+        conv2_result = self.conv2(conv1_result)
+        conv3_result = self.conv3(conv1_result)
+        conv4_result = self.conv4(conv1_result)
+        
+        
+        conv_result = torch.cat((conv1_result, conv2_result, conv3_result, conv4_result), dim=1)
+        
+        output = self.conv5(conv_result)
+        
+        return output
+
 
 class embed_net(nn.Module):
-    def __init__(self,  class_num, no_local= 'on', gm_pool = 'on', arch='resnet50'):
+    def __init__(self,  class_num, no_local= 'on', gm_pool = 'on', arch='resnet50', embed_size = 512):
         super(embed_net, self).__init__()
 
         self.thermal_module = thermal_module(arch=arch)
         self.visible_module = visible_module(arch=arch)
+        self.gray_module = gray_module(arch=arch) ## modified
         self.base_resnet = base_resnet(arch=arch)
         self.non_local = no_local
         if self.non_local =='on':
@@ -171,19 +236,35 @@ class embed_net(nn.Module):
         self.l2norm = Normalize(2)
         self.bottleneck = nn.BatchNorm1d(pool_dim)
         self.bottleneck.bias.requires_grad_(False)  # no shift
+        self.ca = ChannelAttention(128) # modified
+        self.sa = SpatialAttnetion(128) # modified
 
-        self.classifier = nn.Linear(pool_dim, class_num, bias=False)
+        #self.classifier = nn.Linear(pool_dim, class_num, bias=False)
+        
+        self.embedding = nn.Linear(pool_dim, embed_size, bias=False)
+        
 
         self.bottleneck.apply(weights_init_kaiming)
-        self.classifier.apply(weights_init_classifier)
+        #self.classifier.apply(weights_init_classifier)
+        self.embedding.apply(weights_init_classifier)
         self.avgpool = nn.AdaptiveAvgPool2d((1, 1))
         self.gm_pool = gm_pool
 
-    def forward(self, x1, x2, modal=0):
+    def forward(self, x1=None, x2=None, x3=None, modal=0):
         if modal == 0:
             x1 = self.visible_module(x1)
             x2 = self.thermal_module(x2)
-            x = torch.cat((x1, x2), 0)
+            x3 = self.gray_module(x3)
+            
+            
+            x23 = torch.cat((x2, x3),1)
+            ca_x23 = self.ca(x23)
+            x23 = x23 * ca_x23 + x23
+            
+            sa_x23 = self.sa(x23)
+            x3 = sa_x23 * x3 + x3
+            
+            x = torch.cat((x1, x2, x3), 0)
         elif modal == 1:
             x = self.visible_module(x1)
         elif modal == 2:
@@ -240,6 +321,6 @@ class embed_net(nn.Module):
         feat = self.bottleneck(x_pool)
 
         if self.training:
-            return x_pool, self.classifier(feat)
+            return x_pool, self.l2norm(self.embedding(feat))
         else:
-            return self.l2norm(x_pool), self.l2norm(feat)
+            return self.l2norm(x_pool), self.l2norm(self.embedding(feat))

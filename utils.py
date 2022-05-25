@@ -173,3 +173,15 @@ def set_requires_grad(nets, requires_grad=False):
                 if net is not None:
                     for param in net.parameters():
                         param.requires_grad = requires_grad
+
+def grayscale_linearcomb(w, img):
+    B, C, H, W = img.size()
+    r = img[:,0,:,:]
+    g = img[:,1,:,:]
+    b = img[:,2,:,:]
+
+    grayscale = w[0] * r + w[1] * g + w[2] * b
+    return grayscale.repeat(1,3,1,1)
+
+
+
