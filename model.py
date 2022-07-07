@@ -126,9 +126,9 @@ class thermal_module(nn.Module):
         x = self.thermal.maxpool(x)
         return x
     
-class gray_module(nn.Module): ## modified
+class synthetic(nn.Module): ## modified
     def __init__(self, arch='resnet50'):
-        super(gray_module, self).__init__()
+        super(synthetic, self).__init__()
 
         model_t = resnet50(pretrained=True,
                            last_conv_stride=1, last_conv_dilation=1)
@@ -205,6 +205,16 @@ class SpatialAttnetion(nn.Module): ##modified
         
         return output
 
+class Synthesizing(nn.Module):
+    def __init__(self, num_samples=4):
+        self.weights = nn.Parameter(torch.randn(4,3))
+    
+        
+         
+        
+        
+        
+        
 
 class embed_net(nn.Module):
     def __init__(self,  class_num, no_local= 'on', gm_pool = 'on', arch='resnet50', embed_size = 512):
@@ -212,7 +222,7 @@ class embed_net(nn.Module):
 
         self.thermal_module = thermal_module(arch=arch)
         self.visible_module = visible_module(arch=arch)
-        self.gray_module = gray_module(arch=arch) ## modified
+        self.synthetic_module = synthetic(arch=arch) ## modified
         self.base_resnet = base_resnet(arch=arch)
         self.non_local = no_local
         if self.non_local =='on':
@@ -250,11 +260,13 @@ class embed_net(nn.Module):
         self.avgpool = nn.AdaptiveAvgPool2d((1, 1))
         self.gm_pool = gm_pool
 
-    def forward(self, x1=None, x2=None, x3=None, modal=0):
+    def forward(self, x1=None, x2=None, modal=0):
         if modal == 0:
             x1 = self.visible_module(x1)
             x2 = self.thermal_module(x2)
-            x3 = self.gray_module(x3)
+            
+            x3 = self.synthesizing(x1, x2)
+            x3 = self.synthetic_module(x3)
             
             
             x23 = torch.cat((x2, x3),1)

@@ -5,38 +5,26 @@ from loss import cal_p2e_loss, cal_p2p_loss, binarize, two_level_Proxy_Anchor
 import torch.nn as nn
 from torch.autograd import Variable
 
+# given a tensor A with size (B, 3, H, W), split it into (B/4, 3, H, W)
+def split_tensor(A):
+    B = A.size(0)
+    return A.narrow(0, 0, B//4), A.narrow(0, B//4, B//4), A.narrow(0, B//2, B//4), A.narrow(0, B//4*3, B//4)
 
-device = 'cuda:0'
 
-net = embed_net(200).to(device)
-net = nn.DataParallel(net, device_ids=[0, 1])
-input1 = Variable(torch.randn(32,3,288,144).to(device))
-input2 = Variable(torch.randn(32,3,288,144).to(device))
-input3 = Variable(torch.randn(32,3,288,144).to(device))
-
-feat, out = net(input1, input2, input3)
-print(out.shape)
-
-'''
-cri = two_level_Proxy_Anchor(512,100).to(device)
-
-input1 = torch.randn(64,512).cuda()
-input2 = torch.randn(32,512).cuda()
-input3 = torch.Tensor([167, 167, 167, 167, 222, 222, 222, 222, 384, 384, 384, 384, 286, 286,
-        286, 286, 289, 289, 289, 289, 147, 147, 147, 147,  31,  31,  31,  31,
-        145, 145, 145, 145, 167, 167, 167, 167, 222, 222, 222, 222, 384, 384,
-        384, 384, 286, 286, 286, 286, 289, 289, 289, 289, 147, 147, 147, 147,
-         31,  31,  31,  31, 145, 145, 145, 145]).cuda()
-input4 = torch.Tensor([167, 167, 167, 167, 222, 222, 222, 222, 384, 384, 384, 384, 286, 286,
-        286, 286, 289, 289, 289, 289, 147, 147, 147, 147,  31,  31,  31,  31,
-        145, 145, 145, 145]).cuda()
-
-p2p, p2e = cri(torch.cat((input1, input2),dim=0), torch.cat((input3, input4)))
-'''
-'''
-loss, P, P_T = cal_p2p_loss(input2, input4)
-print(P_T)
-
-loss_p2e = cal_p2e_loss(input1, P, input3, P_T)
-print(loss_p2e)
-'''
+input1 = torch.randn(16,3,16,16)
+input1 = torch.split(input1, 4, dim=0)
+input2 = torch.randn(4,3)
+input3 = []
+for input in input1:
+        temp1 = []
+        for i in range(4):
+                temp2 = []
+                for j in range(3):
+                        temp2.append((input[i,j,:,:] * input2[i,j]).unsqueeze(0))
+                temp2 = torch.cat(temp2, dim=0)
+                temp1.append(temp2.unsqueeze(0))
+        temp1 = torch.cat(temp1, dim=0)
+        print(temp1.size())
+                        
+                        
+                        
