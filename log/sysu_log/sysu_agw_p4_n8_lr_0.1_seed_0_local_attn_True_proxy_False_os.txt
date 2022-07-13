@@ -1,0 +1,4 @@
+==========
+Args:Namespace(arch='resnet50', batch_size=8, dataset='sysu', gpu='0', img_h=288, img_w=144, local_attn=True, log_path='log/', lr=0.1, margin=0.3, method='agw', mode='all', model_path='save_model/', num_pos=4, optim='sgd', proxy=False, resume='sysu_agw_p4_n8_lr_0.1_seed_0_local_attn_True_proxy_False_best.t', save_epoch=20, seed=0, test_batch=64, test_only=False, trial=1, vis_log_path='log/vis_log/', workers=4)
+==========
+==> Loading data..

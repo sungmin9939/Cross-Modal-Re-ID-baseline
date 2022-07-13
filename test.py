@@ -40,7 +40,7 @@ parser.add_argument('--batch-size', default=8, type=int,
                     metavar='B', help='training batch size')
 parser.add_argument('--test-batch', default=64, type=int,
                     metavar='tb', help='testing batch size')
-parser.add_argument('--method', default='awg', type=str,
+parser.add_argument('--method', default='agw', type=str,
                     metavar='m', help='method type: base or awg')
 parser.add_argument('--margin', default=0.3, type=float,
                     metavar='margin', help='triplet loss margin')
@@ -54,12 +54,16 @@ parser.add_argument('--gpu', default='0', type=str,
                     help='gpu device ids for CUDA_VISIBLE_DEVICES')
 parser.add_argument('--mode', default='all', type=str, help='all or indoor for sysu')
 parser.add_argument('--tvsearch', action='store_true', help='whether thermal to visible search on RegDB')
+
+parser.add_argument('--local-attn', default=False, type=bool)
+parser.add_argument('--proxy', default=False, type=bool)
+
 args = parser.parse_args()
 os.environ['CUDA_VISIBLE_DEVICES'] = args.gpu
 
 dataset = args.dataset
 if dataset == 'sysu':
-    data_path = '../Datasets/SYSU-MM01/ori_data/'
+    data_path = './dataset/SYSU-MM01/'
     n_class = 395
     test_mode = [1, 2]
 elif dataset =='regdb':
@@ -75,8 +79,9 @@ print('==> Building model..')
 if args.method =='base':
     net = embed_net(n_class, no_local= 'off', gm_pool =  'off', arch=args.arch)
 else:
-    net = embed_net(n_class, no_local= 'on', gm_pool = 'on', arch=args.arch)
+    net = embed_net(n_class, no_local= 'on', gm_pool = 'on', arch=args.arch, local_attn=args.local_attn, proxy=args.proxy)
 net.to(device)    
+net = nn.DataParallel(net, device_ids=[0,1,2,3])
 cudnn.benchmark = True
 
 checkpoint_path = args.model_path
@@ -113,7 +118,7 @@ def extract_gall_feat(gall_loader):
     start = time.time()
     ptr = 0
     gall_feat_pool = np.zeros((ngall, pool_dim))
-    gall_feat_fc = np.zeros((ngall, pool_dim))
+    gall_feat_fc = np.zeros((ngall, 1024)) if args.proxy else np.zeros((ngall, pool_dim))
     with torch.no_grad():
         for batch_idx, (input, label ) in enumerate(gall_loader):
             batch_num = input.size(0)
@@ -131,7 +136,7 @@ def extract_query_feat(query_loader):
     start = time.time()
     ptr = 0
     query_feat_pool = np.zeros((nquery, pool_dim))
-    query_feat_fc = np.zeros((nquery, pool_dim))
+    query_feat_fc = np.zeros((nquery, 1024)) if args.proxy else np.zeros((nquery, pool_dim))
     with torch.no_grad():
         for batch_idx, (input, label ) in enumerate(query_loader):
             batch_num = input.size(0)
@@ -193,6 +198,7 @@ if dataset == 'sysu':
         # fc feature
         distmat = np.matmul(query_feat_fc, np.transpose(gall_feat_fc))
         cmc, mAP, mINP = eval_sysu(-distmat, query_label, gall_label, query_cam, gall_cam)
+        print(cmc)
         if trial == 0:
             all_cmc = cmc
             all_mAP = mAP

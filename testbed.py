@@ -5,6 +5,7 @@ from loss import cal_p2e_loss, cal_p2p_loss, binarize, two_level_Proxy_Anchor
 import torch.nn as nn
 from torch.autograd import Variable
 
+'''
 # given a tensor A with size (B, 3, H, W), split it into (B/4, 3, H, W)
 def split_tensor(A):
     B = A.size(0)
@@ -24,7 +25,11 @@ for input in input1:
                 temp2 = torch.cat(temp2, dim=0)
                 temp1.append(temp2.unsqueeze(0))
         temp1 = torch.cat(temp1, dim=0)
+        temp1 = torch.sum(temp1, dim=0, keepdim=True)
         print(temp1.size())
+        '''
+a = True
+print('a is {}'.format(a))
                         
                         
                         

@@ -1,7 +1,5 @@
 from __future__ import print_function
 import argparse
-from doctest import FAIL_FAST
-from pickletools import optimize
 import sys
 import time
 import torch
@@ -17,13 +15,13 @@ from data_manager import *
 from eval_metrics import eval_sysu, eval_regdb
 from model import embed_net
 from utils import *
-from loss import OriTripletLoss, TripletLoss_WRT, two_level_Proxy_Anchor, Proxy_Anchor
+from loss import OriTripletLoss, TripletLoss_WRT
 from tensorboardX import SummaryWriter
 
 parser = argparse.ArgumentParser(description='PyTorch Cross-Modality Training')
 parser.add_argument('--dataset', default='sysu', help='dataset name: regdb or sysu]')
-
-
+parser.add_argument('--lr', default=0.1 , type=float, help='learning rate, 0.00035 for adam')
+parser.add_argument('--optim', default='sgd', type=str, help='optimizer')
 parser.add_argument('--arch', default='resnet50', type=str,
                     help='network baseline:resnet18 or resnet50')
 parser.add_argument('--resume', '-r', default='', type=str,
@@ -43,14 +41,15 @@ parser.add_argument('--img_w', default=144, type=int,
                     metavar='imgw', help='img width')
 parser.add_argument('--img_h', default=288, type=int,
                     metavar='imgh', help='img height')
-parser.add_argument('--batch-size', default=64, type=int,
+parser.add_argument('--batch-size', default=8, type=int,
                     metavar='B', help='training batch size')
 parser.add_argument('--test-batch', default=64, type=int,
                     metavar='tb', help='testing batch size')
-
+parser.add_argument('--method', default='agw', type=str,
+                    metavar='m', help='method type: base or agw')
 parser.add_argument('--margin', default=0.3, type=float,
                     metavar='margin', help='triplet loss margin')
-parser.add_argument('--num_pos', default=1, type=int,
+parser.add_argument('--num_pos', default=4, type=int,
                     help='num of pos per identity in each modality')
 parser.add_argument('--trial', default=1, type=int,
                     metavar='t', help='trial (only for RegDB dataset)')
@@ -60,21 +59,14 @@ parser.add_argument('--gpu', default='0', type=str,
                     help='gpu device ids for CUDA_VISIBLE_DEVICES')
 parser.add_argument('--mode', default='all', type=str, help='all or indoor')
 
-parser.add_argument('--warm', default=0, type=int)
-parser.add_argument('--lr', default=0.0001 , type=float, help='learning rate, 0.00035 for adam')
-parser.add_argument('--optim', default='Adam', type=str, help='optimizer')
-parser.add_argument('--method', default='base', type=str,
-                    metavar='m', help='method type: base or agw')
-parser.add_argument('--local-attn', default=False, type=bool)
-parser.add_argument('--proxy', default=False, type=bool)
 args = parser.parse_args()
-#os.environ['CUDA_VISIBLE_DEVICES'] = '0,1'
+os.environ['CUDA_VISIBLE_DEVICES'] = args.gpu
 
 set_seed(args.seed)
 
 dataset = args.dataset
 if dataset == 'sysu':
-    data_path = './dataset/SYSU-MM01/'
+    data_path = '../Datasets/SYSU-MM01/ori_data/'
     log_path = args.log_path + 'sysu_log/'
     test_mode = [1, 2]  # thermal to visible
 elif dataset == 'regdb':
@@ -92,15 +84,11 @@ if not os.path.isdir(args.vis_log_path):
     os.makedirs(args.vis_log_path)
 
 suffix = dataset
-
-
-suffix = dataset
 if args.method=='agw':
-    suffix = suffix + '_agw_p{}_n{}_lr_{}_seed_{}_local_attn_{}_proxy_{}'.format(args.num_pos, args.batch_size, args.lr, args.seed, args.local_attn, args.proxy)
+    suffix = suffix + '_agw_p{}_n{}_lr_{}_seed_{}'.format(args.num_pos, args.batch_size, args.lr, args.seed)
 else:
-    suffix = suffix + '_base_p{}_n{}_lr_{}_seed_{}_local_attn_{}_proxy_{}'.format(args.num_pos, args.batch_size, args.lr, args.seed, args.local_attn, args.proxy)
+    suffix = suffix + '_base_p{}_n{}_lr_{}_seed_{}'.format(args.num_pos, args.batch_size, args.lr, args.seed)
 
-print(suffix)
 
 if not args.optim == 'sgd':
     suffix = suffix + '_' + args.optim
@@ -116,7 +104,7 @@ if not os.path.isdir(vis_log_dir):
     os.makedirs(vis_log_dir)
 writer = SummaryWriter(vis_log_dir)
 print("==========\nArgs:{}\n==========".format(args))
-device = 'cuda:0' if torch.cuda.is_available() else 'cpu'
+device = 'cuda' if torch.cuda.is_available() else 'cpu'
 best_acc = 0  # best test accuracy
 start_epoch = 0
 
@@ -184,12 +172,10 @@ print('Data Loading Time:\t {:.3f}'.format(time.time() - end))
 
 print('==> Building model..')
 if args.method =='base':
-    net = embed_net(n_class, no_local= 'off', gm_pool =  'off', arch=args.arch, local_attn=args.local_attn, proxy=args.proxy)
+    net = embed_net(n_class, no_local= 'off', gm_pool =  'off', arch=args.arch)
 else:
-    net = embed_net(n_class, no_local= 'on', gm_pool = 'on', arch=args.arch, local_attn=args.local_attn, proxy=args.proxy)
+    net = embed_net(n_class, no_local= 'on', gm_pool = 'on', arch=args.arch)
 net.to(device)
-net = nn.DataParallel(net, device_ids=[0, 1, 2, 3])
-
 cudnn.benchmark = True
 
 if len(args.resume) > 0:
@@ -205,75 +191,30 @@ if len(args.resume) > 0:
         print('==> no checkpoint found at {}'.format(args.resume))
 
 # define loss function
-criterion_id = nn.CrossEntropyLoss().to(device)
+criterion_id = nn.CrossEntropyLoss()
 if args.method == 'agw':
-    if args.proxy:
-        criterion_proxy = Proxy_Anchor(395, 512).to(device)
-    else:
-        criterion_tri = TripletLoss_WRT().to(device)
+    criterion_tri = TripletLoss_WRT()
 else:
-    if args.proxy:
-        criterion_proxy = Proxy_Anchor(395, 512).to(device)
-    else:        
-        loader_batch = args.batch_size * args.num_pos
-        criterion_tri= OriTripletLoss(batch_size=loader_batch, margin=args.margin)
+    loader_batch = args.batch_size * args.num_pos
+    criterion_tri= OriTripletLoss(batch_size=loader_batch, margin=args.margin)
 
-
+criterion_id.to(device)
+criterion_tri.to(device)
 
 
 if args.optim == 'sgd':
-    ignored_params = list(map(id, net.module.bottleneck.parameters())) \
-                    + list(map(id, net.module.ca.parameters()))\
-                    + list(map(id, net.module.sa.parameters()))\
-                    + list(map(id, net.module.classifier.parameters()))\
-                    + list(map(id, net.module.embedding.parameters()))\
-                        
-    base_params = filter(lambda p: id(p) not in ignored_params, net.module.parameters())
-    
-    param_groups = [
+    ignored_params = list(map(id, net.bottleneck.parameters())) \
+                     + list(map(id, net.classifier.parameters()))
+
+    base_params = filter(lambda p: id(p) not in ignored_params, net.parameters())
+
+    optimizer = optim.SGD([
         {'params': base_params, 'lr': 0.1 * args.lr},
-        {'params': net.module.bottleneck.parameters(), 'lr': args.lr},
-    ]
-    
-    if args.local_attn:
-        param_groups.append({'params': net.module.ca.parameters(), 'lr': args.lr})
-        param_groups.append({'params': net.module.sa.parameters(), 'lr': args.lr})
-    if args.proxy:
-        param_groups.append({'params': criterion_proxy.parameters(), 'lr': args.lr})
-        param_groups.append({'params': net.module.embedding.parameters(), 'lr': args.lr})
-    else:
-        param_groups.append({'params': net.module.classifier.parameters(), 'lr': args.lr})
-        
-    
-    optimizer = optim.SGD(param_groups, weight_decay=5e-4, momentum=0.9, nesterov=True)
+        {'params': net.bottleneck.parameters(), 'lr': args.lr},
+        {'params': net.classifier.parameters(), 'lr': args.lr}],
+        weight_decay=5e-4, momentum=0.9, nesterov=True)
 
-if args.optim == 'Adam':
-    ignored_params = list(map(id, net.module.bottleneck.parameters())) \
-                    + list(map(id, net.module.ca.parameters()))\
-                    + list(map(id, net.module.sa.parameters()))\
-                    + list(map(id, net.module.classifier.parameters()))\
-                    + list(map(id, net.module.embedding.parameters()))\
-                        
-    base_params = filter(lambda p: id(p) not in ignored_params, net.module.parameters())
-    
-    param_groups = [
-        {'params': base_params, 'lr': args.lr},
-        {'params': net.module.bottleneck.parameters(), 'lr': args.lr},
-    ]
-    
-    if args.local_attn:
-        param_groups.append({'params': net.module.ca.parameters(), 'lr': args.lr})
-        param_groups.append({'params': net.module.sa.parameters(), 'lr': args.lr})
-    if args.proxy:
-        param_groups.append({'params': criterion_proxy.parameters(), 'lr': args.lr * 100})
-        param_groups.append({'params': net.module.embedding.parameters(), 'lr': args.lr * 10})
-    else:
-        param_groups.append({'params': net.module.classifier.parameters(), 'lr': args.lr})
-    
-    
-    optimizer = optim.Adam(param_groups, weight_decay=0.0001, lr=args.lr)
-
-exp_lr_scheduler = torch.optim.lr_scheduler.StepLR(optimizer, step_size=30, gamma=0.1)
+# exp_lr_scheduler = lr_scheduler.StepLR(optimizer, step_size=30, gamma=0.1)
 def adjust_learning_rate(optimizer, epoch):
     """Sets the learning rate to the initial LR decayed by 10 every 30 epochs"""
     if epoch < 10:
@@ -294,71 +235,47 @@ def adjust_learning_rate(optimizer, epoch):
 
 def train(epoch):
 
-    current_lr = optimizer.param_groups[0]['lr']
+    current_lr = adjust_learning_rate(optimizer, epoch)
     train_loss = AverageMeter()
     id_loss = AverageMeter()
     tri_loss = AverageMeter()
-    p2p_loss = AverageMeter()
-    p2e_loss = AverageMeter()
     data_time = AverageMeter()
     batch_time = AverageMeter()
-    
     correct = 0
     total = 0
 
     # switch to train mode
     net.train()
     end = time.time()
-    
-    
 
     for batch_idx, (input1, input2, label1, label2) in enumerate(trainloader):
-        
+
         labels = torch.cat((label1, label2), 0)
 
-        input1 = Variable(input1.to(device))
-        input2 = Variable(input2.to(device))
-        
-        labels = Variable(labels.to(device))
+        input1 = Variable(input1.cuda())
+        input2 = Variable(input2.cuda())
+
+        labels = Variable(labels.cuda())
         data_time.update(time.time() - end)
 
+
         feat, out0, = net(input1, input2)
-        
-        if args.proxy:
-            loss = criterion_proxy(out0, labels)
-        else:
-            loss_id = criterion_id(out0, labels)
-            loss_tri, batch_acc = criterion_tri(feat, labels)
-            correct += (batch_acc / 2)
-            _, predicted = out0.max(1)
-            correct += (predicted.eq(labels).sum().item() / 2)
-            
-            loss = loss_id + loss_tri
-            
-        #loss_p2p, loss_p2e = criterion_two(out0, labels)
-        
-        #loss = loss_id + loss_tri
-        #loss = loss_p2p + loss_p2e
+
+        loss_id = criterion_id(out0, labels)
+        loss_tri, batch_acc = criterion_tri(feat, labels)
+        correct += (batch_acc / 2)
+        _, predicted = out0.max(1)
+        correct += (predicted.eq(labels).sum().item() / 2)
+
+        loss = loss_id + loss_tri
         optimizer.zero_grad()
         loss.backward()
-        
-        torch.nn.utils.clip_grad_value_(net.module.parameters(), 10)
-        if args.proxy:
-            torch.nn.utils.clip_grad_value_(criterion_proxy.parameters(), 10)
-        
         optimizer.step()
 
         # update P
-        if args.proxy:
-            train_loss.update(loss.item(), 2 * input1.size(0))
-        else:
-            train_loss.update(loss.item(), 2 * input1.size(0))
-            id_loss.update(loss_id.item(), 2 * input1.size(0))
-            tri_loss.update(loss_tri.item(), 2 * input1.size(0))
-
-        #p2p_loss.update(loss_p2p.item(), 3 * input1.size(0))
-        #p2e_loss.update(loss_p2e.item(), 3 * input1.size(0))
-        
+        train_loss.update(loss.item(), 2 * input1.size(0))
+        id_loss.update(loss_id.item(), 2 * input1.size(0))
+        tri_loss.update(loss_tri.item(), 2 * input1.size(0))
         total += labels.size(0)
 
         # measure elapsed time
@@ -367,26 +284,19 @@ def train(epoch):
         if batch_idx % 50 == 0:
             print('Epoch: [{}][{}/{}] '
                   'Time: {batch_time.val:.3f} ({batch_time.avg:.3f}) '
-                  'lr:{:.5f} '
+                  'lr:{:.3f} '
                   'Loss: {train_loss.val:.4f} ({train_loss.avg:.4f}) '
                   'iLoss: {id_loss.val:.4f} ({id_loss.avg:.4f}) '
                   'TLoss: {tri_loss.val:.4f} ({tri_loss.avg:.4f}) '
-                  'p2eLoss: {p2e_loss.val:.4f} ({p2e_loss.avg:.4f}) '
-                  'p2pLoss: {p2p_loss.val:.4f} ({p2p_loss.avg:.4f}) '
                   'Accu: {:.2f}'.format(
                 epoch, batch_idx, len(trainloader), current_lr,
                 100. * correct / total, batch_time=batch_time,
-                train_loss=train_loss, id_loss=id_loss, tri_loss=tri_loss, p2e_loss=p2e_loss, p2p_loss=p2p_loss))
+                train_loss=train_loss, id_loss=id_loss, tri_loss=tri_loss))
 
     writer.add_scalar('total_loss', train_loss.avg, epoch)
     writer.add_scalar('id_loss', id_loss.avg, epoch)
     writer.add_scalar('tri_loss', tri_loss.avg, epoch)
     writer.add_scalar('lr', current_lr, epoch)
-    #writer.add_scalar('p2p_loss', p2p_loss.avg, epoch)
-    #writer.add_scalar('p2e_loss', p2e_loss.avg, epoch)
-    
-    #memory deallocation
-    del input1, input2, labels, loss
 
 
 def test(epoch):
@@ -396,12 +306,12 @@ def test(epoch):
     start = time.time()
     ptr = 0
     gall_feat = np.zeros((ngall, 2048))
-    gall_feat_att = np.zeros((ngall, 512)) if args.proxy else np.zeros((ngall, 2048))
+    gall_feat_att = np.zeros((ngall, 2048))
     with torch.no_grad():
         for batch_idx, (input, label) in enumerate(gall_loader):
             batch_num = input.size(0)
-            input = Variable(input.to(device))
-            feat, feat_att = net(x1=input, modal=test_mode[0])
+            input = Variable(input.cuda())
+            feat, feat_att = net(input, input, test_mode[0])
             gall_feat[ptr:ptr + batch_num, :] = feat.detach().cpu().numpy()
             gall_feat_att[ptr:ptr + batch_num, :] = feat_att.detach().cpu().numpy()
             ptr = ptr + batch_num
@@ -413,12 +323,12 @@ def test(epoch):
     start = time.time()
     ptr = 0
     query_feat = np.zeros((nquery, 2048))
-    query_feat_att = np.zeros((nquery, 512)) if args.proxy else np.zeros((nquery, 2048))
+    query_feat_att = np.zeros((nquery, 2048))
     with torch.no_grad():
         for batch_idx, (input, label) in enumerate(query_loader):
             batch_num = input.size(0)
-            input = Variable(input.to(device))
-            feat, feat_att = net(x2=input, modal=test_mode[1])
+            input = Variable(input.cuda())
+            feat, feat_att = net(input, input, test_mode[1])
             query_feat[ptr:ptr + batch_num, :] = feat.detach().cpu().numpy()
             query_feat_att[ptr:ptr + batch_num, :] = feat_att.detach().cpu().numpy()
             ptr = ptr + batch_num
@@ -434,7 +344,7 @@ def test(epoch):
         cmc, mAP, mINP      = eval_regdb(-distmat, query_label, gall_label)
         cmc_att, mAP_att, mINP_att  = eval_regdb(-distmat_att, query_label, gall_label)
     elif dataset == 'sysu':
-        cmc, mAP, mINP = eval_sysu(-distmat, query_label, gall_label, query_cam, gall_cam)        
+        cmc, mAP, mINP = eval_sysu(-distmat, query_label, gall_label, query_cam, gall_cam)
         cmc_att, mAP_att, mINP_att = eval_sysu(-distmat_att, query_label, gall_label, query_cam, gall_cam)
     print('Evaluation Time:\t {:.3f}'.format(time.time() - start))
 
@@ -444,10 +354,6 @@ def test(epoch):
     writer.add_scalar('rank1_att', cmc_att[0], epoch)
     writer.add_scalar('mAP_att', mAP_att, epoch)
     writer.add_scalar('mINP_att', mINP_att, epoch)
-    
-    # memory deallocation
-    del input, label
-    
     return cmc, mAP, mINP, cmc_att, mAP_att, mINP_att
 
 
@@ -467,16 +373,6 @@ for epoch in range(start_epoch, 81 - start_epoch):
     print(trainset.cIndex)
     print(trainset.tIndex)
 
-    if args.warm > 0:
-        unfreeze_model_param = list(net.module.embedding.parameters()) + list(criterion_proxy.parameters())
-        
-        if epoch == 0:
-            for param in list(set(net.module.parameters()).difference(set(unfreeze_model_param))):
-                param.requires_grad = False
-        if epoch == args.warm:
-            for param in list(set(net.module.parameters()).difference(set(unfreeze_model_param))):
-                param.requires_grad = True
-    
     loader_batch = args.batch_size * args.num_pos
 
     trainloader = data.DataLoader(trainset, batch_size=loader_batch, \
@@ -485,13 +381,11 @@ for epoch in range(start_epoch, 81 - start_epoch):
     # training
     train(epoch)
 
-    if epoch > 0 and epoch % 2 == 1:
-        time.sleep(10)
+    if epoch > 0 and epoch % 2 == 0:
         print('Test Epoch: {}'.format(epoch))
 
         # testing
         cmc, mAP, mINP, cmc_att, mAP_att, mINP_att = test(epoch)
-        print(cmc)
         # save model
         if cmc_att[0] > best_acc:  # not the real best for sysu-mm01
             best_acc = cmc_att[0]
@@ -506,14 +400,14 @@ for epoch in range(start_epoch, 81 - start_epoch):
             torch.save(state, checkpoint_path + suffix + '_best.t')
 
         # save model
-        #if epoch > 10 and epoch % args.save_epoch == 0:
-        state = {
-            'net': net.state_dict(),
-            'cmc': cmc,
-            'mAP': mAP,
-            'epoch': epoch,
-        }
-        torch.save(state, checkpoint_path + suffix + '_current.t'.format(epoch))
+        if epoch > 10 and epoch % args.save_epoch == 0:
+            state = {
+                'net': net.state_dict(),
+                'cmc': cmc,
+                'mAP': mAP,
+                'epoch': epoch,
+            }
+            torch.save(state, checkpoint_path + suffix + '_epoch_{}.t'.format(epoch))
 
         print('POOL:   Rank-1: {:.2%} | Rank-5: {:.2%} | Rank-10: {:.2%}| Rank-20: {:.2%}| mAP: {:.2%}| mINP: {:.2%}'.format(
             cmc[0], cmc[4], cmc[9], cmc[19], mAP, mINP))

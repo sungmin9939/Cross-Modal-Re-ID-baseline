@@ -1,0 +1,40 @@
+==========
+Args:Namespace(arch='resnet50', batch_size=8, dataset='sysu', gpu='0', img_h=288, img_w=144, local_attn=False, log_path='log/', lr=0.0001, margin=0.3, method='base', mode='all', model_path='save_model/', num_pos=4, optim='Adam', proxy=True, resume='', save_epoch=20, seed=0, test_batch=64, test_only=False, trial=1, vis_log_path='log/vis_log/', warm=1, workers=4)
+==========
+==> Loading data..
+Dataset sysu statistics:
+  ------------------------------
+  subset   | # ids | # images
+  ------------------------------
+  visible  |   395 |    22258
+  thermal  |   395 |    11909
+  ------------------------------
+  query    |    96 |     3803
+  gallery  |    96 |      301
+  ------------------------------
+Data Loading Time:	 17.597
+==> Building model..
+==> Start Training...
+==> Preparing Data Loader...
+0
+[20927 20945 20945 ...  6753  6784  6761]
+[10597 10605 10597 ...  2900  2898  2916]
+Epoch: [0][0/695] Time: 14.013 (14.013) lr:0.00010 Loss: 13.3671 (13.3671) iLoss: 0.0000 (0.0000) TLoss: 0.0000 (0.0000) p2eLoss: 0.0000 (0.0000) p2pLoss: 0.0000 (0.0000) Accu: 0.00
+Epoch: [0][50/695] Time: 0.276 (0.556) lr:0.00010 Loss: 15.7370 (15.7320) iLoss: 0.0000 (0.0000) TLoss: 0.0000 (0.0000) p2eLoss: 0.0000 (0.0000) p2pLoss: 0.0000 (0.0000) Accu: 0.00
+Epoch: [0][100/695] Time: 0.280 (0.425) lr:0.00010 Loss: 16.7739 (16.0478) iLoss: 0.0000 (0.0000) TLoss: 0.0000 (0.0000) p2eLoss: 0.0000 (0.0000) p2pLoss: 0.0000 (0.0000) Accu: 0.00
+Epoch: [0][150/695] Time: 0.284 (0.381) lr:0.00010 Loss: 15.0472 (15.9826) iLoss: 0.0000 (0.0000) TLoss: 0.0000 (0.0000) p2eLoss: 0.0000 (0.0000) p2pLoss: 0.0000 (0.0000) Accu: 0.00
+Epoch: [0][200/695] Time: 0.287 (0.359) lr:0.00010 Loss: 13.7512 (15.7340) iLoss: 0.0000 (0.0000) TLoss: 0.0000 (0.0000) p2eLoss: 0.0000 (0.0000) p2pLoss: 0.0000 (0.0000) Accu: 0.00
+Epoch: [0][250/695] Time: 0.273 (0.344) lr:0.00010 Loss: 13.9817 (15.4419) iLoss: 0.0000 (0.0000) TLoss: 0.0000 (0.0000) p2eLoss: 0.0000 (0.0000) p2pLoss: 0.0000 (0.0000) Accu: 0.00
+Epoch: [0][300/695] Time: 0.272 (0.334) lr:0.00010 Loss: 13.3023 (15.1791) iLoss: 0.0000 (0.0000) TLoss: 0.0000 (0.0000) p2eLoss: 0.0000 (0.0000) p2pLoss: 0.0000 (0.0000) Accu: 0.00
+Epoch: [0][350/695] Time: 0.272 (0.327) lr:0.00010 Loss: 13.4039 (14.9723) iLoss: 0.0000 (0.0000) TLoss: 0.0000 (0.0000) p2eLoss: 0.0000 (0.0000) p2pLoss: 0.0000 (0.0000) Accu: 0.00
+Epoch: [0][400/695] Time: 0.343 (0.322) lr:0.00010 Loss: 14.3685 (14.7944) iLoss: 0.0000 (0.0000) TLoss: 0.0000 (0.0000) p2eLoss: 0.0000 (0.0000) p2pLoss: 0.0000 (0.0000) Accu: 0.00
+Epoch: [0][450/695] Time: 0.276 (0.317) lr:0.00010 Loss: 13.4747 (14.6284) iLoss: 0.0000 (0.0000) TLoss: 0.0000 (0.0000) p2eLoss: 0.0000 (0.0000) p2pLoss: 0.0000 (0.0000) Accu: 0.00
+Epoch: [0][500/695] Time: 0.272 (0.314) lr:0.00010 Loss: 13.3600 (14.4972) iLoss: 0.0000 (0.0000) TLoss: 0.0000 (0.0000) p2eLoss: 0.0000 (0.0000) p2pLoss: 0.0000 (0.0000) Accu: 0.00
+Epoch: [0][550/695] Time: 0.345 (0.311) lr:0.00010 Loss: 13.2026 (14.3919) iLoss: 0.0000 (0.0000) TLoss: 0.0000 (0.0000) p2eLoss: 0.0000 (0.0000) p2pLoss: 0.0000 (0.0000) Accu: 0.00
+Epoch: [0][600/695] Time: 0.274 (0.309) lr:0.00010 Loss: 13.3934 (14.2974) iLoss: 0.0000 (0.0000) TLoss: 0.0000 (0.0000) p2eLoss: 0.0000 (0.0000) p2pLoss: 0.0000 (0.0000) Accu: 0.00
+Epoch: [0][650/695] Time: 0.273 (0.307) lr:0.00010 Loss: 13.5359 (14.2159) iLoss: 0.0000 (0.0000) TLoss: 0.0000 (0.0000) p2eLoss: 0.0000 (0.0000) p2pLoss: 0.0000 (0.0000) Accu: 0.00
+==> Preparing Data Loader...
+1
+[ 9524  9601  9577 ... 19324 19325 19321]
+[4107 4110 4125 ... 8929 8930 8929]
+Epoch: [1][0/695] Time: 2.865 (2.865) lr:0.00010 Loss: 13.2595 (13.2595) iLoss: 0.0000 (0.0000) TLoss: 0.0000 (0.0000) p2eLoss: 0.0000 (0.0000) p2pLoss: 0.0000 (0.0000) Accu: 0.00

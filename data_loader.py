@@ -29,12 +29,10 @@ class SYSUData(data.Dataset):
         
         img1 = self.transform(img1)
         img2 = self.transform(img2)
-        img3 = self.transform_gray(img1)
         
-        target3 = self.train_color_label[self.cIndex[index]]
         
 
-        return img1, img2, img3, target1, target2, target3
+        return img1, img2, target1, target2
 
     def __len__(self):
         return len(self.train_color_label)
