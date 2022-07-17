@@ -2,6 +2,7 @@ from __future__ import print_function
 import argparse
 from doctest import FAIL_FAST
 from pickletools import optimize
+
 import sys
 import time
 import torch
@@ -17,7 +18,7 @@ from data_manager import *
 from eval_metrics import eval_sysu, eval_regdb
 from model import embed_net
 from utils import *
-from loss import OriTripletLoss, TripletLoss_WRT, two_level_Proxy_Anchor, Proxy_Anchor
+from loss import OriTripletLoss, TripletLoss_WRT, two_level_Proxy_Anchor, Proxy_Anchor, Proxy_Anchor_linear
 from tensorboardX import SummaryWriter
 
 parser = argparse.ArgumentParser(description='PyTorch Cross-Modality Training')
@@ -26,8 +27,10 @@ parser.add_argument('--dataset', default='sysu', help='dataset name: regdb or sy
 
 parser.add_argument('--arch', default='resnet50', type=str,
                     help='network baseline:resnet18 or resnet50')
+
 parser.add_argument('--resume', '-r', default='', type=str,
                     help='resume from checkpoint')
+
 parser.add_argument('--test-only', action='store_true', help='test only')
 parser.add_argument('--model_path', default='save_model/', type=str,
                     help='model save path')
@@ -43,14 +46,14 @@ parser.add_argument('--img_w', default=144, type=int,
                     metavar='imgw', help='img width')
 parser.add_argument('--img_h', default=288, type=int,
                     metavar='imgh', help='img height')
-parser.add_argument('--batch-size', default=64, type=int,
+parser.add_argument('--batch-size', default=16, type=int,
                     metavar='B', help='training batch size')
 parser.add_argument('--test-batch', default=64, type=int,
                     metavar='tb', help='testing batch size')
 
 parser.add_argument('--margin', default=0.3, type=float,
                     metavar='margin', help='triplet loss margin')
-parser.add_argument('--num_pos', default=1, type=int,
+parser.add_argument('--num_pos', default=4, type=int,
                     help='num of pos per identity in each modality')
 parser.add_argument('--trial', default=1, type=int,
                     metavar='t', help='trial (only for RegDB dataset)')
@@ -61,12 +64,21 @@ parser.add_argument('--gpu', default='0', type=str,
 parser.add_argument('--mode', default='all', type=str, help='all or indoor')
 
 parser.add_argument('--warm', default=0, type=int)
-parser.add_argument('--lr', default=0.0001 , type=float, help='learning rate, 0.00035 for adam')
+
+parser.add_argument('--lr', default=1e-4 , type=float, help='learning rate, 0.00035 for adam')
+parser.add_argument('--weight-decay', default = 1e-4, type =float, help = 'Weight decay setting')
+parser.add_argument('--lr-decay-step', default = 10, type =int, help = 'Learning decay step setting')
+parser.add_argument('--lr-decay-gamma', default = 0.5, type =float, help = 'Learning decay gamma setting')
+parser.add_argument('--bn-freeze', default = 1, type = int, help = 'Batch normalization parameter freeze')
+parser.add_argument('--l2-norm', default = 1, type = int, help = 'L2 normlization')
+
+
 parser.add_argument('--optim', default='Adam', type=str, help='optimizer')
 parser.add_argument('--method', default='base', type=str,
                     metavar='m', help='method type: base or agw')
 parser.add_argument('--local-attn', default=False, type=bool)
 parser.add_argument('--proxy', default=False, type=bool)
+parser.add_argument('--exp', default=4, type=int)
 args = parser.parse_args()
 #os.environ['CUDA_VISIBLE_DEVICES'] = '0,1'
 
@@ -98,7 +110,7 @@ suffix = dataset
 if args.method=='agw':
     suffix = suffix + '_agw_p{}_n{}_lr_{}_seed_{}_local_attn_{}_proxy_{}'.format(args.num_pos, args.batch_size, args.lr, args.seed, args.local_attn, args.proxy)
 else:
-    suffix = suffix + '_base_p{}_n{}_lr_{}_seed_{}_local_attn_{}_proxy_{}'.format(args.num_pos, args.batch_size, args.lr, args.seed, args.local_attn, args.proxy)
+    suffix = suffix + '_base_p{}_n{}_lr_{}_seed_{}_local_attn_{}_proxy_{}_exp_{}'.format(args.num_pos, args.batch_size, args.lr, args.seed, args.local_attn, args.proxy, args.exp)
 
 print(suffix)
 
@@ -208,12 +220,14 @@ if len(args.resume) > 0:
 criterion_id = nn.CrossEntropyLoss().to(device)
 if args.method == 'agw':
     if args.proxy:
-        criterion_proxy = Proxy_Anchor(395, 512).to(device)
+        criterion_proxy_rgb = Proxy_Anchor(395, 512).to(device)
+        criterion_proxy_ir = Proxy_Anchor(395, 512).to(device)
     else:
         criterion_tri = TripletLoss_WRT().to(device)
 else:
     if args.proxy:
-        criterion_proxy = Proxy_Anchor(395, 512).to(device)
+        criterion_proxy_rgb = Proxy_Anchor(395, 512).to(device)
+        criterion_proxy_ir = Proxy_Anchor(395, 512).to(device)
     else:        
         loader_batch = args.batch_size * args.num_pos
         criterion_tri= OriTripletLoss(batch_size=loader_batch, margin=args.margin)
@@ -239,7 +253,8 @@ if args.optim == 'sgd':
         param_groups.append({'params': net.module.ca.parameters(), 'lr': args.lr})
         param_groups.append({'params': net.module.sa.parameters(), 'lr': args.lr})
     if args.proxy:
-        param_groups.append({'params': criterion_proxy.parameters(), 'lr': args.lr})
+        param_groups.append({'params': criterion_proxy_ir.parameters(), 'lr': args.lr})
+        param_groups.append({'params': criterion_proxy_rgb.parameters(), 'lr': args.lr})
         param_groups.append({'params': net.module.embedding.parameters(), 'lr': args.lr})
     else:
         param_groups.append({'params': net.module.classifier.parameters(), 'lr': args.lr})
@@ -248,32 +263,25 @@ if args.optim == 'sgd':
     optimizer = optim.SGD(param_groups, weight_decay=5e-4, momentum=0.9, nesterov=True)
 
 if args.optim == 'Adam':
-    ignored_params = list(map(id, net.module.bottleneck.parameters())) \
-                    + list(map(id, net.module.ca.parameters()))\
-                    + list(map(id, net.module.sa.parameters()))\
-                    + list(map(id, net.module.classifier.parameters()))\
-                    + list(map(id, net.module.embedding.parameters()))\
-                        
-    base_params = filter(lambda p: id(p) not in ignored_params, net.module.parameters())
-    
     param_groups = [
-        {'params': base_params, 'lr': args.lr},
-        {'params': net.module.bottleneck.parameters(), 'lr': args.lr},
+        {'params': list(set(net.module.parameters()).difference(set(net.module.base_resnet.model.embedding.parameters())))},
+        {'params': net.module.base_resnet.model.embedding.parameters(), 'lr':float(args.lr) * 1},
     ]
     
     if args.local_attn:
         param_groups.append({'params': net.module.ca.parameters(), 'lr': args.lr})
         param_groups.append({'params': net.module.sa.parameters(), 'lr': args.lr})
     if args.proxy:
-        param_groups.append({'params': criterion_proxy.parameters(), 'lr': args.lr * 100})
-        param_groups.append({'params': net.module.embedding.parameters(), 'lr': args.lr * 10})
+        param_groups.append({'params': criterion_proxy_ir.parameters(), 'lr': float(args.lr) * 100})
+        param_groups.append({'params': criterion_proxy_rgb.parameters(), 'lr': float(args.lr) * 100})
+        # param_groups.append({'params': net.module.embedding.parameters(), 'lr': args.lr * 10})
     else:
         param_groups.append({'params': net.module.classifier.parameters(), 'lr': args.lr})
     
     
-    optimizer = optim.Adam(param_groups, weight_decay=0.0001, lr=args.lr)
+    optimizer = optim.Adam(param_groups, weight_decay=args.weight_decay, lr=float(args.lr))
 
-exp_lr_scheduler = torch.optim.lr_scheduler.StepLR(optimizer, step_size=30, gamma=0.1)
+scheduler = torch.optim.lr_scheduler.StepLR(optimizer, step_size=args.lr_decay_step, gamma = args.lr_decay_gamma)
 def adjust_learning_rate(optimizer, epoch):
     """Sets the learning rate to the initial LR decayed by 10 every 30 epochs"""
     if epoch < 10:
@@ -303,6 +311,13 @@ def train(epoch):
     data_time = AverageMeter()
     batch_time = AverageMeter()
     
+    bn_freeze = args.bn_freeze
+    if bn_freeze:
+        modules = net.module.base_resnet.modules()
+        for m in modules: 
+            if isinstance(m, nn.BatchNorm2d):
+                m.eval()
+    
     correct = 0
     total = 0
 
@@ -325,7 +340,11 @@ def train(epoch):
         feat, out0, = net(input1, input2)
         
         if args.proxy:
-            loss = criterion_proxy(out0, labels)
+            
+            loss_rgb = criterion_proxy_rgb(out0[:32][:], labels[:32][:])
+            loss_ir = criterion_proxy_ir(out0[32:][:], labels[32:][:])
+            loss = loss_rgb + loss_ir
+            
         else:
             loss_id = criterion_id(out0, labels)
             loss_tri, batch_acc = criterion_tri(feat, labels)
@@ -344,7 +363,8 @@ def train(epoch):
         
         torch.nn.utils.clip_grad_value_(net.module.parameters(), 10)
         if args.proxy:
-            torch.nn.utils.clip_grad_value_(criterion_proxy.parameters(), 10)
+            torch.nn.utils.clip_grad_value_(criterion_proxy_rgb.parameters(), 10)
+            torch.nn.utils.clip_grad_value_(criterion_proxy_ir.parameters(), 10)
         
         optimizer.step()
 
@@ -382,6 +402,7 @@ def train(epoch):
     writer.add_scalar('id_loss', id_loss.avg, epoch)
     writer.add_scalar('tri_loss', tri_loss.avg, epoch)
     writer.add_scalar('lr', current_lr, epoch)
+    scheduler.step()
     #writer.add_scalar('p2p_loss', p2p_loss.avg, epoch)
     #writer.add_scalar('p2e_loss', p2e_loss.avg, epoch)
     
@@ -395,8 +416,8 @@ def test(epoch):
     print('Extracting Gallery Feature...')
     start = time.time()
     ptr = 0
-    gall_feat = np.zeros((ngall, 2048))
-    gall_feat_att = np.zeros((ngall, 512)) if args.proxy else np.zeros((ngall, 2048))
+    gall_feat = np.zeros((ngall, 512))
+    gall_feat_att = np.zeros((ngall, 512))
     with torch.no_grad():
         for batch_idx, (input, label) in enumerate(gall_loader):
             batch_num = input.size(0)
@@ -412,8 +433,8 @@ def test(epoch):
     print('Extracting Query Feature...')
     start = time.time()
     ptr = 0
-    query_feat = np.zeros((nquery, 2048))
-    query_feat_att = np.zeros((nquery, 512)) if args.proxy else np.zeros((nquery, 2048))
+    query_feat = np.zeros((nquery, 512))
+    query_feat_att = np.zeros((nquery, 512))
     with torch.no_grad():
         for batch_idx, (input, label) in enumerate(query_loader):
             batch_num = input.size(0)
@@ -468,20 +489,22 @@ for epoch in range(start_epoch, 81 - start_epoch):
     print(trainset.tIndex)
 
     if args.warm > 0:
-        unfreeze_model_param = list(net.module.embedding.parameters()) + list(criterion_proxy.parameters())
         
+        unfreeze_model_param = list(net.module.base_resnet.model.embedding.parameters()) + list(criterion_proxy_ir.parameters()) + list(criterion_proxy_rgb.parameters())
+
         if epoch == 0:
-            for param in list(set(net.module.parameters()).difference(set(unfreeze_model_param))):
+            for param in list(set(net.parameters()).difference(set(unfreeze_model_param))):
                 param.requires_grad = False
         if epoch == args.warm:
-            for param in list(set(net.module.parameters()).difference(set(unfreeze_model_param))):
+            for param in list(set(net.parameters()).difference(set(unfreeze_model_param))):
                 param.requires_grad = True
-    
+
     loader_batch = args.batch_size * args.num_pos
 
     trainloader = data.DataLoader(trainset, batch_size=loader_batch, \
                                   sampler=sampler, num_workers=args.workers, drop_last=True)
-
+    # trainloader = data.DataLoader(trainset, batch_size=loader_batch, \
+    #                               num_workers=args.workers, drop_last=True)
     # training
     train(epoch)
 
