@@ -1,0 +1,33 @@
+
+==> Loading data..
+Dataset sysu statistics:
+  ------------------------------
+  subset   | # ids | # images
+  ------------------------------
+  visible  |   395 |    22258
+  thermal  |   395 |    11909
+  ------------------------------
+  query    |    96 |     3803
+  gallery  |    96 |      301
+  ------------------------------
+Data Loading Time:	 16.254
+==> Building model..
+==> Start Training...
+==> Preparing Data Loader...
+0
+[20927 20945 20945 ...  4515  4467  4490]
+[10597 10605 10597 ...  1932  1948  1928]
+Traceback (most recent call last):
+  File "train_v2.py", line 488, in <module>
+    train(epoch)
+  File "train_v2.py", line 348, in train
+    loss_rgb = criterion_id(rgb_pred, label1)
+  File "/opt/conda/lib/python3.7/site-packages/torch/nn/modules/module.py", line 722, in _call_impl
+    result = self.forward(*input, **kwargs)
+  File "/opt/conda/lib/python3.7/site-packages/torch/nn/modules/loss.py", line 948, in forward
+    ignore_index=self.ignore_index, reduction=self.reduction)
+  File "/opt/conda/lib/python3.7/site-packages/torch/nn/functional.py", line 2422, in cross_entropy
+    return nll_loss(log_softmax(input, 1), target, weight, None, ignore_index, None, reduction)
+  File "/opt/conda/lib/python3.7/site-packages/torch/nn/functional.py", line 2218, in nll_loss
+    ret = torch._C._nn.nll_loss(input, target, weight, _Reduction.get_enum(reduction), ignore_index)
+RuntimeError: Expected object of device type cuda but got device type cpu for argument #2 'target' in call to _thnn_nll_loss_forward

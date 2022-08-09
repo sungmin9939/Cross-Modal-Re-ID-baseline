@@ -1,0 +1,34 @@
+
+==> Loading data..
+Dataset sysu statistics:
+  ------------------------------
+  subset   | # ids | # images
+  ------------------------------
+  visible  |   395 |    22258
+  thermal  |   395 |    11909
+  ------------------------------
+  query    |    96 |     3803
+  gallery  |    96 |      301
+  ------------------------------
+Data Loading Time:	 17.758
+==> Building model..
+==> Start Training...
+==> Preparing Data Loader...
+0
+[20927 20945 20945 ...  4515  4467  4490]
+[10597 10605 10597 ...  1932  1948  1928]
+/data/Cross-Modal-Re-ID-baseline/loss.py:113: UserWarning: This overload of nonzero is deprecated:
+	nonzero(Tensor input, *, Tensor out)
+Consider using one of the following signatures instead:
+	nonzero(Tensor input, *, bool as_tuple) (Triggered internally at  /opt/conda/conda-bld/pytorch_1595629403081/work/torch/csrc/utils/python_arg_parser.cpp:766.)
+  with_pos_proxies = torch.nonzero(P_one_hot.sum(dim = 0) != 0).squeeze(dim = 1)   # The set of positive proxies of data in the batch
+Traceback (most recent call last):
+  File "train.py", line 538, in <module>
+    train(epoch)
+  File "train.py", line 369, in train
+    uni_loss = criterion_proxy_uni(criterion_proxy_rgb.proxies, criterion_proxy_ir.proxies)
+  File "/opt/conda/lib/python3.7/site-packages/torch/nn/modules/module.py", line 722, in _call_impl
+    result = self.forward(*input, **kwargs)
+  File "/data/Cross-Modal-Re-ID-baseline/loss.py", line 139, in forward
+    N_sim_sum = torch.triu(neg_exp, diagoanl=1).sum(dim=0)
+TypeError: triu() got an unexpected keyword argument 'diagoanl'

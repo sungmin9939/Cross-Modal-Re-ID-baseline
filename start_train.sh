@@ -1,5 +1,7 @@
 #!/bin/sh
 
 echo 'start training'
-python train.py --proxy True
-python train.py --local-attn True -r sysu_agw_p4_n8_lr_0.1_seed_0_local_attn_True_proxy_False_best.t 
+
+
+python train.py --proxy True --exp 7 --warm 5 --alpha 16 --remark 'single proxy per class and decreased alpha'
+python train.py --proxy True --exp 8 --warm 5 --multi True --alpha 16 --remark 'multi proxies per class and decreased alpha'

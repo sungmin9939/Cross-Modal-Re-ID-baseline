@@ -1,0 +1,132 @@
+wandb_version: 1
+
+_wandb:
+  desc: null
+  value:
+    cli_version: 0.12.21
+    framework: torch
+    is_jupyter_run: false
+    is_kaggle_kernel: false
+    python_version: 3.7.7
+    start_time: 1658840345
+    t:
+      1:
+      - 1
+      - 41
+      - 55
+      2:
+      - 1
+      - 41
+      - 55
+      4: 3.7.7
+      5: 0.12.21
+      8:
+      - 5
+alpha:
+  desc: null
+  value: 32
+arch:
+  desc: null
+  value: resnet50
+batch_size:
+  desc: null
+  value: 16
+bn_freeze:
+  desc: null
+  value: 1
+dataset:
+  desc: null
+  value: sysu
+exp:
+  desc: null
+  value: 15
+gpu:
+  desc: null
+  value: '0'
+img_h:
+  desc: null
+  value: 288
+img_w:
+  desc: null
+  value: 144
+l2_norm:
+  desc: null
+  value: 1
+local_attn:
+  desc: null
+  value: false
+log_path:
+  desc: null
+  value: log/
+lr:
+  desc: null
+  value: 0.00035
+lr_decay_gamma:
+  desc: null
+  value: 0.5
+lr_decay_step:
+  desc: null
+  value: 10
+margin:
+  desc: null
+  value: 0.1
+method:
+  desc: null
+  value: base
+mode:
+  desc: null
+  value: all
+model_path:
+  desc: null
+  value: save_model/
+multi:
+  desc: null
+  value: false
+num_pos:
+  desc: null
+  value: 4
+optim:
+  desc: null
+  value: Adam
+proxy:
+  desc: null
+  value: false
+remark:
+  desc: null
+  value: memory bank baseline experiment
+resume:
+  desc: null
+  value: ''
+save_epoch:
+  desc: null
+  value: 20
+seed:
+  desc: null
+  value: 0
+syn:
+  desc: null
+  value: false
+test_batch:
+  desc: null
+  value: 64
+test_only:
+  desc: null
+  value: false
+trial:
+  desc: null
+  value: 1
+uni:
+  desc: null
+  value: 0
+vis_log_path:
+  desc: null
+  value: log/vis_log/
+warm:
+  desc: null
+  value: 0
+weight_decay:
+  desc: null
+  value: 0.0001
+workers:
+  desc: null
+  value: 4

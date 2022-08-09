@@ -1,0 +1,18 @@
+
+==> Loading data..
+Dataset sysu statistics:
+  ------------------------------
+  subset   | # ids | # images
+  ------------------------------
+  visible  |   395 |    22258
+  thermal  |   395 |    11909
+  ------------------------------
+  query    |    96 |     3803
+  gallery  |    96 |      301
+  ------------------------------
+Data Loading Time:	 15.938
+==> Building model..
+Traceback (most recent call last):
+  File "train.py", line 249, in <module>
+    criterion_proxy_uni = Proxy_Anchor_unifying(395)
+NameError: name 'Proxy_Anchor_unifying' is not defined

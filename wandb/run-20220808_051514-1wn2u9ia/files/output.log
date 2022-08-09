@@ -1,0 +1,45 @@
+
+==> Loading data..
+Dataset sysu statistics:
+  ------------------------------
+  subset   | # ids | # images
+  ------------------------------
+  visible  |   395 |    22258
+  thermal  |   395 |    11909
+  ------------------------------
+  query    |    96 |     3803
+  gallery  |    96 |      301
+  ------------------------------
+Data Loading Time:	 16.798
+==> Building model..
+==> Start Training...
+==> Preparing Data Loader...
+0
+[20927 20945 20945 ...  4515  4467  4490]
+[10597 10605 10597 ...  1932  1948  1928]
+/data/Cross-Modal-Re-ID-baseline/loss.py:114: UserWarning: This overload of nonzero is deprecated:
+	nonzero(Tensor input, *, Tensor out)
+Consider using one of the following signatures instead:
+	nonzero(Tensor input, *, bool as_tuple) (Triggered internally at  /opt/conda/conda-bld/pytorch_1595629403081/work/torch/csrc/utils/python_arg_parser.cpp:766.)
+  with_pos_proxies = torch.nonzero(P_one_hot.sum(dim = 0) != 0).squeeze(dim = 1)   # The set of positive proxies of data in the batch
+Epoch: [0][0/347] lr:0.00035 Loss: 14.9717 (14.9717) rgb_proxy_loss: 0.0000 (0.0000) ir_proxy_loss: 0.0000 (0.0000) rgb_proxy_R_loss: 0.0000 (0.0000)ir_proxy_R_loss: 0.0000 (0.0000)
+Epoch: [0][50/347] lr:0.00035 Loss: 15.5443 (15.3204) rgb_proxy_loss: 0.0000 (0.0000) ir_proxy_loss: 0.0000 (0.0000) rgb_proxy_R_loss: 0.0000 (0.0000)ir_proxy_R_loss: 0.0000 (0.0000)
+Epoch: [0][100/347] lr:0.00035 Loss: 15.1599 (15.3910) rgb_proxy_loss: 0.0000 (0.0000) ir_proxy_loss: 0.0000 (0.0000) rgb_proxy_R_loss: 0.0000 (0.0000)ir_proxy_R_loss: 0.0000 (0.0000)
+Traceback (most recent call last):
+  File "train.py", line 569, in <module>
+    train(epoch)
+  File "train.py", line 358, in train
+    feat, out0, = net(input1, input2)
+  File "/opt/conda/lib/python3.7/site-packages/torch/nn/modules/module.py", line 722, in _call_impl
+    result = self.forward(*input, **kwargs)
+  File "/opt/conda/lib/python3.7/site-packages/torch/nn/parallel/data_parallel.py", line 155, in forward
+    outputs = self.parallel_apply(replicas, inputs, kwargs)
+  File "/opt/conda/lib/python3.7/site-packages/torch/nn/parallel/data_parallel.py", line 165, in parallel_apply
+    return parallel_apply(replicas, inputs, kwargs, self.device_ids[:len(replicas)])
+  File "/opt/conda/lib/python3.7/site-packages/torch/nn/parallel/parallel_apply.py", line 77, in parallel_apply
+    thread.join()
+  File "/opt/conda/lib/python3.7/threading.py", line 1044, in join
+    self._wait_for_tstate_lock()
+  File "/opt/conda/lib/python3.7/threading.py", line 1060, in _wait_for_tstate_lock
+    elif lock.acquire(block, timeout):
+KeyboardInterrupt

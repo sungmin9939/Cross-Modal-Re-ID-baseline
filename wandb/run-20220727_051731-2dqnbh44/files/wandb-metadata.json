@@ -1,0 +1,23 @@
+{
+    "os": "Linux-4.15.0-180-generic-x86_64-with-debian-buster-sid",
+    "python": "3.7.7",
+    "heartbeatAt": "2022-07-27T05:17:48.177113",
+    "startedAt": "2022-07-27T05:17:31.854315",
+    "docker": null,
+    "gpu": "GeForce RTX 2080 Ti",
+    "gpu_count": 4,
+    "cpu_count": 40,
+    "cuda": "10.1.243",
+    "args": [
+        "--exp",
+        "17",
+        "--remark",
+        "memory bank baseline experiment"
+    ],
+    "state": "running",
+    "program": "train_v2.py",
+    "codePath": "train_v2.py",
+    "host": "sungmin1",
+    "username": "root",
+    "executable": "/opt/conda/bin/python"
+}

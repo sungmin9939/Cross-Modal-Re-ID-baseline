@@ -82,7 +82,7 @@ set_seed(args.seed)
 
 dataset = args.dataset
 if dataset == 'sysu':
-    data_path = '../Datasets/SYSU-MM01/ori_data/'
+    data_path = '../dataset/SYSU-MM01/'
     log_path = args.log_path + 'sysu_log/'
     test_mode = [1, 2]  # thermal to visible
 elif dataset == 'regdb':

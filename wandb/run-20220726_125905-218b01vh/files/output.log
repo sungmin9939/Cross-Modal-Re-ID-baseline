@@ -1,0 +1,22 @@
+
+==> Loading data..
+Dataset sysu statistics:
+  ------------------------------
+  subset   | # ids | # images
+  ------------------------------
+  visible  |   395 |    22258
+  thermal  |   395 |    11909
+  ------------------------------
+  query    |    96 |     3803
+  gallery  |    96 |      301
+  ------------------------------
+Data Loading Time:	 16.378
+==> Building model..
+Traceback (most recent call last):
+  File "train_v2.py", line 215, in <module>
+    net = embed_net_v2(n_class, no_local= 'off', gm_pool =  'off', arch=args.arch, syn=args.syn, local_attn=args.local_attn, proxy=args.proxy)
+  File "/data/Cross-Modal-Re-ID-baseline/model.py", line 487, in __init__
+    self.rgb_linear = nn.Linear(self.pool_dim, self.class_num)
+  File "/opt/conda/lib/python3.7/site-packages/torch/nn/modules/module.py", line 772, in __getattr__
+    type(self).__name__, name))
+torch.nn.modules.module.ModuleAttributeError: 'embed_net_v2' object has no attribute 'pool_dim'

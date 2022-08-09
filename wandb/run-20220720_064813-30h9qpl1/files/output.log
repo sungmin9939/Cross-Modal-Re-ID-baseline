@@ -1,0 +1,23 @@
+
+==> Loading data..
+THCudaCheck FAIL file=/opt/conda/conda-bld/pytorch_1595629403081/work/aten/src/THC/THCGeneral.cpp line=47 error=100 : no CUDA-capable device is detected
+Traceback (most recent call last):
+  File "train.py", line 245, in <module>
+    criterion_proxy_rgb = Proxy_Anchor(395, 512, mrg=float(args.margin), alpha=int(args.alpha)).to(device)
+  File "/data/Cross-Modal-Re-ID-baseline/loss.py", line 95, in __init__
+    self.proxies = torch.nn.Parameter(torch.randn(nb_classes, sz_embed).cuda())
+  File "/opt/conda/lib/python3.7/site-packages/torch/cuda/__init__.py", line 190, in _lazy_init
+    torch._C._cuda_init()
+RuntimeError: cuda runtime error (100) : no CUDA-capable device is detected at /opt/conda/conda-bld/pytorch_1595629403081/work/aten/src/THC/THCGeneral.cpp:47
+Dataset sysu statistics:
+  ------------------------------
+  subset   | # ids | # images
+  ------------------------------
+  visible  |   395 |    22258
+  thermal  |   395 |    11909
+  ------------------------------
+  query    |    96 |     3803
+  gallery  |    96 |      301
+  ------------------------------
+Data Loading Time:	 17.670
+==> Building model..

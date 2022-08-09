@@ -1,0 +1,40 @@
+
+==> Loading data..
+Dataset sysu statistics:
+  ------------------------------
+  subset   | # ids | # images
+  ------------------------------
+  visible  |   395 |    22258
+  thermal  |   395 |    11909
+  ------------------------------
+  query    |    96 |     3803
+  gallery  |    96 |      301
+  ------------------------------
+Data Loading Time:	 16.625
+==> Building model..
+==> Start Training...
+==> Preparing Data Loader...
+0
+[20927 20945 20945 ...  4515  4467  4490]
+[10597 10605 10597 ...  1932  1948  1928]
+tensor(nan, device='cuda:0', grad_fn=<DivBackward0>)
+Epoch: [0][0/347] lr:0.00010 Loss: nan (nan) rgb_proxy_loss: 13.3523 (13.3523) ir_proxy_loss: 13.8259 (13.8259) uni_proxy_loss: nan (nan
+/data/Cross-Modal-Re-ID-baseline/loss.py:113: UserWarning: This overload of nonzero is deprecated:
+	nonzero(Tensor input, *, Tensor out)
+Consider using one of the following signatures instead:
+	nonzero(Tensor input, *, bool as_tuple) (Triggered internally at  /opt/conda/conda-bld/pytorch_1595629403081/work/torch/csrc/utils/python_arg_parser.cpp:766.)
+  with_pos_proxies = torch.nonzero(P_one_hot.sum(dim = 0) != 0).squeeze(dim = 1)   # The set of positive proxies of data in the batch
+tensor(nan, device='cuda:0', grad_fn=<DivBackward0>)
+tensor(nan, device='cuda:0', grad_fn=<DivBackward0>)
+tensor(nan, device='cuda:0', grad_fn=<DivBackward0>)
+tensor(nan, device='cuda:0', grad_fn=<DivBackward0>)
+tensor(nan, device='cuda:0', grad_fn=<DivBackward0>)
+tensor(nan, device='cuda:0', grad_fn=<DivBackward0>)
+tensor(nan, device='cuda:0', grad_fn=<DivBackward0>)
+tensor(nan, device='cuda:0', grad_fn=<DivBackward0>)
+Traceback (most recent call last):
+  File "train.py", line 538, in <module>
+    train(epoch)
+  File "train.py", line 405, in train
+    train_loss.update(loss.item(), 2 * batch_size)
+KeyboardInterrupt

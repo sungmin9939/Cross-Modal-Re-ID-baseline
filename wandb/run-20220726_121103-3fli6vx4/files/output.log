@@ -1,0 +1,27 @@
+
+==> Loading data..
+Dataset sysu statistics:
+  ------------------------------
+  subset   | # ids | # images
+  ------------------------------
+  visible  |   395 |    22258
+  thermal  |   395 |    11909
+  ------------------------------
+  query    |    96 |     3803
+  gallery  |    96 |      301
+  ------------------------------
+Data Loading Time:	 16.509
+==> Building model..
+Traceback (most recent call last):
+  File "train_v2.py", line 483, in <module>
+    train(epoch)
+  File "train_v2.py", line 313, in train
+    current_lr = adjust_learning_rate(optimizer, epoch)
+  File "train_v2.py", line 304, in adjust_learning_rate
+    optimizer.param_groups[0]['lr'] = 0.1 * lr
+UnboundLocalError: local variable 'lr' referenced before assignment
+==> Start Training...
+==> Preparing Data Loader...
+0
+[20927 20945 20945 ...  4515  4467  4490]
+[10597 10605 10597 ...  1932  1948  1928]

@@ -1,7 +1,7 @@
 import torch
 from utils import grayscale_linearcomb
 from model import visible_module, ChannelAttention, SpatialAttnetion, embed_net
-from loss import cal_p2e_loss, cal_p2p_loss, binarize, two_level_Proxy_Anchor
+from loss import hardest_intra
 import torch.nn as nn
 from torch.autograd import Variable
 
@@ -28,8 +28,11 @@ for input in input1:
         temp1 = torch.sum(temp1, dim=0, keepdim=True)
         print(temp1.size())
         '''
-a = True
-print('a is {}'.format(a))
-                        
+cri = hardest_intra(4)
+
+R = torch.randn(100, 200)
+I = torch.randn(100, 200)
+
+out, _,_ = cri(R,I)
                         
                         

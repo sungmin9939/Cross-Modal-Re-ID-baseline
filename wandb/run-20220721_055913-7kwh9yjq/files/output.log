@@ -1,0 +1,114 @@
+
+==> Loading data..
+Dataset sysu statistics:
+  ------------------------------
+  subset   | # ids | # images
+  ------------------------------
+  visible  |   395 |    22258
+  thermal  |   395 |    11909
+  ------------------------------
+  query    |    96 |     3803
+  gallery  |    96 |      301
+  ------------------------------
+Data Loading Time:	 17.634
+==> Building model..
+==> Start Training...
+==> Preparing Data Loader...
+0
+[20927 20945 20945 ...  4515  4467  4490]
+[10597 10605 10597 ...  1932  1948  1928]
+/data/Cross-Modal-Re-ID-baseline/loss.py:113: UserWarning: This overload of nonzero is deprecated:
+	nonzero(Tensor input, *, Tensor out)
+Consider using one of the following signatures instead:
+	nonzero(Tensor input, *, bool as_tuple) (Triggered internally at  /opt/conda/conda-bld/pytorch_1595629403081/work/torch/csrc/utils/python_arg_parser.cpp:766.)
+  with_pos_proxies = torch.nonzero(P_one_hot.sum(dim = 0) != 0).squeeze(dim = 1)   # The set of positive proxies of data in the batch
+Epoch: [0][0/347] lr:0.00010 Loss: 39.6191 (39.6191) rgb_proxy_loss: 13.3523 (13.3523) ir_proxy_loss: 13.8259 (13.8259) uni_proxy_loss: 12.4409 (12.4409
+Epoch: [0][50/347] lr:0.00010 Loss: 28.3032 (30.8574) rgb_proxy_loss: 13.4388 (13.2906) ir_proxy_loss: 13.5833 (13.2999) uni_proxy_loss: 1.2811 (4.2669
+Epoch: [0][100/347] lr:0.00010 Loss: 27.0682 (29.1171) rgb_proxy_loss: 13.2474 (13.3073) ir_proxy_loss: 13.3450 (13.2958) uni_proxy_loss: 0.4758 (2.5140
+Epoch: [0][150/347] lr:0.00010 Loss: 26.8079 (28.4225) rgb_proxy_loss: 13.2913 (13.3017) ir_proxy_loss: 13.1479 (13.3028) uni_proxy_loss: 0.3687 (1.8179
+Epoch: [0][200/347] lr:0.00010 Loss: 26.5819 (28.0179) rgb_proxy_loss: 13.0940 (13.2946) ir_proxy_loss: 13.1572 (13.2712) uni_proxy_loss: 0.3307 (1.4521
+Epoch: [0][250/347] lr:0.00010 Loss: 26.4802 (27.7498) rgb_proxy_loss: 12.8818 (13.2714) ir_proxy_loss: 13.2977 (13.2524) uni_proxy_loss: 0.3006 (1.2260
+Epoch: [0][300/347] lr:0.00010 Loss: 26.6567 (27.5524) rgb_proxy_loss: 13.0497 (13.2486) ir_proxy_loss: 13.3296 (13.2336) uni_proxy_loss: 0.2774 (1.0702
+==> Preparing Data Loader...
+1
+[22141 22148 22154 ... 21298 21292 21296]
+[11801 11797 11805 ... 10959 10962 10960]
+Epoch: [1][0/347] lr:0.00010 Loss: 26.9187 (26.9187) rgb_proxy_loss: 13.0306 (13.0306) ir_proxy_loss: 13.6266 (13.6266) uni_proxy_loss: 0.2614 (0.2614
+Epoch: [1][50/347] lr:0.00010 Loss: 26.4223 (26.2818) rgb_proxy_loss: 13.0246 (13.0235) ir_proxy_loss: 13.1423 (13.0002) uni_proxy_loss: 0.2555 (0.2582
+Epoch: [1][100/347] lr:0.00010 Loss: 26.2911 (26.2615) rgb_proxy_loss: 13.0361 (13.0133) ir_proxy_loss: 13.0158 (12.9954) uni_proxy_loss: 0.2393 (0.2529
+Epoch: [1][150/347] lr:0.00010 Loss: 26.8862 (26.2449) rgb_proxy_loss: 13.3127 (13.0059) ir_proxy_loss: 13.3407 (12.9920) uni_proxy_loss: 0.2328 (0.2471
+Epoch: [1][200/347] lr:0.00010 Loss: 26.6773 (26.1909) rgb_proxy_loss: 13.3996 (12.9799) ir_proxy_loss: 13.0499 (12.9681) uni_proxy_loss: 0.2279 (0.2429
+Epoch: [1][250/347] lr:0.00010 Loss: 26.3080 (26.1675) rgb_proxy_loss: 12.8724 (12.9679) ir_proxy_loss: 13.2141 (12.9605) uni_proxy_loss: 0.2215 (0.2391
+Epoch: [1][300/347] lr:0.00010 Loss: 25.6051 (26.1389) rgb_proxy_loss: 12.8988 (12.9645) ir_proxy_loss: 12.4896 (12.9385) uni_proxy_loss: 0.2167 (0.2358
+Test Epoch: 1
+Extracting Gallery Feature...
+Extracting Time:	 4.368
+Extracting Query Feature...
+Extracting Time:	 10.895
+Evaluation Time:	 6.011
+[0.01472522 0.02629503 0.03839074 0.05048646 0.06179332 0.07283723
+ 0.08335525 0.09282146 0.10754667 0.11990534 0.13094924 0.14304496
+ 0.15592954 0.17012885 0.18117276 0.19458322 0.20667894 0.21614514
+ 0.22692612 0.23823297]
+POOL:   Rank-1: 1.47% | Rank-5: 6.18% | Rank-10: 11.99%| Rank-20: 23.82%| mAP: 3.33%| mINP: 1.74%
+FC:   Rank-1: 1.16% | Rank-5: 6.76% | Rank-10: 12.86%| Rank-20: 23.77%| mAP: 3.38%| mINP: 1.88%
+Best Epoch [1]
+==> Preparing Data Loader...
+2
+[14673 14693 14726 ... 20987 20993 20997]
+[ 6356  6351  6352 ... 10654 10663 10662]
+Epoch: [2][0/347] lr:0.00010 Loss: 25.9640 (25.9640) rgb_proxy_loss: 12.8883 (12.8883) ir_proxy_loss: 12.8663 (12.8663) uni_proxy_loss: 0.2093 (0.2093
+Epoch: [2][50/347] lr:0.00010 Loss: 25.9017 (25.8545) rgb_proxy_loss: 13.0414 (12.8326) ir_proxy_loss: 12.6531 (12.8138) uni_proxy_loss: 0.2071 (0.2082
+Epoch: [2][100/347] lr:0.00010 Loss: 25.5618 (25.8402) rgb_proxy_loss: 12.7327 (12.8317) ir_proxy_loss: 12.6262 (12.8021) uni_proxy_loss: 0.2030 (0.2064
+Epoch: [2][150/347] lr:0.00010 Loss: 25.6276 (25.8339) rgb_proxy_loss: 12.5911 (12.8324) ir_proxy_loss: 12.8376 (12.7970) uni_proxy_loss: 0.1989 (0.2045
+Epoch: [2][200/347] lr:0.00010 Loss: 25.6753 (25.8181) rgb_proxy_loss: 12.6327 (12.8302) ir_proxy_loss: 12.8487 (12.7855) uni_proxy_loss: 0.1938 (0.2023
+Epoch: [2][250/347] lr:0.00010 Loss: 25.6173 (25.8113) rgb_proxy_loss: 12.7790 (12.8183) ir_proxy_loss: 12.6478 (12.7926) uni_proxy_loss: 0.1905 (0.2004
+Epoch: [2][300/347] lr:0.00010 Loss: 25.5923 (25.7813) rgb_proxy_loss: 12.8273 (12.8052) ir_proxy_loss: 12.5746 (12.7773) uni_proxy_loss: 0.1903 (0.1987
+==> Preparing Data Loader...
+3
+[21512 21504 21520 ...  7484  7438  7460]
+[11158 11157 11166 ...  3233  3213  3239]
+Epoch: [3][0/347] lr:0.00010 Loss: 25.3301 (25.3301) rgb_proxy_loss: 12.5498 (12.5498) ir_proxy_loss: 12.5902 (12.5902) uni_proxy_loss: 0.1901 (0.1901
+Epoch: [3][50/347] lr:0.00010 Loss: 24.9208 (25.6200) rgb_proxy_loss: 12.3181 (12.7216) ir_proxy_loss: 12.4140 (12.7092) uni_proxy_loss: 0.1887 (0.1891
+Epoch: [3][100/347] lr:0.00010 Loss: 25.1870 (25.6662) rgb_proxy_loss: 12.5974 (12.7412) ir_proxy_loss: 12.4038 (12.7368) uni_proxy_loss: 0.1858 (0.1882
+Epoch: [3][150/347] lr:0.00010 Loss: 25.5397 (25.6375) rgb_proxy_loss: 12.4041 (12.7345) ir_proxy_loss: 12.9515 (12.7157) uni_proxy_loss: 0.1840 (0.1873
+Epoch: [3][200/347] lr:0.00010 Loss: 25.2267 (25.6207) rgb_proxy_loss: 12.3837 (12.7294) ir_proxy_loss: 12.6612 (12.7050) uni_proxy_loss: 0.1818 (0.1863
+Epoch: [3][250/347] lr:0.00010 Loss: 25.6416 (25.6061) rgb_proxy_loss: 12.8537 (12.7236) ir_proxy_loss: 12.6074 (12.6972) uni_proxy_loss: 0.1805 (0.1852
+Epoch: [3][300/347] lr:0.00010 Loss: 25.1068 (25.5891) rgb_proxy_loss: 12.4452 (12.7105) ir_proxy_loss: 12.4807 (12.6940) uni_proxy_loss: 0.1809 (0.1845
+Test Epoch: 3
+Extracting Gallery Feature...
+Extracting Time:	 1.520
+Extracting Query Feature...
+Extracting Time:	 9.449
+Evaluation Time:	 5.839
+[0.01446227 0.02576913 0.03497239 0.04627925 0.06126742 0.07283723
+ 0.0825664  0.09308441 0.10360242 0.11543518 0.12831974 0.14199317
+ 0.15382592 0.1630292  0.17486195 0.18695767 0.19957928 0.21036024
+ 0.2206153  0.23165922]
+POOL:   Rank-1: 1.45% | Rank-5: 6.13% | Rank-10: 11.54%| Rank-20: 23.17%| mAP: 3.23%| mINP: 1.72%
+FC:   Rank-1: 1.24% | Rank-5: 6.26% | Rank-10: 11.96%| Rank-20: 23.61%| mAP: 3.34%| mINP: 1.85%
+Best Epoch [3]
+==> Preparing Data Loader...
+4
+[ 9434  9521  9473 ... 21081 21071 21074]
+[ 4073  4085  4070 ... 10737 10731 10742]
+Epoch: [4][0/347] lr:0.00010 Loss: 26.1993 (26.1993) rgb_proxy_loss: 13.0023 (13.0023) ir_proxy_loss: 13.0178 (13.0178) uni_proxy_loss: 0.1792 (0.1792
+Epoch: [4][50/347] lr:0.00010 Loss: 25.7167 (25.5491) rgb_proxy_loss: 12.8786 (12.6764) ir_proxy_loss: 12.6610 (12.6941) uni_proxy_loss: 0.1771 (0.1786
+Traceback (most recent call last):
+  File "train.py", line 538, in <module>
+    train(epoch)
+  File "train.py", line 355, in train
+    feat, out0, = net(input1, input2)
+  File "/opt/conda/lib/python3.7/site-packages/torch/nn/modules/module.py", line 722, in _call_impl
+    result = self.forward(*input, **kwargs)
+  File "/opt/conda/lib/python3.7/site-packages/torch/nn/parallel/data_parallel.py", line 154, in forward
+    replicas = self.replicate(self.module, self.device_ids[:len(inputs)])
+  File "/opt/conda/lib/python3.7/site-packages/torch/nn/parallel/data_parallel.py", line 159, in replicate
+    return replicate(module, device_ids, not torch.is_grad_enabled())
+  File "/opt/conda/lib/python3.7/site-packages/torch/nn/parallel/replicate.py", line 103, in replicate
+    buffer_copies_not_rg = _broadcast_coalesced_reshape(buffers_not_rg, devices, detach=True)
+  File "/opt/conda/lib/python3.7/site-packages/torch/nn/parallel/replicate.py", line 67, in _broadcast_coalesced_reshape
+    return comm.broadcast_coalesced(tensors, devices)
+  File "/opt/conda/lib/python3.7/site-packages/torch/cuda/comm.py", line 39, in broadcast_coalesced
+    return torch._C._broadcast_coalesced(tensors, devices, buffer_size)
+KeyboardInterrupt

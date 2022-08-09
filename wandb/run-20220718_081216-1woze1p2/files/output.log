@@ -1,0 +1,1431 @@
+
+==> Loading data..
+Dataset sysu statistics:
+  ------------------------------
+  subset   | # ids | # images
+  ------------------------------
+  visible  |   395 |    22258
+  thermal  |   395 |    11909
+  ------------------------------
+  query    |    96 |     3803
+  gallery  |    96 |      301
+  ------------------------------
+Data Loading Time:	 17.473
+==> Building model..
+==> Start Training...
+==> Preparing Data Loader...
+0
+[20927 20945 20945 ...  4515  4467  4490]
+[10597 10605 10597 ...  1932  1948  1928]
+/data/Cross-Modal-Re-ID-baseline/loss.py:113: UserWarning: This overload of nonzero is deprecated:
+	nonzero(Tensor input, *, Tensor out)
+Consider using one of the following signatures instead:
+	nonzero(Tensor input, *, bool as_tuple) (Triggered internally at  /opt/conda/conda-bld/pytorch_1595629403081/work/torch/csrc/utils/python_arg_parser.cpp:766.)
+  with_pos_proxies = torch.nonzero(P_one_hot.sum(dim = 0) != 0).squeeze(dim = 1)   # The set of positive proxies of data in the batch
+Epoch: [0][0/347] lr:0.00010 Loss: 10.5611 (10.5611) rgb_proxy_loss: 10.5611 (10.5611) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [0][50/347] lr:0.00010 Loss: 10.6580 (10.5614) rgb_proxy_loss: 10.6580 (10.5614) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [0][100/347] lr:0.00010 Loss: 10.6073 (10.6168) rgb_proxy_loss: 10.6073 (10.6168) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [0][150/347] lr:0.00010 Loss: 10.5717 (10.6243) rgb_proxy_loss: 10.5717 (10.6243) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [0][200/347] lr:0.00010 Loss: 10.6395 (10.6257) rgb_proxy_loss: 10.6395 (10.6257) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [0][250/347] lr:0.00010 Loss: 10.6137 (10.6273) rgb_proxy_loss: 10.6137 (10.6273) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [0][300/347] lr:0.00010 Loss: 10.6114 (10.6197) rgb_proxy_loss: 10.6114 (10.6197) ir_proxy_loss: 0.0000 (0.0000)
+==> Preparing Data Loader...
+1
+[22141 22148 22154 ... 21298 21292 21296]
+[11801 11797 11805 ... 10959 10962 10960]
+Epoch: [1][0/347] lr:0.00010 Loss: 10.5895 (10.5895) rgb_proxy_loss: 10.5895 (10.5895) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [1][50/347] lr:0.00010 Loss: 10.6258 (10.5669) rgb_proxy_loss: 10.6258 (10.5669) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [1][100/347] lr:0.00010 Loss: 10.5752 (10.5697) rgb_proxy_loss: 10.5752 (10.5697) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [1][150/347] lr:0.00010 Loss: 10.6620 (10.5792) rgb_proxy_loss: 10.6620 (10.5792) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [1][200/347] lr:0.00010 Loss: 10.6931 (10.5731) rgb_proxy_loss: 10.6931 (10.5731) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [1][250/347] lr:0.00010 Loss: 10.4856 (10.5756) rgb_proxy_loss: 10.4856 (10.5756) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [1][300/347] lr:0.00010 Loss: 10.4520 (10.5706) rgb_proxy_loss: 10.4520 (10.5706) ir_proxy_loss: 0.0000 (0.0000)
+Test Epoch: 1
+Extracting Gallery Feature...
+Extracting Time:	 4.728
+Extracting Query Feature...
+Extracting Time:	 11.050
+Evaluation Time:	 5.866
+[0.01551407 0.02734683 0.03996845 0.05101236 0.06389692 0.07809624
+ 0.08808835 0.09755456 0.10833552 0.12227189 0.13463056 0.14514856
+ 0.15803313 0.16907704 0.1803839  0.19247963 0.20483829 0.2148304
+ 0.22745201 0.23691823]
+POOL:   Rank-1: 1.55% | Rank-5: 6.39% | Rank-10: 12.23%| Rank-20: 23.69%| mAP: 3.35%| mINP: 1.73%
+FC:   Rank-1: 1.16% | Rank-5: 6.31% | Rank-10: 12.88%| Rank-20: 23.69%| mAP: 3.37%| mINP: 1.87%
+Best Epoch [1]
+==> Preparing Data Loader...
+2
+[14673 14693 14726 ... 20987 20993 20997]
+[ 6356  6351  6352 ... 10654 10663 10662]
+Epoch: [2][0/347] lr:0.00010 Loss: 10.6418 (10.6418) rgb_proxy_loss: 10.6418 (10.6418) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [2][50/347] lr:0.00010 Loss: 10.5794 (10.5650) rgb_proxy_loss: 10.5794 (10.5650) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [2][100/347] lr:0.00010 Loss: 10.4950 (10.5508) rgb_proxy_loss: 10.4950 (10.5508) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [2][150/347] lr:0.00010 Loss: 10.5626 (10.5453) rgb_proxy_loss: 10.5626 (10.5453) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [2][200/347] lr:0.00010 Loss: 10.4915 (10.5407) rgb_proxy_loss: 10.4915 (10.5407) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [2][250/347] lr:0.00010 Loss: 10.4137 (10.5401) rgb_proxy_loss: 10.4137 (10.5401) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [2][300/347] lr:0.00010 Loss: 10.6050 (10.5369) rgb_proxy_loss: 10.6050 (10.5369) ir_proxy_loss: 0.0000 (0.0000)
+==> Preparing Data Loader...
+3
+[21512 21504 21520 ...  7484  7438  7460]
+[11158 11157 11166 ...  3233  3213  3239]
+Epoch: [3][0/347] lr:0.00010 Loss: 10.3420 (10.3420) rgb_proxy_loss: 10.3420 (10.3420) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [3][50/347] lr:0.00010 Loss: 10.4282 (10.5247) rgb_proxy_loss: 10.4282 (10.5247) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [3][100/347] lr:0.00010 Loss: 10.4749 (10.5258) rgb_proxy_loss: 10.4749 (10.5258) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [3][150/347] lr:0.00010 Loss: 10.3919 (10.5235) rgb_proxy_loss: 10.3919 (10.5235) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [3][200/347] lr:0.00010 Loss: 10.5587 (10.5233) rgb_proxy_loss: 10.5587 (10.5233) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [3][250/347] lr:0.00010 Loss: 10.5940 (10.5218) rgb_proxy_loss: 10.5940 (10.5218) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [3][300/347] lr:0.00010 Loss: 10.3673 (10.5211) rgb_proxy_loss: 10.3673 (10.5211) ir_proxy_loss: 0.0000 (0.0000)
+Test Epoch: 3
+Extracting Gallery Feature...
+Extracting Time:	 1.590
+Extracting Query Feature...
+Extracting Time:	 9.460
+Evaluation Time:	 5.860
+[0.01498817 0.02787273 0.03760189 0.04943466 0.06363397 0.07546674
+ 0.0867736  0.09623981 0.10859848 0.12016829 0.1306863  0.14304496
+ 0.15382592 0.1656587  0.17591375 0.18748356 0.19905338 0.21088614
+ 0.22193006 0.23402578]
+POOL:   Rank-1: 1.50% | Rank-5: 6.36% | Rank-10: 12.02%| Rank-20: 23.40%| mAP: 3.26%| mINP: 1.71%
+FC:   Rank-1: 1.13% | Rank-5: 6.23% | Rank-10: 12.28%| Rank-20: 23.77%| mAP: 3.29%| mINP: 1.83%
+Best Epoch [1]
+==> Preparing Data Loader...
+4
+[ 9434  9521  9473 ... 21081 21071 21074]
+[ 4073  4085  4070 ... 10737 10731 10742]
+Epoch: [4][0/347] lr:0.00010 Loss: 10.6058 (10.6058) rgb_proxy_loss: 10.6058 (10.6058) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [4][50/347] lr:0.00010 Loss: 10.6576 (10.5212) rgb_proxy_loss: 10.6576 (10.5212) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [4][100/347] lr:0.00010 Loss: 10.5862 (10.5162) rgb_proxy_loss: 10.5862 (10.5162) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [4][150/347] lr:0.00010 Loss: 10.4480 (10.5171) rgb_proxy_loss: 10.4480 (10.5171) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [4][200/347] lr:0.00010 Loss: 10.5995 (10.5206) rgb_proxy_loss: 10.5995 (10.5206) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [4][250/347] lr:0.00010 Loss: 10.5287 (10.5213) rgb_proxy_loss: 10.5287 (10.5213) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [4][300/347] lr:0.00010 Loss: 10.5955 (10.5219) rgb_proxy_loss: 10.5955 (10.5219) ir_proxy_loss: 0.0000 (0.0000)
+==> Preparing Data Loader...
+5
+[ 6917  6921  6953 ... 21217 21216 21219]
+[ 3007  3005  3007 ... 10872 10872 10879]
+Epoch: [5][0/347] lr:0.00010 Loss: 10.5222 (10.5222) rgb_proxy_loss: 10.5222 (10.5222) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [5][50/347] lr:0.00010 Loss: 10.9360 (10.6091) rgb_proxy_loss: 10.9360 (10.6091) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [5][100/347] lr:0.00010 Loss: 10.9171 (10.6240) rgb_proxy_loss: 10.9171 (10.6240) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [5][150/347] lr:0.00010 Loss: 10.9304 (10.6294) rgb_proxy_loss: 10.9304 (10.6294) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [5][200/347] lr:0.00010 Loss: 10.9543 (10.6334) rgb_proxy_loss: 10.9543 (10.6334) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [5][250/347] lr:0.00010 Loss: 10.5348 (10.6450) rgb_proxy_loss: 10.5348 (10.6450) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [5][300/347] lr:0.00010 Loss: 10.5605 (10.6424) rgb_proxy_loss: 10.5605 (10.6424) ir_proxy_loss: 0.0000 (0.0000)
+Test Epoch: 5
+Extracting Gallery Feature...
+Extracting Time:	 1.554
+Extracting Query Feature...
+Extracting Time:	 9.366
+Evaluation Time:	 5.763
+[0.01025506 0.02261373 0.03497239 0.04733105 0.05863792 0.06863003
+ 0.07914804 0.0888772  0.10070997 0.11227978 0.12463845 0.1348935
+ 0.14698923 0.16171443 0.1740731  0.185117   0.19379437 0.20378648
+ 0.2132527  0.22429661]
+POOL:   Rank-1: 1.03% | Rank-5: 5.86% | Rank-10: 11.23%| Rank-20: 22.43%| mAP: 3.17%| mINP: 1.82%
+FC:   Rank-1: 1.50% | Rank-5: 6.23% | Rank-10: 11.81%| Rank-20: 23.53%| mAP: 3.30%| mINP: 1.77%
+Best Epoch [5]
+==> Preparing Data Loader...
+6
+[ 4420  4426  4343 ... 19608 19609 19604]
+[1926 1906 1921 ... 9228 9241 9228]
+Epoch: [6][0/347] lr:0.00010 Loss: 10.5981 (10.5981) rgb_proxy_loss: 10.5981 (10.5981) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [6][50/347] lr:0.00010 Loss: 10.4354 (10.6284) rgb_proxy_loss: 10.4354 (10.6284) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [6][100/347] lr:0.00010 Loss: 10.5261 (10.6589) rgb_proxy_loss: 10.5261 (10.6589) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [6][150/347] lr:0.00010 Loss: 10.5160 (10.6526) rgb_proxy_loss: 10.5160 (10.6526) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [6][200/347] lr:0.00010 Loss: 10.6165 (10.6385) rgb_proxy_loss: 10.6165 (10.6385) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [6][250/347] lr:0.00010 Loss: 10.6449 (10.6369) rgb_proxy_loss: 10.6449 (10.6369) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [6][300/347] lr:0.00010 Loss: 10.4793 (10.6503) rgb_proxy_loss: 10.4793 (10.6503) ir_proxy_loss: 0.0000 (0.0000)
+==> Preparing Data Loader...
+7
+[21881 21879 21875 ... 16445 16425 16387]
+[11543 11533 11530 ...  7076  7080  7056]
+Epoch: [7][0/347] lr:0.00010 Loss: 10.8102 (10.8102) rgb_proxy_loss: 10.8102 (10.8102) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [7][50/347] lr:0.00010 Loss: 10.4388 (10.7246) rgb_proxy_loss: 10.4388 (10.7246) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [7][100/347] lr:0.00010 Loss: 10.8990 (10.7730) rgb_proxy_loss: 10.8990 (10.7730) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [7][150/347] lr:0.00010 Loss: 10.6936 (10.7572) rgb_proxy_loss: 10.6936 (10.7572) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [7][200/347] lr:0.00010 Loss: 10.4981 (10.7276) rgb_proxy_loss: 10.4981 (10.7276) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [7][250/347] lr:0.00010 Loss: 10.9028 (10.7174) rgb_proxy_loss: 10.9028 (10.7174) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [7][300/347] lr:0.00010 Loss: 10.7150 (10.7239) rgb_proxy_loss: 10.7150 (10.7239) ir_proxy_loss: 0.0000 (0.0000)
+Test Epoch: 7
+Extracting Gallery Feature...
+Extracting Time:	 1.580
+Extracting Query Feature...
+Extracting Time:	 9.383
+Evaluation Time:	 5.817
+[0.01209571 0.02445438 0.03549829 0.04838286 0.05837497 0.07441494
+ 0.08335525 0.09466211 0.10412832 0.11596108 0.12569025 0.13910072
+ 0.15040757 0.16197738 0.17091769 0.17906916 0.18774651 0.19668682
+ 0.20825663 0.22245595]
+POOL:   Rank-1: 1.21% | Rank-5: 5.84% | Rank-10: 11.60%| Rank-20: 22.25%| mAP: 3.35%| mINP: 1.83%
+FC:   Rank-1: 0.97% | Rank-5: 5.78% | Rank-10: 11.46%| Rank-20: 21.35%| mAP: 3.21%| mINP: 1.73%
+Best Epoch [5]
+==> Preparing Data Loader...
+8
+[21047 21061 21052 ... 15566 15504 15569]
+[10727 10716 10724 ...  6688  6700  6726]
+Epoch: [8][0/347] lr:0.00010 Loss: 10.8576 (10.8576) rgb_proxy_loss: 10.8576 (10.8576) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [8][50/347] lr:0.00010 Loss: 10.6544 (10.6170) rgb_proxy_loss: 10.6544 (10.6170) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [8][100/347] lr:0.00010 Loss: 10.6431 (10.6438) rgb_proxy_loss: 10.6431 (10.6438) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [8][150/347] lr:0.00010 Loss: 10.7910 (10.6754) rgb_proxy_loss: 10.7910 (10.6754) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [8][200/347] lr:0.00010 Loss: 10.4612 (10.6849) rgb_proxy_loss: 10.4612 (10.6849) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [8][250/347] lr:0.00010 Loss: 10.7821 (10.6695) rgb_proxy_loss: 10.7821 (10.6695) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [8][300/347] lr:0.00010 Loss: 10.4421 (10.6730) rgb_proxy_loss: 10.4421 (10.6730) ir_proxy_loss: 0.0000 (0.0000)
+==> Preparing Data Loader...
+9
+[22166 22169 22169 ... 16346 16324 16330]
+[11826 11828 11828 ...  7011  7039  7023]
+Epoch: [9][0/347] lr:0.00010 Loss: 10.7023 (10.7023) rgb_proxy_loss: 10.7023 (10.7023) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [9][50/347] lr:0.00010 Loss: 10.8258 (10.7489) rgb_proxy_loss: 10.8258 (10.7489) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [9][100/347] lr:0.00010 Loss: 10.7351 (10.7031) rgb_proxy_loss: 10.7351 (10.7031) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [9][150/347] lr:0.00010 Loss: 10.7526 (10.6693) rgb_proxy_loss: 10.7526 (10.6693) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [9][200/347] lr:0.00010 Loss: 10.5896 (10.6477) rgb_proxy_loss: 10.5896 (10.6477) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [9][250/347] lr:0.00010 Loss: 10.6334 (10.6370) rgb_proxy_loss: 10.6334 (10.6370) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [9][300/347] lr:0.00010 Loss: 10.6422 (10.6375) rgb_proxy_loss: 10.6422 (10.6375) ir_proxy_loss: 0.0000 (0.0000)
+Test Epoch: 9
+Extracting Gallery Feature...
+Extracting Time:	 1.565
+Extracting Query Feature...
+Extracting Time:	 9.431
+Evaluation Time:	 5.774
+[0.01183276 0.02734683 0.03839074 0.05153826 0.05942677 0.06915593
+ 0.08019985 0.0915067  0.10780963 0.11701289 0.12542729 0.13463056
+ 0.14514856 0.15855904 0.1756508  0.18958716 0.19800158 0.20615304
+ 0.21772285 0.22902972]
+POOL:   Rank-1: 1.18% | Rank-5: 5.94% | Rank-10: 11.70%| Rank-20: 22.90%| mAP: 3.03%| mINP: 1.52%
+FC:   Rank-1: 1.21% | Rank-5: 6.39% | Rank-10: 12.10%| Rank-20: 23.14%| mAP: 3.17%| mINP: 1.53%
+Best Epoch [5]
+==> Preparing Data Loader...
+10
+[21055 21061 21058 ... 22023 22019 22028]
+[10725 10718 10710 ... 11673 11685 11687]
+Epoch: [10][0/347] lr:0.00005 Loss: 10.7717 (10.7717) rgb_proxy_loss: 10.7717 (10.7717) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [10][50/347] lr:0.00005 Loss: 10.4414 (10.5581) rgb_proxy_loss: 10.4414 (10.5581) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [10][100/347] lr:0.00005 Loss: 10.4072 (10.4957) rgb_proxy_loss: 10.4072 (10.4957) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [10][150/347] lr:0.00005 Loss: 10.5535 (10.4624) rgb_proxy_loss: 10.5535 (10.4624) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [10][200/347] lr:0.00005 Loss: 10.3109 (10.4358) rgb_proxy_loss: 10.3109 (10.4358) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [10][250/347] lr:0.00005 Loss: 10.3134 (10.4228) rgb_proxy_loss: 10.3134 (10.4228) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [10][300/347] lr:0.00005 Loss: 10.3675 (10.4151) rgb_proxy_loss: 10.3675 (10.4151) ir_proxy_loss: 0.0000 (0.0000)
+==> Preparing Data Loader...
+11
+[18872 18861 18857 ... 21255 21262 21246]
+[ 8478  8469  8473 ... 10913 10917 10926]
+Epoch: [11][0/347] lr:0.00005 Loss: 10.3172 (10.3172) rgb_proxy_loss: 10.3172 (10.3172) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [11][50/347] lr:0.00005 Loss: 10.4847 (10.4089) rgb_proxy_loss: 10.4847 (10.4089) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [11][100/347] lr:0.00005 Loss: 10.4003 (10.4047) rgb_proxy_loss: 10.4003 (10.4047) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [11][150/347] lr:0.00005 Loss: 10.4576 (10.4126) rgb_proxy_loss: 10.4576 (10.4126) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [11][200/347] lr:0.00005 Loss: 10.3875 (10.4134) rgb_proxy_loss: 10.3875 (10.4134) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [11][250/347] lr:0.00005 Loss: 10.3792 (10.4110) rgb_proxy_loss: 10.3792 (10.4110) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [11][300/347] lr:0.00005 Loss: 10.3749 (10.4068) rgb_proxy_loss: 10.3749 (10.4068) ir_proxy_loss: 0.0000 (0.0000)
+Test Epoch: 11
+Extracting Gallery Feature...
+Extracting Time:	 1.580
+Extracting Query Feature...
+Extracting Time:	 9.511
+Evaluation Time:	 5.785
+[0.04864581 0.0820405  0.11517223 0.14409676 0.1656587  0.18695767
+ 0.2085196  0.22797792 0.24691033 0.2634762  0.28083092 0.2958191
+ 0.31238496 0.3257954  0.34209836 0.35813832 0.37496713 0.39074415
+ 0.40652117 0.4222982 ]
+POOL:   Rank-1: 4.86% | Rank-5: 16.57% | Rank-10: 26.35%| Rank-20: 42.23%| mAP: 6.75%| mINP: 3.20%
+FC:   Rank-1: 2.52% | Rank-5: 10.02% | Rank-10: 17.54%| Rank-20: 31.00%| mAP: 4.53%| mINP: 2.11%
+Best Epoch [11]
+==> Preparing Data Loader...
+12
+[20568 20586 20580 ... 21194 21192 21187]
+[10189 10193 10194 ... 10852 10862 10855]
+Epoch: [12][0/347] lr:0.00005 Loss: 10.5026 (10.5026) rgb_proxy_loss: 10.5026 (10.5026) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [12][50/347] lr:0.00005 Loss: 10.3591 (10.4186) rgb_proxy_loss: 10.3591 (10.4186) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [12][100/347] lr:0.00005 Loss: 10.3816 (10.4145) rgb_proxy_loss: 10.3816 (10.4145) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [12][150/347] lr:0.00005 Loss: 10.4355 (10.4312) rgb_proxy_loss: 10.4355 (10.4312) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [12][200/347] lr:0.00005 Loss: 10.3620 (10.4371) rgb_proxy_loss: 10.3620 (10.4371) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [12][250/347] lr:0.00005 Loss: 10.5413 (10.4387) rgb_proxy_loss: 10.5413 (10.4387) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [12][300/347] lr:0.00005 Loss: 10.7090 (10.4426) rgb_proxy_loss: 10.7090 (10.4426) ir_proxy_loss: 0.0000 (0.0000)
+==> Preparing Data Loader...
+13
+[17485 17461 17462 ...  2579  2664  2638]
+[7563 7547 7560 ... 1059 1072 1051]
+Epoch: [13][0/347] lr:0.00005 Loss: 10.3734 (10.3734) rgb_proxy_loss: 10.3734 (10.3734) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [13][50/347] lr:0.00005 Loss: 10.3063 (10.4592) rgb_proxy_loss: 10.3063 (10.4592) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [13][100/347] lr:0.00005 Loss: 10.5636 (10.4443) rgb_proxy_loss: 10.5636 (10.4443) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [13][150/347] lr:0.00005 Loss: 10.4349 (10.4338) rgb_proxy_loss: 10.4349 (10.4338) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [13][200/347] lr:0.00005 Loss: 10.6631 (10.4350) rgb_proxy_loss: 10.6631 (10.4350) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [13][250/347] lr:0.00005 Loss: 10.3173 (10.4385) rgb_proxy_loss: 10.3173 (10.4385) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [13][300/347] lr:0.00005 Loss: 10.5445 (10.4516) rgb_proxy_loss: 10.5445 (10.4516) ir_proxy_loss: 0.0000 (0.0000)
+Test Epoch: 13
+Extracting Gallery Feature...
+Extracting Time:	 1.445
+Extracting Query Feature...
+Extracting Time:	 9.471
+Evaluation Time:	 5.762
+[0.02471733 0.04575335 0.06757823 0.0862477  0.10123587 0.11674993
+ 0.13305286 0.14435972 0.15619248 0.1724954  0.18459111 0.19668682
+ 0.21351564 0.22561136 0.23928477 0.25111753 0.26321325 0.2755719
+ 0.28372338 0.29450434]
+POOL:   Rank-1: 2.47% | Rank-5: 10.12% | Rank-10: 17.25%| Rank-20: 29.45%| mAP: 4.46%| mINP: 2.35%
+FC:   Rank-1: 1.66% | Rank-5: 8.41% | Rank-10: 16.07%| Rank-20: 30.08%| mAP: 4.06%| mINP: 1.76%
+Best Epoch [11]
+==> Preparing Data Loader...
+14
+[12160 12093 12120 ... 18510 18500 18510]
+[5247 5226 5214 ... 8116 8119 8125]
+Epoch: [14][0/347] lr:0.00005 Loss: 10.4563 (10.4563) rgb_proxy_loss: 10.4563 (10.4563) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [14][50/347] lr:0.00005 Loss: 10.8720 (10.4807) rgb_proxy_loss: 10.8720 (10.4807) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [14][100/347] lr:0.00005 Loss: 10.6175 (10.4844) rgb_proxy_loss: 10.6175 (10.4844) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [14][150/347] lr:0.00005 Loss: 10.3845 (10.4775) rgb_proxy_loss: 10.3845 (10.4775) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [14][200/347] lr:0.00005 Loss: 10.4366 (10.4765) rgb_proxy_loss: 10.4366 (10.4765) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [14][250/347] lr:0.00005 Loss: 10.2547 (10.4711) rgb_proxy_loss: 10.2547 (10.4711) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [14][300/347] lr:0.00005 Loss: 10.4452 (10.4663) rgb_proxy_loss: 10.4452 (10.4663) ir_proxy_loss: 0.0000 (0.0000)
+==> Preparing Data Loader...
+15
+[19518 19522 19529 ... 14801 14841 14841]
+[9132 9130 9137 ... 6373 6399 6389]
+Epoch: [15][0/347] lr:0.00005 Loss: 10.4649 (10.4649) rgb_proxy_loss: 10.4649 (10.4649) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [15][50/347] lr:0.00005 Loss: 10.4959 (10.4472) rgb_proxy_loss: 10.4959 (10.4472) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [15][100/347] lr:0.00005 Loss: 10.4352 (10.4467) rgb_proxy_loss: 10.4352 (10.4467) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [15][150/347] lr:0.00005 Loss: 10.4056 (10.4400) rgb_proxy_loss: 10.4056 (10.4400) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [15][200/347] lr:0.00005 Loss: 10.4355 (10.4441) rgb_proxy_loss: 10.4355 (10.4441) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [15][250/347] lr:0.00005 Loss: 10.3824 (10.4382) rgb_proxy_loss: 10.3824 (10.4382) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [15][300/347] lr:0.00005 Loss: 10.3414 (10.4421) rgb_proxy_loss: 10.3414 (10.4421) ir_proxy_loss: 0.0000 (0.0000)
+Test Epoch: 15
+Extracting Gallery Feature...
+Extracting Time:	 1.624
+Extracting Query Feature...
+Extracting Time:	 9.321
+Evaluation Time:	 5.809
+[0.0460163  0.08493295 0.11937944 0.15566657 0.18537997 0.2111491
+ 0.23586643 0.2587431  0.27977914 0.3010781  0.32158822 0.33736524
+ 0.35261637 0.36918223 0.38259268 0.40257692 0.41782802 0.43044963
+ 0.44254535 0.45516697]
+POOL:   Rank-1: 4.60% | Rank-5: 18.54% | Rank-10: 30.11%| Rank-20: 45.52%| mAP: 7.22%| mINP: 3.51%
+FC:   Rank-1: 4.50% | Rank-5: 15.54% | Rank-10: 26.16%| Rank-20: 43.12%| mAP: 6.60%| mINP: 2.91%
+Best Epoch [15]
+==> Preparing Data Loader...
+16
+[10453 10455 10428 ... 15458 15474 15489]
+[4503 4520 4495 ... 6686 6649 6677]
+Epoch: [16][0/347] lr:0.00005 Loss: 10.4382 (10.4382) rgb_proxy_loss: 10.4382 (10.4382) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [16][50/347] lr:0.00005 Loss: 10.2927 (10.4161) rgb_proxy_loss: 10.2927 (10.4161) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [16][100/347] lr:0.00005 Loss: 10.4001 (10.4277) rgb_proxy_loss: 10.4001 (10.4277) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [16][150/347] lr:0.00005 Loss: 10.3008 (10.4186) rgb_proxy_loss: 10.3008 (10.4186) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [16][200/347] lr:0.00005 Loss: 10.3101 (10.4232) rgb_proxy_loss: 10.3101 (10.4232) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [16][250/347] lr:0.00005 Loss: 10.3495 (10.4230) rgb_proxy_loss: 10.3495 (10.4230) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [16][300/347] lr:0.00005 Loss: 10.4290 (10.4247) rgb_proxy_loss: 10.4290 (10.4247) ir_proxy_loss: 0.0000 (0.0000)
+==> Preparing Data Loader...
+17
+[21282 21284 21276 ...  3363  3376  3373]
+[10934 10947 10945 ...  1412  1417  1416]
+Epoch: [17][0/347] lr:0.00005 Loss: 10.4080 (10.4080) rgb_proxy_loss: 10.4080 (10.4080) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [17][50/347] lr:0.00005 Loss: 10.4425 (10.4081) rgb_proxy_loss: 10.4425 (10.4081) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [17][100/347] lr:0.00005 Loss: 10.3906 (10.4386) rgb_proxy_loss: 10.3906 (10.4386) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [17][150/347] lr:0.00005 Loss: 10.6017 (10.4335) rgb_proxy_loss: 10.6017 (10.4335) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [17][200/347] lr:0.00005 Loss: 10.4870 (10.4378) rgb_proxy_loss: 10.4870 (10.4378) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [17][250/347] lr:0.00005 Loss: 10.2255 (10.4345) rgb_proxy_loss: 10.2255 (10.4345) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [17][300/347] lr:0.00005 Loss: 10.4729 (10.4356) rgb_proxy_loss: 10.4729 (10.4356) ir_proxy_loss: 0.0000 (0.0000)
+Test Epoch: 17
+Extracting Gallery Feature...
+Extracting Time:	 1.571
+Extracting Query Feature...
+Extracting Time:	 9.323
+Evaluation Time:	 5.808
+[0.05495661 0.09176966 0.12200894 0.15067053 0.17591375 0.20168288
+ 0.21982646 0.23665527 0.2519064  0.27136472 0.28582698 0.29818565
+ 0.31738102 0.333421   0.34735736 0.36024192 0.37601894 0.3878517
+ 0.40415463 0.41572443]
+POOL:   Rank-1: 5.50% | Rank-5: 17.59% | Rank-10: 27.14%| Rank-20: 41.57%| mAP: 7.18%| mINP: 3.26%
+FC:   Rank-1: 3.13% | Rank-5: 14.15% | Rank-10: 23.38%| Rank-20: 39.21%| mAP: 6.22%| mINP: 3.01%
+Best Epoch [15]
+==> Preparing Data Loader...
+18
+[ 3422  3404  3429 ... 16477 16545 16533]
+[1460 1478 1482 ... 7102 7113 7090]
+Epoch: [18][0/347] lr:0.00005 Loss: 10.5249 (10.5249) rgb_proxy_loss: 10.5249 (10.5249) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [18][50/347] lr:0.00005 Loss: 10.6171 (10.4479) rgb_proxy_loss: 10.6171 (10.4479) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [18][100/347] lr:0.00005 Loss: 10.5400 (10.4614) rgb_proxy_loss: 10.5400 (10.4614) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [18][150/347] lr:0.00005 Loss: 10.2519 (10.4609) rgb_proxy_loss: 10.2519 (10.4609) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [18][200/347] lr:0.00005 Loss: 10.3179 (10.4469) rgb_proxy_loss: 10.3179 (10.4469) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [18][250/347] lr:0.00005 Loss: 10.4388 (10.4405) rgb_proxy_loss: 10.4388 (10.4405) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [18][300/347] lr:0.00005 Loss: 10.4351 (10.4411) rgb_proxy_loss: 10.4351 (10.4411) ir_proxy_loss: 0.0000 (0.0000)
+==> Preparing Data Loader...
+19
+[20827 20816 20818 ... 19922 19909 19918]
+[10515 10509 10523 ...  9546  9530  9543]
+Epoch: [19][0/347] lr:0.00005 Loss: 10.4844 (10.4844) rgb_proxy_loss: 10.4844 (10.4844) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [19][50/347] lr:0.00005 Loss: 10.3168 (10.4355) rgb_proxy_loss: 10.3168 (10.4355) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [19][100/347] lr:0.00005 Loss: 10.3484 (10.4218) rgb_proxy_loss: 10.3484 (10.4218) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [19][150/347] lr:0.00005 Loss: 10.4973 (10.4419) rgb_proxy_loss: 10.4973 (10.4419) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [19][200/347] lr:0.00005 Loss: 10.5988 (10.4450) rgb_proxy_loss: 10.5988 (10.4450) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [19][250/347] lr:0.00005 Loss: 10.4108 (10.4379) rgb_proxy_loss: 10.4108 (10.4379) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [19][300/347] lr:0.00005 Loss: 10.3638 (10.4367) rgb_proxy_loss: 10.3638 (10.4367) ir_proxy_loss: 0.0000 (0.0000)
+Test Epoch: 19
+Extracting Gallery Feature...
+Extracting Time:	 1.510
+Extracting Query Feature...
+Extracting Time:	 9.376
+Evaluation Time:	 5.956
+[0.07993689 0.1312122  0.17118065 0.20299764 0.22981857 0.25295818
+ 0.27846438 0.3005522  0.32132527 0.33815408 0.35787535 0.37680778
+ 0.39705497 0.40967658 0.42571655 0.4401788  0.45621878 0.4698922
+ 0.48251382 0.4946095 ]
+POOL:   Rank-1: 7.99% | Rank-5: 22.98% | Rank-10: 33.82%| Rank-20: 49.46%| mAP: 9.49%| mINP: 4.29%
+FC:   Rank-1: 5.29% | Rank-5: 19.77% | Rank-10: 31.53%| Rank-20: 47.46%| mAP: 7.77%| mINP: 3.30%
+Best Epoch [19]
+==> Preparing Data Loader...
+20
+[19098 19104 19099 ... 19447 19442 19444]
+[8719 8721 8717 ... 9060 9054 9052]
+Epoch: [20][0/347] lr:0.00003 Loss: 10.4449 (10.4449) rgb_proxy_loss: 10.4449 (10.4449) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [20][50/347] lr:0.00003 Loss: 10.2558 (10.3221) rgb_proxy_loss: 10.2558 (10.3221) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [20][100/347] lr:0.00003 Loss: 10.2661 (10.2700) rgb_proxy_loss: 10.2661 (10.2700) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [20][150/347] lr:0.00003 Loss: 10.2646 (10.2517) rgb_proxy_loss: 10.2646 (10.2517) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [20][200/347] lr:0.00003 Loss: 10.2543 (10.2434) rgb_proxy_loss: 10.2543 (10.2434) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [20][250/347] lr:0.00003 Loss: 10.1978 (10.2387) rgb_proxy_loss: 10.1978 (10.2387) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [20][300/347] lr:0.00003 Loss: 10.2881 (10.2362) rgb_proxy_loss: 10.2881 (10.2362) ir_proxy_loss: 0.0000 (0.0000)
+==> Preparing Data Loader...
+21
+[17246 17239 17286 ... 19102 19100 19104]
+[7445 7442 7434 ... 8722 8725 8724]
+Epoch: [21][0/347] lr:0.00003 Loss: 10.2411 (10.2411) rgb_proxy_loss: 10.2411 (10.2411) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [21][50/347] lr:0.00003 Loss: 10.2633 (10.2384) rgb_proxy_loss: 10.2633 (10.2384) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [21][100/347] lr:0.00003 Loss: 10.2454 (10.2310) rgb_proxy_loss: 10.2454 (10.2310) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [21][150/347] lr:0.00003 Loss: 10.2253 (10.2293) rgb_proxy_loss: 10.2253 (10.2293) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [21][200/347] lr:0.00003 Loss: 10.1747 (10.2327) rgb_proxy_loss: 10.1747 (10.2327) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [21][250/347] lr:0.00003 Loss: 10.2562 (10.2319) rgb_proxy_loss: 10.2562 (10.2319) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [21][300/347] lr:0.00003 Loss: 10.1874 (10.2327) rgb_proxy_loss: 10.1874 (10.2327) ir_proxy_loss: 0.0000 (0.0000)
+Test Epoch: 21
+Extracting Gallery Feature...
+Extracting Time:	 1.485
+Extracting Query Feature...
+Extracting Time:	 9.390
+Evaluation Time:	 5.837
+[0.11859059 0.1761767  0.2127268  0.24612148 0.27504602 0.30081514
+ 0.32395476 0.3486721  0.36786747 0.38601103 0.40126216 0.41914278
+ 0.43071258 0.44701552 0.4651591  0.47962135 0.4909282  0.50565344
+ 0.5190639  0.53089666]
+POOL:   Rank-1: 11.86% | Rank-5: 27.50% | Rank-10: 38.60%| Rank-20: 53.09%| mAP: 12.17%| mINP: 5.64%
+FC:   Rank-1: 6.57% | Rank-5: 23.06% | Rank-10: 35.81%| Rank-20: 53.17%| mAP: 8.64%| mINP: 3.50%
+Best Epoch [21]
+==> Preparing Data Loader...
+22
+[ 2265  2237  2222 ... 11601 11686 11680]
+[ 887  868  890 ... 5045 5032 5042]
+Epoch: [22][0/347] lr:0.00003 Loss: 10.2357 (10.2357) rgb_proxy_loss: 10.2357 (10.2357) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [22][50/347] lr:0.00003 Loss: 10.1695 (10.2326) rgb_proxy_loss: 10.1695 (10.2326) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [22][100/347] lr:0.00003 Loss: 10.2767 (10.2361) rgb_proxy_loss: 10.2767 (10.2361) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [22][150/347] lr:0.00003 Loss: 10.1138 (10.2332) rgb_proxy_loss: 10.1138 (10.2332) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [22][200/347] lr:0.00003 Loss: 10.2259 (10.2370) rgb_proxy_loss: 10.2259 (10.2370) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [22][250/347] lr:0.00003 Loss: 10.2440 (10.2386) rgb_proxy_loss: 10.2440 (10.2386) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [22][300/347] lr:0.00003 Loss: 10.2932 (10.2380) rgb_proxy_loss: 10.2932 (10.2380) ir_proxy_loss: 0.0000 (0.0000)
+==> Preparing Data Loader...
+23
+[16163 16091 16144 ... 10980 10960 10977]
+[6936 6946 6935 ... 4689 4719 4700]
+Epoch: [23][0/347] lr:0.00003 Loss: 10.1400 (10.1400) rgb_proxy_loss: 10.1400 (10.1400) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [23][50/347] lr:0.00003 Loss: 10.2442 (10.2493) rgb_proxy_loss: 10.2442 (10.2493) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [23][100/347] lr:0.00003 Loss: 10.2467 (10.2439) rgb_proxy_loss: 10.2467 (10.2439) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [23][150/347] lr:0.00003 Loss: 10.3063 (10.2467) rgb_proxy_loss: 10.3063 (10.2467) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [23][200/347] lr:0.00003 Loss: 10.2702 (10.2490) rgb_proxy_loss: 10.2702 (10.2490) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [23][250/347] lr:0.00003 Loss: 10.2196 (10.2497) rgb_proxy_loss: 10.2196 (10.2497) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [23][300/347] lr:0.00003 Loss: 10.2683 (10.2506) rgb_proxy_loss: 10.2683 (10.2506) ir_proxy_loss: 0.0000 (0.0000)
+Test Epoch: 23
+Extracting Gallery Feature...
+Extracting Time:	 1.582
+Extracting Query Feature...
+Extracting Time:	 9.501
+Evaluation Time:	 5.802
+[0.10281357 0.16697344 0.20089403 0.23455167 0.26216146 0.28346044
+ 0.30765185 0.32921377 0.3507757  0.37365237 0.3910071  0.40494347
+ 0.42203525 0.43833816 0.45069683 0.46489614 0.48067316 0.49487248
+ 0.5072311  0.5180121 ]
+POOL:   Rank-1: 10.28% | Rank-5: 26.22% | Rank-10: 37.37%| Rank-20: 51.80%| mAP: 11.36%| mINP: 5.44%
+FC:   Rank-1: 8.26% | Rank-5: 25.69% | Rank-10: 37.89%| Rank-20: 54.19%| mAP: 9.46%| mINP: 3.48%
+Best Epoch [23]
+==> Preparing Data Loader...
+24
+[10900 10813 10877 ... 14556 14525 14506]
+[4669 4681 4682 ... 6283 6279 6266]
+Epoch: [24][0/347] lr:0.00003 Loss: 10.1786 (10.1786) rgb_proxy_loss: 10.1786 (10.1786) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [24][50/347] lr:0.00003 Loss: 10.0679 (10.2528) rgb_proxy_loss: 10.0679 (10.2528) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [24][100/347] lr:0.00003 Loss: 10.2109 (10.2496) rgb_proxy_loss: 10.2109 (10.2496) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [24][150/347] lr:0.00003 Loss: 10.1535 (10.2523) rgb_proxy_loss: 10.1535 (10.2523) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [24][200/347] lr:0.00003 Loss: 10.3553 (10.2561) rgb_proxy_loss: 10.3553 (10.2561) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [24][250/347] lr:0.00003 Loss: 10.2130 (10.2540) rgb_proxy_loss: 10.2130 (10.2540) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [24][300/347] lr:0.00003 Loss: 10.1565 (10.2505) rgb_proxy_loss: 10.1565 (10.2505) ir_proxy_loss: 0.0000 (0.0000)
+==> Preparing Data Loader...
+25
+[11724 11728 11756 ... 21512 21518 21507]
+[ 5063  5069  5050 ... 11165 11160 11159]
+Epoch: [25][0/347] lr:0.00003 Loss: 10.3575 (10.3575) rgb_proxy_loss: 10.3575 (10.3575) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [25][50/347] lr:0.00003 Loss: 10.0945 (10.2495) rgb_proxy_loss: 10.0945 (10.2495) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [25][100/347] lr:0.00003 Loss: 10.2443 (10.2556) rgb_proxy_loss: 10.2443 (10.2556) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [25][150/347] lr:0.00003 Loss: 10.2287 (10.2410) rgb_proxy_loss: 10.2287 (10.2410) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [25][200/347] lr:0.00003 Loss: 10.1557 (10.2435) rgb_proxy_loss: 10.1557 (10.2435) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [25][250/347] lr:0.00003 Loss: 10.2453 (10.2493) rgb_proxy_loss: 10.2453 (10.2493) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [25][300/347] lr:0.00003 Loss: 10.2210 (10.2499) rgb_proxy_loss: 10.2210 (10.2499) ir_proxy_loss: 0.0000 (0.0000)
+Test Epoch: 25
+Extracting Gallery Feature...
+Extracting Time:	 1.534
+Extracting Query Feature...
+Extracting Time:	 9.447
+Evaluation Time:	 5.847
+[0.10386537 0.16486984 0.20510124 0.23823297 0.2739942  0.30449644
+ 0.33105442 0.35629767 0.37680778 0.39442545 0.4112543  0.42676833
+ 0.44464895 0.45858532 0.476203   0.49145412 0.5064423  0.52037865
+ 0.5335262  0.5440442 ]
+POOL:   Rank-1: 10.39% | Rank-5: 27.40% | Rank-10: 39.44%| Rank-20: 54.40%| mAP: 11.32%| mINP: 4.78%
+FC:   Rank-1: 6.76% | Rank-5: 22.93% | Rank-10: 35.26%| Rank-20: 52.35%| mAP: 8.48%| mINP: 2.64%
+Best Epoch [23]
+==> Preparing Data Loader...
+26
+[21527 21521 21527 ... 21795 21797 21799]
+[11168 11173 11184 ... 11458 11463 11465]
+Epoch: [26][0/347] lr:0.00003 Loss: 10.1713 (10.1713) rgb_proxy_loss: 10.1713 (10.1713) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [26][50/347] lr:0.00003 Loss: 10.2345 (10.2699) rgb_proxy_loss: 10.2345 (10.2699) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [26][100/347] lr:0.00003 Loss: 10.1865 (10.2631) rgb_proxy_loss: 10.1865 (10.2631) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [26][150/347] lr:0.00003 Loss: 10.2164 (10.2526) rgb_proxy_loss: 10.2164 (10.2526) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [26][200/347] lr:0.00003 Loss: 10.2848 (10.2497) rgb_proxy_loss: 10.2848 (10.2497) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [26][250/347] lr:0.00003 Loss: 10.2934 (10.2475) rgb_proxy_loss: 10.2934 (10.2475) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [26][300/347] lr:0.00003 Loss: 10.2934 (10.2526) rgb_proxy_loss: 10.2934 (10.2526) ir_proxy_loss: 0.0000 (0.0000)
+==> Preparing Data Loader...
+27
+[20328 20335 20336 ... 19339 19340 19340]
+[9952 9967 9960 ... 8956 8966 8955]
+Epoch: [27][0/347] lr:0.00003 Loss: 10.1633 (10.1633) rgb_proxy_loss: 10.1633 (10.1633) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [27][50/347] lr:0.00003 Loss: 10.2436 (10.2542) rgb_proxy_loss: 10.2436 (10.2542) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [27][100/347] lr:0.00003 Loss: 10.3870 (10.2589) rgb_proxy_loss: 10.3870 (10.2589) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [27][150/347] lr:0.00003 Loss: 10.1276 (10.2518) rgb_proxy_loss: 10.1276 (10.2518) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [27][200/347] lr:0.00003 Loss: 10.1969 (10.2543) rgb_proxy_loss: 10.1969 (10.2543) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [27][250/347] lr:0.00003 Loss: 10.2348 (10.2541) rgb_proxy_loss: 10.2348 (10.2541) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [27][300/347] lr:0.00003 Loss: 10.4093 (10.2540) rgb_proxy_loss: 10.4093 (10.2540) ir_proxy_loss: 0.0000 (0.0000)
+Test Epoch: 27
+Extracting Gallery Feature...
+Extracting Time:	 1.575
+Extracting Query Feature...
+Extracting Time:	 9.457
+Evaluation Time:	 5.785
+[0.10886142 0.16171443 0.20063108 0.23297396 0.259269   0.28214568
+ 0.30844072 0.33473572 0.3555088  0.37838548 0.40126216 0.42282408
+ 0.43938994 0.45437813 0.4683145  0.4835656  0.49776492 0.50880885
+ 0.51774913 0.5295819 ]
+POOL:   Rank-1: 10.89% | Rank-5: 25.93% | Rank-10: 37.84%| Rank-20: 52.96%| mAP: 11.15%| mINP: 4.94%
+FC:   Rank-1: 7.05% | Rank-5: 20.22% | Rank-10: 30.06%| Rank-20: 45.83%| mAP: 8.20%| mINP: 2.94%
+Best Epoch [23]
+==> Preparing Data Loader...
+28
+[ 5333  5388  5377 ... 14718 14670 14730]
+[2304 2297 2323 ... 6356 6363 6367]
+Epoch: [28][0/347] lr:0.00003 Loss: 10.2744 (10.2744) rgb_proxy_loss: 10.2744 (10.2744) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [28][50/347] lr:0.00003 Loss: 10.0582 (10.2421) rgb_proxy_loss: 10.0582 (10.2421) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [28][100/347] lr:0.00003 Loss: 10.2525 (10.2416) rgb_proxy_loss: 10.2525 (10.2416) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [28][150/347] lr:0.00003 Loss: 10.2488 (10.2423) rgb_proxy_loss: 10.2488 (10.2423) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [28][200/347] lr:0.00003 Loss: 10.2844 (10.2447) rgb_proxy_loss: 10.2844 (10.2447) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [28][250/347] lr:0.00003 Loss: 10.2604 (10.2482) rgb_proxy_loss: 10.2604 (10.2482) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [28][300/347] lr:0.00003 Loss: 10.1899 (10.2496) rgb_proxy_loss: 10.1899 (10.2496) ir_proxy_loss: 0.0000 (0.0000)
+==> Preparing Data Loader...
+29
+[21070 21079 21080 ...  3703  3698  3748]
+[10732 10743 10735 ...  1616  1642  1644]
+Epoch: [29][0/347] lr:0.00003 Loss: 10.2776 (10.2776) rgb_proxy_loss: 10.2776 (10.2776) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [29][50/347] lr:0.00003 Loss: 10.2055 (10.2476) rgb_proxy_loss: 10.2055 (10.2476) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [29][100/347] lr:0.00003 Loss: 10.2134 (10.2532) rgb_proxy_loss: 10.2134 (10.2532) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [29][150/347] lr:0.00003 Loss: 10.2491 (10.2520) rgb_proxy_loss: 10.2491 (10.2520) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [29][200/347] lr:0.00003 Loss: 10.2598 (10.2520) rgb_proxy_loss: 10.2598 (10.2520) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [29][250/347] lr:0.00003 Loss: 10.1882 (10.2530) rgb_proxy_loss: 10.1882 (10.2530) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [29][300/347] lr:0.00003 Loss: 10.2697 (10.2534) rgb_proxy_loss: 10.2697 (10.2534) ir_proxy_loss: 0.0000 (0.0000)
+Test Epoch: 29
+Extracting Gallery Feature...
+Extracting Time:	 1.512
+Extracting Query Feature...
+Extracting Time:	 9.409
+Evaluation Time:	 5.839
+[0.10780963 0.1630292  0.20773074 0.24769919 0.27478307 0.30081514
+ 0.3297397  0.35156456 0.37733367 0.39968446 0.41730213 0.43623456
+ 0.45280042 0.4698922  0.4846174  0.49881673 0.5159085  0.5285301
+ 0.5456219  0.56008416]
+POOL:   Rank-1: 10.78% | Rank-5: 27.48% | Rank-10: 39.97%| Rank-20: 56.01%| mAP: 11.72%| mINP: 5.56%
+FC:   Rank-1: 8.49% | Rank-5: 21.25% | Rank-10: 31.63%| Rank-20: 47.65%| mAP: 8.62%| mINP: 3.24%
+Best Epoch [29]
+==> Preparing Data Loader...
+30
+[1160 1198 1174 ... 1202 1144 1230]
+[481 469 494 ... 493 479 478]
+Epoch: [30][0/347] lr:0.00001 Loss: 10.3495 (10.3495) rgb_proxy_loss: 10.3495 (10.3495) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [30][50/347] lr:0.00001 Loss: 10.0840 (10.1701) rgb_proxy_loss: 10.0840 (10.1701) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [30][100/347] lr:0.00001 Loss: 10.0987 (10.1645) rgb_proxy_loss: 10.0987 (10.1645) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [30][150/347] lr:0.00001 Loss: 10.0994 (10.1590) rgb_proxy_loss: 10.0994 (10.1590) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [30][200/347] lr:0.00001 Loss: 10.1264 (10.1558) rgb_proxy_loss: 10.1264 (10.1558) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [30][250/347] lr:0.00001 Loss: 10.2312 (10.1528) rgb_proxy_loss: 10.2312 (10.1528) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [30][300/347] lr:0.00001 Loss: 10.1932 (10.1497) rgb_proxy_loss: 10.1932 (10.1497) ir_proxy_loss: 0.0000 (0.0000)
+==> Preparing Data Loader...
+31
+[19014 19032 19030 ... 16710 16658 16716]
+[8642 8638 8628 ... 7171 7187 7188]
+Epoch: [31][0/347] lr:0.00001 Loss: 10.2314 (10.2314) rgb_proxy_loss: 10.2314 (10.2314) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [31][50/347] lr:0.00001 Loss: 10.1574 (10.1447) rgb_proxy_loss: 10.1574 (10.1447) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [31][100/347] lr:0.00001 Loss: 10.1200 (10.1446) rgb_proxy_loss: 10.1200 (10.1446) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [31][150/347] lr:0.00001 Loss: 10.1084 (10.1468) rgb_proxy_loss: 10.1084 (10.1468) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [31][200/347] lr:0.00001 Loss: 10.0624 (10.1476) rgb_proxy_loss: 10.0624 (10.1476) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [31][250/347] lr:0.00001 Loss: 10.1608 (10.1453) rgb_proxy_loss: 10.1608 (10.1453) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [31][300/347] lr:0.00001 Loss: 10.1513 (10.1444) rgb_proxy_loss: 10.1513 (10.1444) ir_proxy_loss: 0.0000 (0.0000)
+Test Epoch: 31
+Extracting Gallery Feature...
+Extracting Time:	 1.585
+Extracting Query Feature...
+Extracting Time:	 9.414
+Evaluation Time:	 5.734
+[0.12779385 0.19195372 0.23507757 0.2666316  0.29529318 0.31948462
+ 0.3407836  0.364975   0.3899553  0.41046542 0.42887193 0.44990796
+ 0.46568498 0.48119906 0.49776492 0.51301605 0.52668947 0.5372075
+ 0.54956615 0.5619248 ]
+POOL:   Rank-1: 12.78% | Rank-5: 29.53% | Rank-10: 41.05%| Rank-20: 56.19%| mAP: 12.91%| mINP: 6.08%
+FC:   Rank-1: 7.36% | Rank-5: 21.22% | Rank-10: 30.92%| Rank-20: 47.88%| mAP: 8.56%| mINP: 3.51%
+Best Epoch [29]
+==> Preparing Data Loader...
+32
+[ 9469  9466  9499 ... 20936 20940 20927]
+[ 4048  4050  4073 ... 10598 10604 10598]
+Epoch: [32][0/347] lr:0.00001 Loss: 10.1622 (10.1622) rgb_proxy_loss: 10.1622 (10.1622) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [32][50/347] lr:0.00001 Loss: 10.1256 (10.1434) rgb_proxy_loss: 10.1256 (10.1434) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [32][100/347] lr:0.00001 Loss: 10.2144 (10.1355) rgb_proxy_loss: 10.2144 (10.1355) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [32][150/347] lr:0.00001 Loss: 10.1601 (10.1402) rgb_proxy_loss: 10.1601 (10.1402) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [32][200/347] lr:0.00001 Loss: 10.0329 (10.1418) rgb_proxy_loss: 10.0329 (10.1418) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [32][250/347] lr:0.00001 Loss: 10.1183 (10.1397) rgb_proxy_loss: 10.1183 (10.1397) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [32][300/347] lr:0.00001 Loss: 10.2681 (10.1411) rgb_proxy_loss: 10.2681 (10.1411) ir_proxy_loss: 0.0000 (0.0000)
+==> Preparing Data Loader...
+33
+[15699 15752 15691 ... 19369 19357 19370]
+[6807 6796 6772 ... 8982 8970 8968]
+Epoch: [33][0/347] lr:0.00001 Loss: 10.1328 (10.1328) rgb_proxy_loss: 10.1328 (10.1328) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [33][50/347] lr:0.00001 Loss: 10.1855 (10.1496) rgb_proxy_loss: 10.1855 (10.1496) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [33][100/347] lr:0.00001 Loss: 10.1340 (10.1488) rgb_proxy_loss: 10.1340 (10.1488) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [33][150/347] lr:0.00001 Loss: 10.1754 (10.1470) rgb_proxy_loss: 10.1754 (10.1470) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [33][200/347] lr:0.00001 Loss: 10.0997 (10.1515) rgb_proxy_loss: 10.0997 (10.1515) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [33][250/347] lr:0.00001 Loss: 10.0956 (10.1502) rgb_proxy_loss: 10.0956 (10.1502) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [33][300/347] lr:0.00001 Loss: 10.1477 (10.1484) rgb_proxy_loss: 10.1477 (10.1484) ir_proxy_loss: 0.0000 (0.0000)
+Test Epoch: 33
+Extracting Gallery Feature...
+Extracting Time:	 1.512
+Extracting Query Feature...
+Extracting Time:	 9.399
+Evaluation Time:	 5.887
+[0.1312122  0.19247963 0.23875888 0.2739942  0.306863   0.3392059
+ 0.3665527  0.39074415 0.41020247 0.42939785 0.45095977 0.46910334
+ 0.486721   0.5011833  0.51774913 0.53536683 0.55035496 0.56218773
+ 0.57638705 0.5890087 ]
+POOL:   Rank-1: 13.12% | Rank-5: 30.69% | Rank-10: 42.94%| Rank-20: 58.90%| mAP: 13.18%| mINP: 5.84%
+FC:   Rank-1: 8.49% | Rank-5: 23.61% | Rank-10: 36.89%| Rank-20: 53.46%| mAP: 9.55%| mINP: 3.97%
+Best Epoch [29]
+==> Preparing Data Loader...
+34
+[ 3265  3289  3225 ... 21423 21417 21423]
+[ 1336  1340  1334 ... 11084 11068 11076]
+Epoch: [34][0/347] lr:0.00001 Loss: 10.2262 (10.2262) rgb_proxy_loss: 10.2262 (10.2262) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [34][50/347] lr:0.00001 Loss: 10.1489 (10.1491) rgb_proxy_loss: 10.1489 (10.1491) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [34][100/347] lr:0.00001 Loss: 10.1252 (10.1527) rgb_proxy_loss: 10.1252 (10.1527) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [34][150/347] lr:0.00001 Loss: 10.1133 (10.1484) rgb_proxy_loss: 10.1133 (10.1484) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [34][200/347] lr:0.00001 Loss: 10.1425 (10.1466) rgb_proxy_loss: 10.1425 (10.1466) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [34][250/347] lr:0.00001 Loss: 10.1411 (10.1500) rgb_proxy_loss: 10.1411 (10.1500) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [34][300/347] lr:0.00001 Loss: 10.1244 (10.1499) rgb_proxy_loss: 10.1244 (10.1499) ir_proxy_loss: 0.0000 (0.0000)
+==> Preparing Data Loader...
+35
+[20703 20693 20698 ...  8974  8946  8987]
+[10324 10326 10321 ...  3871  3853  3883]
+Epoch: [35][0/347] lr:0.00001 Loss: 10.1560 (10.1560) rgb_proxy_loss: 10.1560 (10.1560) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [35][50/347] lr:0.00001 Loss: 10.0938 (10.1443) rgb_proxy_loss: 10.0938 (10.1443) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [35][100/347] lr:0.00001 Loss: 10.0595 (10.1392) rgb_proxy_loss: 10.0595 (10.1392) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [35][150/347] lr:0.00001 Loss: 10.1473 (10.1397) rgb_proxy_loss: 10.1473 (10.1397) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [35][200/347] lr:0.00001 Loss: 10.1635 (10.1394) rgb_proxy_loss: 10.1635 (10.1394) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [35][250/347] lr:0.00001 Loss: 10.2179 (10.1409) rgb_proxy_loss: 10.2179 (10.1409) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [35][300/347] lr:0.00001 Loss: 10.2235 (10.1417) rgb_proxy_loss: 10.2235 (10.1417) ir_proxy_loss: 0.0000 (0.0000)
+Test Epoch: 35
+Extracting Gallery Feature...
+Extracting Time:	 1.554
+Extracting Query Feature...
+Extracting Time:	 9.403
+Evaluation Time:	 5.845
+[0.1333158  0.19668682 0.24165133 0.27820143 0.31028137 0.33736524
+ 0.3612937  0.38232973 0.40494347 0.4244018  0.44543782 0.4667368
+ 0.48750985 0.5035498  0.51617146 0.5303708  0.54614776 0.560873
+ 0.57533526 0.5848015 ]
+POOL:   Rank-1: 13.33% | Rank-5: 31.03% | Rank-10: 42.44%| Rank-20: 58.48%| mAP: 13.48%| mINP: 6.26%
+FC:   Rank-1: 9.65% | Rank-5: 26.85% | Rank-10: 40.49%| Rank-20: 56.43%| mAP: 10.28%| mINP: 3.56%
+Best Epoch [35]
+==> Preparing Data Loader...
+36
+[19132 19129 19113 ... 18914 18926 18930]
+[8739 8735 8729 ... 8546 8544 8543]
+Epoch: [36][0/347] lr:0.00001 Loss: 10.1113 (10.1113) rgb_proxy_loss: 10.1113 (10.1113) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [36][50/347] lr:0.00001 Loss: 10.1268 (10.1475) rgb_proxy_loss: 10.1268 (10.1475) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [36][100/347] lr:0.00001 Loss: 10.1819 (10.1489) rgb_proxy_loss: 10.1819 (10.1489) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [36][150/347] lr:0.00001 Loss: 10.0927 (10.1435) rgb_proxy_loss: 10.0927 (10.1435) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [36][200/347] lr:0.00001 Loss: 10.1230 (10.1447) rgb_proxy_loss: 10.1230 (10.1447) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [36][250/347] lr:0.00001 Loss: 10.2354 (10.1446) rgb_proxy_loss: 10.2354 (10.1446) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [36][300/347] lr:0.00001 Loss: 10.1215 (10.1442) rgb_proxy_loss: 10.1215 (10.1442) ir_proxy_loss: 0.0000 (0.0000)
+==> Preparing Data Loader...
+37
+[18677 18686 18675 ... 19532 19516 19513]
+[8296 8293 8295 ... 9133 9137 9128]
+Epoch: [37][0/347] lr:0.00001 Loss: 10.1624 (10.1624) rgb_proxy_loss: 10.1624 (10.1624) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [37][50/347] lr:0.00001 Loss: 10.1614 (10.1514) rgb_proxy_loss: 10.1614 (10.1514) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [37][100/347] lr:0.00001 Loss: 10.1516 (10.1496) rgb_proxy_loss: 10.1516 (10.1496) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [37][150/347] lr:0.00001 Loss: 10.1792 (10.1476) rgb_proxy_loss: 10.1792 (10.1476) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [37][200/347] lr:0.00001 Loss: 10.1420 (10.1480) rgb_proxy_loss: 10.1420 (10.1480) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [37][250/347] lr:0.00001 Loss: 10.1480 (10.1450) rgb_proxy_loss: 10.1480 (10.1450) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [37][300/347] lr:0.00001 Loss: 10.1365 (10.1462) rgb_proxy_loss: 10.1365 (10.1462) ir_proxy_loss: 0.0000 (0.0000)
+Test Epoch: 37
+Extracting Gallery Feature...
+Extracting Time:	 1.582
+Extracting Query Feature...
+Extracting Time:	 9.456
+Evaluation Time:	 5.830
+[0.12779385 0.18800947 0.23691823 0.2682093  0.2979227  0.32526952
+ 0.36024192 0.38338155 0.40389165 0.42834604 0.44990796 0.47146988
+ 0.49119118 0.50880885 0.5206416  0.53562975 0.5474625  0.5613989
+ 0.5771759  0.59084934]
+POOL:   Rank-1: 12.78% | Rank-5: 29.79% | Rank-10: 42.83%| Rank-20: 59.08%| mAP: 13.46%| mINP: 6.47%
+FC:   Rank-1: 9.28% | Rank-5: 25.06% | Rank-10: 36.81%| Rank-20: 53.27%| mAP: 9.78%| mINP: 3.53%
+Best Epoch [35]
+==> Preparing Data Loader...
+38
+[ 6264  6250  6273 ... 19954 19948 19966]
+[2701 2712 2690 ... 9582 9581 9584]
+Epoch: [38][0/347] lr:0.00001 Loss: 10.1351 (10.1351) rgb_proxy_loss: 10.1351 (10.1351) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [38][50/347] lr:0.00001 Loss: 10.0793 (10.1511) rgb_proxy_loss: 10.0793 (10.1511) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [38][100/347] lr:0.00001 Loss: 10.0128 (10.1480) rgb_proxy_loss: 10.0128 (10.1480) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [38][150/347] lr:0.00001 Loss: 10.1664 (10.1462) rgb_proxy_loss: 10.1664 (10.1462) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [38][200/347] lr:0.00001 Loss: 10.1437 (10.1499) rgb_proxy_loss: 10.1437 (10.1499) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [38][250/347] lr:0.00001 Loss: 10.1303 (10.1482) rgb_proxy_loss: 10.1303 (10.1482) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [38][300/347] lr:0.00001 Loss: 10.1659 (10.1482) rgb_proxy_loss: 10.1659 (10.1482) ir_proxy_loss: 0.0000 (0.0000)
+==> Preparing Data Loader...
+39
+[13725 13731 13754 ... 19413 19426 19413]
+[5894 5927 5895 ... 9043 9041 9034]
+Epoch: [39][0/347] lr:0.00001 Loss: 10.2450 (10.2450) rgb_proxy_loss: 10.2450 (10.2450) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [39][50/347] lr:0.00001 Loss: 10.1424 (10.1411) rgb_proxy_loss: 10.1424 (10.1411) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [39][100/347] lr:0.00001 Loss: 10.1016 (10.1454) rgb_proxy_loss: 10.1016 (10.1454) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [39][150/347] lr:0.00001 Loss: 10.1058 (10.1461) rgb_proxy_loss: 10.1058 (10.1461) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [39][200/347] lr:0.00001 Loss: 10.0252 (10.1433) rgb_proxy_loss: 10.0252 (10.1433) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [39][250/347] lr:0.00001 Loss: 10.1392 (10.1451) rgb_proxy_loss: 10.1392 (10.1451) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [39][300/347] lr:0.00001 Loss: 10.0820 (10.1441) rgb_proxy_loss: 10.0820 (10.1441) ir_proxy_loss: 0.0000 (0.0000)
+Test Epoch: 39
+Extracting Gallery Feature...
+Extracting Time:	 1.664
+Extracting Query Feature...
+Extracting Time:	 9.384
+Evaluation Time:	 5.786
+[0.13515645 0.20141993 0.24138838 0.28819352 0.32474363 0.35366815
+ 0.3846963  0.40783593 0.43202734 0.45516697 0.4751512  0.49276885
+ 0.5111754  0.5285301  0.544833   0.5592953  0.5719169  0.5848015
+ 0.5974231  0.6095188 ]
+POOL:   Rank-1: 13.52% | Rank-5: 32.47% | Rank-10: 45.52%| Rank-20: 60.95%| mAP: 14.08%| mINP: 6.85%
+FC:   Rank-1: 7.65% | Rank-5: 24.24% | Rank-10: 37.08%| Rank-20: 54.40%| mAP: 9.27%| mINP: 3.63%
+Best Epoch [35]
+==> Preparing Data Loader...
+40
+[20582 20583 20576 ... 20334 20335 20342]
+[10203 10207 10206 ...  9950  9959  9948]
+Epoch: [40][0/347] lr:0.00001 Loss: 10.1047 (10.1047) rgb_proxy_loss: 10.1047 (10.1047) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [40][50/347] lr:0.00001 Loss: 10.0875 (10.1052) rgb_proxy_loss: 10.0875 (10.1052) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [40][100/347] lr:0.00001 Loss: 10.0829 (10.1069) rgb_proxy_loss: 10.0829 (10.1069) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [40][150/347] lr:0.00001 Loss: 10.0797 (10.1021) rgb_proxy_loss: 10.0797 (10.1021) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [40][200/347] lr:0.00001 Loss: 10.0463 (10.1002) rgb_proxy_loss: 10.0463 (10.1002) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [40][250/347] lr:0.00001 Loss: 10.1074 (10.0992) rgb_proxy_loss: 10.1074 (10.0992) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [40][300/347] lr:0.00001 Loss: 10.1448 (10.1002) rgb_proxy_loss: 10.1448 (10.1002) ir_proxy_loss: 0.0000 (0.0000)
+==> Preparing Data Loader...
+41
+[20234 20221 20230 ... 21391 21398 21385]
+[ 9864  9855  9854 ... 11061 11064 11052]
+Epoch: [41][0/347] lr:0.00001 Loss: 10.0245 (10.0245) rgb_proxy_loss: 10.0245 (10.0245) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [41][50/347] lr:0.00001 Loss: 10.0350 (10.0827) rgb_proxy_loss: 10.0350 (10.0827) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [41][100/347] lr:0.00001 Loss: 10.0993 (10.0877) rgb_proxy_loss: 10.0993 (10.0877) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [41][150/347] lr:0.00001 Loss: 10.1694 (10.0925) rgb_proxy_loss: 10.1694 (10.0925) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [41][200/347] lr:0.00001 Loss: 10.1189 (10.0924) rgb_proxy_loss: 10.1189 (10.0924) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [41][250/347] lr:0.00001 Loss: 10.1084 (10.0943) rgb_proxy_loss: 10.1084 (10.0943) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [41][300/347] lr:0.00001 Loss: 10.0889 (10.0934) rgb_proxy_loss: 10.0889 (10.0934) ir_proxy_loss: 0.0000 (0.0000)
+Test Epoch: 41
+Extracting Gallery Feature...
+Extracting Time:	 1.427
+Extracting Query Feature...
+Extracting Time:	 9.409
+Evaluation Time:	 5.837
+[0.1312122  0.19879043 0.24033658 0.2792532  0.31080726 0.34052065
+ 0.3668157  0.38811466 0.41388378 0.43360505 0.449645   0.4688404
+ 0.48540625 0.502761   0.5140678  0.529056   0.5440442  0.55692875
+ 0.5700762  0.58322376]
+POOL:   Rank-1: 13.12% | Rank-5: 31.08% | Rank-10: 43.36%| Rank-20: 58.32%| mAP: 13.50%| mINP: 6.39%
+FC:   Rank-1: 8.84% | Rank-5: 23.03% | Rank-10: 36.66%| Rank-20: 53.46%| mAP: 9.32%| mINP: 3.58%
+Best Epoch [35]
+==> Preparing Data Loader...
+42
+[19170 19162 19153 ...  4586  4627  4543]
+[8784 8780 8782 ... 1968 1983 1970]
+Epoch: [42][0/347] lr:0.00001 Loss: 10.0957 (10.0957) rgb_proxy_loss: 10.0957 (10.0957) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [42][50/347] lr:0.00001 Loss: 10.1067 (10.1026) rgb_proxy_loss: 10.1067 (10.1026) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [42][100/347] lr:0.00001 Loss: 10.1059 (10.0956) rgb_proxy_loss: 10.1059 (10.0956) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [42][150/347] lr:0.00001 Loss: 10.0154 (10.0965) rgb_proxy_loss: 10.0154 (10.0965) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [42][200/347] lr:0.00001 Loss: 10.0928 (10.0978) rgb_proxy_loss: 10.0928 (10.0978) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [42][250/347] lr:0.00001 Loss: 10.0980 (10.0973) rgb_proxy_loss: 10.0980 (10.0973) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [42][300/347] lr:0.00001 Loss: 10.1346 (10.0979) rgb_proxy_loss: 10.1346 (10.0979) ir_proxy_loss: 0.0000 (0.0000)
+==> Preparing Data Loader...
+43
+[2091 2096 2102 ... 2076 1997 1986]
+[861 855 856 ... 823 820 826]
+Epoch: [43][0/347] lr:0.00001 Loss: 10.0952 (10.0952) rgb_proxy_loss: 10.0952 (10.0952) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [43][50/347] lr:0.00001 Loss: 10.1201 (10.0937) rgb_proxy_loss: 10.1201 (10.0937) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [43][100/347] lr:0.00001 Loss: 10.1545 (10.0981) rgb_proxy_loss: 10.1545 (10.0981) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [43][150/347] lr:0.00001 Loss: 10.0408 (10.0954) rgb_proxy_loss: 10.0408 (10.0954) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [43][200/347] lr:0.00001 Loss: 10.1823 (10.0952) rgb_proxy_loss: 10.1823 (10.0952) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [43][250/347] lr:0.00001 Loss: 10.1148 (10.0968) rgb_proxy_loss: 10.1148 (10.0968) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [43][300/347] lr:0.00001 Loss: 10.1129 (10.0960) rgb_proxy_loss: 10.1129 (10.0960) ir_proxy_loss: 0.0000 (0.0000)
+Test Epoch: 43
+Extracting Gallery Feature...
+Extracting Time:	 1.545
+Extracting Query Feature...
+Extracting Time:	 9.400
+Evaluation Time:	 5.719
+[0.13936366 0.20825663 0.25006574 0.28661582 0.32474363 0.35734946
+ 0.3867999  0.41283196 0.4343939  0.45437813 0.47594005 0.49487248
+ 0.51249015 0.52774125 0.54220355 0.5550881  0.5692874  0.57954246
+ 0.592427   0.6063634 ]
+POOL:   Rank-1: 13.94% | Rank-5: 32.47% | Rank-10: 45.44%| Rank-20: 60.64%| mAP: 14.00%| mINP: 6.66%
+FC:   Rank-1: 8.31% | Rank-5: 22.96% | Rank-10: 37.50%| Rank-20: 54.33%| mAP: 9.32%| mINP: 3.65%
+Best Epoch [35]
+==> Preparing Data Loader...
+44
+[16587 16593 16583 ...  8766  8809  8772]
+[7130 7157 7142 ... 3805 3803 3801]
+Epoch: [44][0/347] lr:0.00001 Loss: 10.1225 (10.1225) rgb_proxy_loss: 10.1225 (10.1225) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [44][50/347] lr:0.00001 Loss: 10.0694 (10.0877) rgb_proxy_loss: 10.0694 (10.0877) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [44][100/347] lr:0.00001 Loss: 10.0542 (10.0910) rgb_proxy_loss: 10.0542 (10.0910) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [44][150/347] lr:0.00001 Loss: 10.1873 (10.0925) rgb_proxy_loss: 10.1873 (10.0925) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [44][200/347] lr:0.00001 Loss: 10.1045 (10.0929) rgb_proxy_loss: 10.1045 (10.0929) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [44][250/347] lr:0.00001 Loss: 10.0342 (10.0939) rgb_proxy_loss: 10.0342 (10.0939) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [44][300/347] lr:0.00001 Loss: 10.0228 (10.0942) rgb_proxy_loss: 10.0228 (10.0942) ir_proxy_loss: 0.0000 (0.0000)
+==> Preparing Data Loader...
+45
+[12930 12906 12890 ...  1597  1599  1567]
+[5539 5535 5540 ...  600  619  614]
+Epoch: [45][0/347] lr:0.00001 Loss: 10.0732 (10.0732) rgb_proxy_loss: 10.0732 (10.0732) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [45][50/347] lr:0.00001 Loss: 10.0060 (10.0896) rgb_proxy_loss: 10.0060 (10.0896) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [45][100/347] lr:0.00001 Loss: 10.0981 (10.0896) rgb_proxy_loss: 10.0981 (10.0896) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [45][150/347] lr:0.00001 Loss: 10.1090 (10.0901) rgb_proxy_loss: 10.1090 (10.0901) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [45][200/347] lr:0.00001 Loss: 10.0588 (10.0921) rgb_proxy_loss: 10.0588 (10.0921) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [45][250/347] lr:0.00001 Loss: 10.1682 (10.0914) rgb_proxy_loss: 10.1682 (10.0914) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [45][300/347] lr:0.00001 Loss: 10.1085 (10.0909) rgb_proxy_loss: 10.1085 (10.0909) ir_proxy_loss: 0.0000 (0.0000)
+Test Epoch: 45
+Extracting Gallery Feature...
+Extracting Time:	 1.581
+Extracting Query Feature...
+Extracting Time:	 9.395
+Evaluation Time:	 5.801
+[0.14330791 0.21561925 0.2608467  0.2947673  0.32684723 0.3591901
+ 0.38706285 0.41651326 0.4464896  0.46857744 0.49487248 0.5111754
+ 0.52879304 0.5456219  0.56113595 0.58006835 0.5916382  0.6039969
+ 0.61688143 0.6302919 ]
+POOL:   Rank-1: 14.33% | Rank-5: 32.68% | Rank-10: 46.86%| Rank-20: 63.03%| mAP: 14.41%| mINP: 6.69%
+FC:   Rank-1: 9.02% | Rank-5: 23.85% | Rank-10: 37.71%| Rank-20: 56.67%| mAP: 9.58%| mINP: 3.76%
+Best Epoch [35]
+==> Preparing Data Loader...
+46
+[15519 15531 15492 ... 18752 18744 18751]
+[6701 6726 6692 ... 8353 8350 8365]
+Epoch: [46][0/347] lr:0.00001 Loss: 10.0388 (10.0388) rgb_proxy_loss: 10.0388 (10.0388) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [46][50/347] lr:0.00001 Loss: 10.1139 (10.0886) rgb_proxy_loss: 10.1139 (10.0886) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [46][100/347] lr:0.00001 Loss: 10.1148 (10.0867) rgb_proxy_loss: 10.1148 (10.0867) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [46][150/347] lr:0.00001 Loss: 10.0558 (10.0844) rgb_proxy_loss: 10.0558 (10.0844) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [46][200/347] lr:0.00001 Loss: 10.0674 (10.0880) rgb_proxy_loss: 10.0674 (10.0880) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [46][250/347] lr:0.00001 Loss: 10.1072 (10.0878) rgb_proxy_loss: 10.1072 (10.0878) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [46][300/347] lr:0.00001 Loss: 10.1628 (10.0888) rgb_proxy_loss: 10.1628 (10.0888) ir_proxy_loss: 0.0000 (0.0000)
+==> Preparing Data Loader...
+47
+[20916 20925 20917 ...  6086  6120  6086]
+[10580 10584 10581 ...  2642  2619  2631]
+Epoch: [47][0/347] lr:0.00001 Loss: 10.0862 (10.0862) rgb_proxy_loss: 10.0862 (10.0862) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [47][50/347] lr:0.00001 Loss: 10.0847 (10.0895) rgb_proxy_loss: 10.0847 (10.0895) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [47][100/347] lr:0.00001 Loss: 10.0995 (10.0907) rgb_proxy_loss: 10.0995 (10.0907) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [47][150/347] lr:0.00001 Loss: 10.0538 (10.0910) rgb_proxy_loss: 10.0538 (10.0910) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [47][200/347] lr:0.00001 Loss: 10.0693 (10.0921) rgb_proxy_loss: 10.0693 (10.0921) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [47][250/347] lr:0.00001 Loss: 10.0982 (10.0922) rgb_proxy_loss: 10.0982 (10.0922) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [47][300/347] lr:0.00001 Loss: 10.0483 (10.0914) rgb_proxy_loss: 10.0483 (10.0914) ir_proxy_loss: 0.0000 (0.0000)
+Test Epoch: 47
+Extracting Gallery Feature...
+Extracting Time:	 1.554
+Extracting Query Feature...
+Extracting Time:	 9.402
+Evaluation Time:	 5.803
+[0.1343676  0.19984223 0.24401788 0.2816198  0.31238496 0.34683144
+ 0.375756   0.39968446 0.42098343 0.44044176 0.46437022 0.4851433
+ 0.50144625 0.51985276 0.5332632  0.55429924 0.5682356  0.5816461
+ 0.5966342  0.60978174]
+POOL:   Rank-1: 13.44% | Rank-5: 31.24% | Rank-10: 44.04%| Rank-20: 60.98%| mAP: 13.65%| mINP: 6.21%
+FC:   Rank-1: 8.94% | Rank-5: 24.69% | Rank-10: 38.02%| Rank-20: 57.61%| mAP: 9.97%| mINP: 4.26%
+Best Epoch [35]
+==> Preparing Data Loader...
+48
+[20191 20187 20181 ... 14080 14127 14167]
+[9822 9821 9813 ... 6056 6086 6076]
+Epoch: [48][0/347] lr:0.00001 Loss: 10.1221 (10.1221) rgb_proxy_loss: 10.1221 (10.1221) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [48][50/347] lr:0.00001 Loss: 10.1734 (10.0784) rgb_proxy_loss: 10.1734 (10.0784) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [48][100/347] lr:0.00001 Loss: 10.0841 (10.0893) rgb_proxy_loss: 10.0841 (10.0893) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [48][150/347] lr:0.00001 Loss: 10.1465 (10.0870) rgb_proxy_loss: 10.1465 (10.0870) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [48][200/347] lr:0.00001 Loss: 10.0646 (10.0864) rgb_proxy_loss: 10.0646 (10.0864) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [48][250/347] lr:0.00001 Loss: 10.0649 (10.0888) rgb_proxy_loss: 10.0649 (10.0888) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [48][300/347] lr:0.00001 Loss: 10.1103 (10.0893) rgb_proxy_loss: 10.1103 (10.0893) ir_proxy_loss: 0.0000 (0.0000)
+==> Preparing Data Loader...
+49
+[20453 20466 20455 ... 16968 16986 17006]
+[10077 10069 10082 ...  7308  7290  7310]
+Epoch: [49][0/347] lr:0.00001 Loss: 10.1860 (10.1860) rgb_proxy_loss: 10.1860 (10.1860) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [49][50/347] lr:0.00001 Loss: 10.0970 (10.0918) rgb_proxy_loss: 10.0970 (10.0918) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [49][100/347] lr:0.00001 Loss: 10.0657 (10.0943) rgb_proxy_loss: 10.0657 (10.0943) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [49][150/347] lr:0.00001 Loss: 10.0143 (10.0904) rgb_proxy_loss: 10.0143 (10.0904) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [49][200/347] lr:0.00001 Loss: 10.1665 (10.0916) rgb_proxy_loss: 10.1665 (10.0916) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [49][250/347] lr:0.00001 Loss: 10.0068 (10.0906) rgb_proxy_loss: 10.0068 (10.0906) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [49][300/347] lr:0.00001 Loss: 10.0510 (10.0877) rgb_proxy_loss: 10.0510 (10.0877) ir_proxy_loss: 0.0000 (0.0000)
+Test Epoch: 49
+Extracting Gallery Feature...
+Extracting Time:	 1.563
+Extracting Query Feature...
+Extracting Time:	 9.554
+Evaluation Time:	 5.786
+[0.14357087 0.20930845 0.25374705 0.29765975 0.32895082 0.3576124
+ 0.38259268 0.4057323  0.42860898 0.44938207 0.46410728 0.48330265
+ 0.49881673 0.5190639  0.53510386 0.5511438  0.5669209  0.582172
+ 0.592427   0.6026821 ]
+POOL:   Rank-1: 14.36% | Rank-5: 32.90% | Rank-10: 44.94%| Rank-20: 60.27%| mAP: 14.38%| mINP: 6.82%
+FC:   Rank-1: 8.91% | Rank-5: 25.06% | Rank-10: 37.84%| Rank-20: 57.01%| mAP: 10.14%| mINP: 4.37%
+Best Epoch [35]
+==> Preparing Data Loader...
+50
+[21543 21550 21547 ... 16382 16387 16384]
+[11206 11189 11191 ...  7087  7082  7057]
+Epoch: [50][0/347] lr:0.00000 Loss: 10.1452 (10.1452) rgb_proxy_loss: 10.1452 (10.1452) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [50][50/347] lr:0.00000 Loss: 10.1183 (10.0844) rgb_proxy_loss: 10.1183 (10.0844) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [50][100/347] lr:0.00000 Loss: 10.1109 (10.0800) rgb_proxy_loss: 10.1109 (10.0800) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [50][150/347] lr:0.00000 Loss: 10.0879 (10.0739) rgb_proxy_loss: 10.0879 (10.0739) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [50][200/347] lr:0.00000 Loss: 10.1057 (10.0704) rgb_proxy_loss: 10.1057 (10.0704) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [50][250/347] lr:0.00000 Loss: 9.9804 (10.0687) rgb_proxy_loss: 9.9804 (10.0687) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [50][300/347] lr:0.00000 Loss: 10.0379 (10.0681) rgb_proxy_loss: 10.0379 (10.0681) ir_proxy_loss: 0.0000 (0.0000)
+==> Preparing Data Loader...
+51
+[16656 16651 16663 ...  3326  3326  3325]
+[7197 7206 7191 ... 1362 1383 1365]
+Epoch: [51][0/347] lr:0.00000 Loss: 10.1081 (10.1081) rgb_proxy_loss: 10.1081 (10.1081) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [51][50/347] lr:0.00000 Loss: 10.0679 (10.0576) rgb_proxy_loss: 10.0679 (10.0576) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [51][100/347] lr:0.00000 Loss: 10.1045 (10.0610) rgb_proxy_loss: 10.1045 (10.0610) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [51][150/347] lr:0.00000 Loss: 10.0889 (10.0618) rgb_proxy_loss: 10.0889 (10.0618) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [51][200/347] lr:0.00000 Loss: 10.0957 (10.0642) rgb_proxy_loss: 10.0957 (10.0642) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [51][250/347] lr:0.00000 Loss: 10.1042 (10.0647) rgb_proxy_loss: 10.1042 (10.0647) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [51][300/347] lr:0.00000 Loss: 10.0383 (10.0675) rgb_proxy_loss: 10.0383 (10.0675) ir_proxy_loss: 0.0000 (0.0000)
+Test Epoch: 51
+Extracting Gallery Feature...
+Extracting Time:	 1.595
+Extracting Query Feature...
+Extracting Time:	 9.347
+Evaluation Time:	 5.839
+[0.13988957 0.20036814 0.24769919 0.28845647 0.32106233 0.34630555
+ 0.375756   0.40283987 0.4254536  0.44543782 0.46542203 0.48225087
+ 0.49960557 0.518538   0.53536683 0.54904026 0.56166184 0.57165396
+ 0.58322376 0.5963713 ]
+POOL:   Rank-1: 13.99% | Rank-5: 32.11% | Rank-10: 44.54%| Rank-20: 59.64%| mAP: 14.03%| mINP: 6.67%
+FC:   Rank-1: 8.70% | Rank-5: 25.11% | Rank-10: 38.23%| Rank-20: 56.82%| mAP: 10.12%| mINP: 4.38%
+Best Epoch [35]
+==> Preparing Data Loader...
+52
+[ 1913  1892  1968 ... 19686 19700 19705]
+[ 775  786  785 ... 9318 9310 9320]
+Epoch: [52][0/347] lr:0.00000 Loss: 10.0946 (10.0946) rgb_proxy_loss: 10.0946 (10.0946) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [52][50/347] lr:0.00000 Loss: 10.0905 (10.0662) rgb_proxy_loss: 10.0905 (10.0662) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [52][100/347] lr:0.00000 Loss: 10.0262 (10.0642) rgb_proxy_loss: 10.0262 (10.0642) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [52][150/347] lr:0.00000 Loss: 10.0537 (10.0621) rgb_proxy_loss: 10.0537 (10.0621) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [52][200/347] lr:0.00000 Loss: 10.0842 (10.0620) rgb_proxy_loss: 10.0842 (10.0620) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [52][250/347] lr:0.00000 Loss: 10.0477 (10.0621) rgb_proxy_loss: 10.0477 (10.0621) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [52][300/347] lr:0.00000 Loss: 10.1070 (10.0633) rgb_proxy_loss: 10.1070 (10.0633) ir_proxy_loss: 0.0000 (0.0000)
+==> Preparing Data Loader...
+53
+[19467 19465 19453 ... 18366 18363 18354]
+[9068 9085 9073 ... 7979 7978 7974]
+Epoch: [53][0/347] lr:0.00000 Loss: 10.0246 (10.0246) rgb_proxy_loss: 10.0246 (10.0246) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [53][50/347] lr:0.00000 Loss: 10.0445 (10.0506) rgb_proxy_loss: 10.0445 (10.0506) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [53][100/347] lr:0.00000 Loss: 10.0926 (10.0560) rgb_proxy_loss: 10.0926 (10.0560) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [53][150/347] lr:0.00000 Loss: 10.0777 (10.0586) rgb_proxy_loss: 10.0777 (10.0586) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [53][200/347] lr:0.00000 Loss: 10.0440 (10.0564) rgb_proxy_loss: 10.0440 (10.0564) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [53][250/347] lr:0.00000 Loss: 10.0789 (10.0573) rgb_proxy_loss: 10.0789 (10.0573) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [53][300/347] lr:0.00000 Loss: 10.1494 (10.0594) rgb_proxy_loss: 10.1494 (10.0594) ir_proxy_loss: 0.0000 (0.0000)
+Test Epoch: 53
+Extracting Gallery Feature...
+Extracting Time:	 1.515
+Extracting Query Feature...
+Extracting Time:	 9.385
+Evaluation Time:	 5.837
+[0.14304496 0.20694189 0.2608467  0.3000263  0.33736524 0.36260846
+ 0.38811466 0.4109913  0.4354457  0.45858532 0.4751512  0.4909282
+ 0.5101236  0.5253747  0.5408888  0.55798054 0.5724428  0.581909
+ 0.5955824  0.6100447 ]
+POOL:   Rank-1: 14.30% | Rank-5: 33.74% | Rank-10: 45.86%| Rank-20: 61.00%| mAP: 14.39%| mINP: 6.73%
+FC:   Rank-1: 9.47% | Rank-5: 24.35% | Rank-10: 37.50%| Rank-20: 56.27%| mAP: 10.07%| mINP: 4.39%
+Best Epoch [35]
+==> Preparing Data Loader...
+54
+[18264 18203 18201 ... 20245 20237 20250]
+[7907 7899 7913 ... 9875 9871 9877]
+Epoch: [54][0/347] lr:0.00000 Loss: 10.0974 (10.0974) rgb_proxy_loss: 10.0974 (10.0974) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [54][50/347] lr:0.00000 Loss: 9.9734 (10.0645) rgb_proxy_loss: 9.9734 (10.0645) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [54][100/347] lr:0.00000 Loss: 10.0568 (10.0592) rgb_proxy_loss: 10.0568 (10.0592) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [54][150/347] lr:0.00000 Loss: 10.0325 (10.0647) rgb_proxy_loss: 10.0325 (10.0647) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [54][200/347] lr:0.00000 Loss: 10.0529 (10.0643) rgb_proxy_loss: 10.0529 (10.0643) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [54][250/347] lr:0.00000 Loss: 9.9877 (10.0662) rgb_proxy_loss: 9.9877 (10.0662) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [54][300/347] lr:0.00000 Loss: 10.1073 (10.0654) rgb_proxy_loss: 10.1073 (10.0654) ir_proxy_loss: 0.0000 (0.0000)
+==> Preparing Data Loader...
+55
+[18587 18576 18573 ... 21820 21828 21823]
+[ 8197  8198  8201 ... 11478 11484 11482]
+Epoch: [55][0/347] lr:0.00000 Loss: 10.0398 (10.0398) rgb_proxy_loss: 10.0398 (10.0398) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [55][50/347] lr:0.00000 Loss: 10.0209 (10.0633) rgb_proxy_loss: 10.0209 (10.0633) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [55][100/347] lr:0.00000 Loss: 9.9937 (10.0634) rgb_proxy_loss: 9.9937 (10.0634) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [55][150/347] lr:0.00000 Loss: 10.1325 (10.0606) rgb_proxy_loss: 10.1325 (10.0606) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [55][200/347] lr:0.00000 Loss: 10.0365 (10.0592) rgb_proxy_loss: 10.0365 (10.0592) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [55][250/347] lr:0.00000 Loss: 10.1057 (10.0590) rgb_proxy_loss: 10.1057 (10.0590) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [55][300/347] lr:0.00000 Loss: 10.0507 (10.0604) rgb_proxy_loss: 10.0507 (10.0604) ir_proxy_loss: 0.0000 (0.0000)
+Test Epoch: 55
+Extracting Gallery Feature...
+Extracting Time:	 1.508
+Extracting Query Feature...
+Extracting Time:	 9.503
+Evaluation Time:	 5.804
+[0.15145938 0.21430449 0.2629503  0.2984486  0.33447278 0.36418617
+ 0.3894294  0.41677624 0.4359716  0.46121484 0.48014724 0.49697608
+ 0.5122272  0.52879304 0.5456219  0.56008416 0.5748094  0.5887457
+ 0.60241914 0.6147778 ]
+POOL:   Rank-1: 15.15% | Rank-5: 33.45% | Rank-10: 46.12%| Rank-20: 61.48%| mAP: 14.57%| mINP: 6.70%
+FC:   Rank-1: 9.62% | Rank-5: 24.51% | Rank-10: 37.97%| Rank-20: 57.80%| mAP: 10.11%| mINP: 4.35%
+Best Epoch [35]
+==> Preparing Data Loader...
+56
+[ 9854  9793  9786 ... 15231 15275 15242]
+[4235 4216 4237 ... 6580 6571 6571]
+Epoch: [56][0/347] lr:0.00000 Loss: 10.0423 (10.0423) rgb_proxy_loss: 10.0423 (10.0423) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [56][50/347] lr:0.00000 Loss: 10.0988 (10.0662) rgb_proxy_loss: 10.0988 (10.0662) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [56][100/347] lr:0.00000 Loss: 10.0958 (10.0594) rgb_proxy_loss: 10.0958 (10.0594) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [56][150/347] lr:0.00000 Loss: 10.0183 (10.0605) rgb_proxy_loss: 10.0183 (10.0605) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [56][200/347] lr:0.00000 Loss: 10.0944 (10.0619) rgb_proxy_loss: 10.0944 (10.0619) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [56][250/347] lr:0.00000 Loss: 10.1274 (10.0616) rgb_proxy_loss: 10.1274 (10.0616) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [56][300/347] lr:0.00000 Loss: 10.0484 (10.0616) rgb_proxy_loss: 10.0484 (10.0616) ir_proxy_loss: 0.0000 (0.0000)
+==> Preparing Data Loader...
+57
+[21436 21439 21437 ... 12122 12134 12159]
+[11107 11107 11091 ...  5217  5223  5242]
+Epoch: [57][0/347] lr:0.00000 Loss: 10.0341 (10.0341) rgb_proxy_loss: 10.0341 (10.0341) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [57][50/347] lr:0.00000 Loss: 10.0259 (10.0652) rgb_proxy_loss: 10.0259 (10.0652) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [57][100/347] lr:0.00000 Loss: 10.0451 (10.0649) rgb_proxy_loss: 10.0451 (10.0649) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [57][150/347] lr:0.00000 Loss: 10.0661 (10.0622) rgb_proxy_loss: 10.0661 (10.0622) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [57][200/347] lr:0.00000 Loss: 10.0845 (10.0648) rgb_proxy_loss: 10.0845 (10.0648) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [57][250/347] lr:0.00000 Loss: 10.0310 (10.0666) rgb_proxy_loss: 10.0310 (10.0666) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [57][300/347] lr:0.00000 Loss: 10.0500 (10.0675) rgb_proxy_loss: 10.0500 (10.0675) ir_proxy_loss: 0.0000 (0.0000)
+Test Epoch: 57
+Extracting Gallery Feature...
+Extracting Time:	 1.560
+Extracting Query Feature...
+Extracting Time:	 9.447
+Evaluation Time:	 5.849
+[0.14541152 0.21404155 0.26005784 0.30344465 0.33263212 0.36155668
+ 0.3873258  0.4146726  0.44044176 0.46016303 0.4809361  0.49907967
+ 0.51327896 0.53194845 0.54614776 0.5603471  0.5748094  0.58979756
+ 0.60136735 0.61293715]
+POOL:   Rank-1: 14.54% | Rank-5: 33.26% | Rank-10: 46.02%| Rank-20: 61.29%| mAP: 14.54%| mINP: 6.76%
+FC:   Rank-1: 8.86% | Rank-5: 24.77% | Rank-10: 37.13%| Rank-20: 56.59%| mAP: 9.84%| mINP: 4.42%
+Best Epoch [35]
+==> Preparing Data Loader...
+58
+[20680 20682 20669 ... 22119 22133 22118]
+[10293 10302 10303 ... 11778 11769 11788]
+Epoch: [58][0/347] lr:0.00000 Loss: 9.9991 (9.9991) rgb_proxy_loss: 9.9991 (9.9991) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [58][50/347] lr:0.00000 Loss: 10.1509 (10.0598) rgb_proxy_loss: 10.1509 (10.0598) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [58][100/347] lr:0.00000 Loss: 10.0589 (10.0609) rgb_proxy_loss: 10.0589 (10.0609) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [58][150/347] lr:0.00000 Loss: 10.1228 (10.0591) rgb_proxy_loss: 10.1228 (10.0591) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [58][200/347] lr:0.00000 Loss: 10.1431 (10.0620) rgb_proxy_loss: 10.1431 (10.0620) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [58][250/347] lr:0.00000 Loss: 10.0634 (10.0633) rgb_proxy_loss: 10.0634 (10.0633) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [58][300/347] lr:0.00000 Loss: 10.0442 (10.0620) rgb_proxy_loss: 10.0442 (10.0620) ir_proxy_loss: 0.0000 (0.0000)
+==> Preparing Data Loader...
+59
+[4647 4706 4696 ... 5375 5320 5366]
+[2025 2023 2039 ... 2302 2290 2290]
+Epoch: [59][0/347] lr:0.00000 Loss: 10.0789 (10.0789) rgb_proxy_loss: 10.0789 (10.0789) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [59][50/347] lr:0.00000 Loss: 10.0282 (10.0625) rgb_proxy_loss: 10.0282 (10.0625) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [59][100/347] lr:0.00000 Loss: 10.0883 (10.0628) rgb_proxy_loss: 10.0883 (10.0628) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [59][150/347] lr:0.00000 Loss: 10.0294 (10.0612) rgb_proxy_loss: 10.0294 (10.0612) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [59][200/347] lr:0.00000 Loss: 10.0396 (10.0620) rgb_proxy_loss: 10.0396 (10.0620) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [59][250/347] lr:0.00000 Loss: 10.0341 (10.0607) rgb_proxy_loss: 10.0341 (10.0607) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [59][300/347] lr:0.00000 Loss: 10.0475 (10.0630) rgb_proxy_loss: 10.0475 (10.0630) ir_proxy_loss: 0.0000 (0.0000)
+Test Epoch: 59
+Extracting Gallery Feature...
+Extracting Time:	 1.567
+Extracting Query Feature...
+Extracting Time:	 9.522
+Evaluation Time:	 5.878
+[0.15330003 0.216934   0.2708388  0.31212202 0.34683144 0.375756
+ 0.40862477 0.42729425 0.45253748 0.47225875 0.49119118 0.5085459
+ 0.5248488  0.5414147  0.5582435  0.5700762  0.58374965 0.5961083
+ 0.6095188  0.62056273]
+POOL:   Rank-1: 15.33% | Rank-5: 34.68% | Rank-10: 47.23%| Rank-20: 62.06%| mAP: 14.89%| mINP: 6.74%
+FC:   Rank-1: 9.05% | Rank-5: 23.56% | Rank-10: 36.42%| Rank-20: 56.43%| mAP: 9.83%| mINP: 4.46%
+Best Epoch [35]
+==> Preparing Data Loader...
+60
+[ 9943  9926  9876 ... 19641 19629 19636]
+[4285 4258 4286 ... 9249 9255 9267]
+Epoch: [60][0/347] lr:0.00000 Loss: 10.0381 (10.0381) rgb_proxy_loss: 10.0381 (10.0381) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [60][50/347] lr:0.00000 Loss: 10.0166 (10.0626) rgb_proxy_loss: 10.0166 (10.0626) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [60][100/347] lr:0.00000 Loss: 10.0657 (10.0578) rgb_proxy_loss: 10.0657 (10.0578) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [60][150/347] lr:0.00000 Loss: 10.0394 (10.0570) rgb_proxy_loss: 10.0394 (10.0570) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [60][200/347] lr:0.00000 Loss: 10.0651 (10.0560) rgb_proxy_loss: 10.0651 (10.0560) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [60][250/347] lr:0.00000 Loss: 10.0137 (10.0553) rgb_proxy_loss: 10.0137 (10.0553) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [60][300/347] lr:0.00000 Loss: 10.0291 (10.0528) rgb_proxy_loss: 10.0291 (10.0528) ir_proxy_loss: 0.0000 (0.0000)
+==> Preparing Data Loader...
+61
+[ 6325  6306  6256 ... 19226 19219 19215]
+[2693 2700 2709 ... 8839 8829 8844]
+Epoch: [61][0/347] lr:0.00000 Loss: 10.0070 (10.0070) rgb_proxy_loss: 10.0070 (10.0070) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [61][50/347] lr:0.00000 Loss: 10.1240 (10.0502) rgb_proxy_loss: 10.1240 (10.0502) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [61][100/347] lr:0.00000 Loss: 9.9844 (10.0496) rgb_proxy_loss: 9.9844 (10.0496) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [61][150/347] lr:0.00000 Loss: 10.0573 (10.0502) rgb_proxy_loss: 10.0573 (10.0502) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [61][200/347] lr:0.00000 Loss: 10.0644 (10.0525) rgb_proxy_loss: 10.0644 (10.0525) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [61][250/347] lr:0.00000 Loss: 10.0514 (10.0535) rgb_proxy_loss: 10.0514 (10.0535) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [61][300/347] lr:0.00000 Loss: 10.0945 (10.0514) rgb_proxy_loss: 10.0945 (10.0514) ir_proxy_loss: 0.0000 (0.0000)
+Test Epoch: 61
+Extracting Gallery Feature...
+Extracting Time:	 1.563
+Extracting Query Feature...
+Extracting Time:	 9.405
+Evaluation Time:	 5.777
+[0.14751512 0.21246384 0.26163554 0.30081514 0.3371023  0.3668157
+ 0.39495134 0.42124638 0.44096765 0.46437022 0.48251382 0.4998685
+ 0.51932687 0.53142256 0.5443071  0.5566658  0.5719169  0.581909
+ 0.59821194 0.6110965 ]
+POOL:   Rank-1: 14.75% | Rank-5: 33.71% | Rank-10: 46.44%| Rank-20: 61.11%| mAP: 14.46%| mINP: 6.56%
+FC:   Rank-1: 8.57% | Rank-5: 22.72% | Rank-10: 36.31%| Rank-20: 55.88%| mAP: 9.53%| mINP: 4.37%
+Best Epoch [35]
+==> Preparing Data Loader...
+62
+[ 5447  5411  5417 ... 13191 13207 13193]
+[2357 2362 2359 ... 5653 5678 5684]
+Epoch: [62][0/347] lr:0.00000 Loss: 10.0368 (10.0368) rgb_proxy_loss: 10.0368 (10.0368) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [62][50/347] lr:0.00000 Loss: 10.0346 (10.0446) rgb_proxy_loss: 10.0346 (10.0446) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [62][100/347] lr:0.00000 Loss: 10.0253 (10.0441) rgb_proxy_loss: 10.0253 (10.0441) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [62][150/347] lr:0.00000 Loss: 10.0202 (10.0490) rgb_proxy_loss: 10.0202 (10.0490) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [62][200/347] lr:0.00000 Loss: 10.0978 (10.0494) rgb_proxy_loss: 10.0978 (10.0494) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [62][250/347] lr:0.00000 Loss: 10.0013 (10.0489) rgb_proxy_loss: 10.0013 (10.0489) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [62][300/347] lr:0.00000 Loss: 10.0542 (10.0484) rgb_proxy_loss: 10.0542 (10.0484) ir_proxy_loss: 0.0000 (0.0000)
+==> Preparing Data Loader...
+63
+[ 6998  7044  6976 ... 21994 22008 22017]
+[ 3011  3024  3016 ... 11668 11652 11665]
+Epoch: [63][0/347] lr:0.00000 Loss: 10.0772 (10.0772) rgb_proxy_loss: 10.0772 (10.0772) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [63][50/347] lr:0.00000 Loss: 9.9900 (10.0526) rgb_proxy_loss: 9.9900 (10.0526) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [63][100/347] lr:0.00000 Loss: 10.0346 (10.0478) rgb_proxy_loss: 10.0346 (10.0478) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [63][150/347] lr:0.00000 Loss: 10.0056 (10.0517) rgb_proxy_loss: 10.0056 (10.0517) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [63][200/347] lr:0.00000 Loss: 10.0590 (10.0518) rgb_proxy_loss: 10.0590 (10.0518) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [63][250/347] lr:0.00000 Loss: 10.0567 (10.0519) rgb_proxy_loss: 10.0567 (10.0519) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [63][300/347] lr:0.00000 Loss: 10.0720 (10.0514) rgb_proxy_loss: 10.0720 (10.0514) ir_proxy_loss: 0.0000 (0.0000)
+Test Epoch: 63
+Extracting Gallery Feature...
+Extracting Time:	 1.569
+Extracting Query Feature...
+Extracting Time:	 9.404
+Evaluation Time:	 5.847
+[0.14909282 0.21824875 0.2671575  0.3037076  0.33946884 0.36786747
+ 0.396792   0.42361292 0.44780436 0.46910334 0.48488036 0.5003944
+ 0.5180121  0.5322114  0.54535896 0.5587694  0.5737576  0.5858533
+ 0.59873784 0.6110965 ]
+POOL:   Rank-1: 14.91% | Rank-5: 33.95% | Rank-10: 46.91%| Rank-20: 61.11%| mAP: 14.79%| mINP: 6.91%
+FC:   Rank-1: 8.60% | Rank-5: 23.17% | Rank-10: 36.42%| Rank-20: 56.43%| mAP: 9.54%| mINP: 4.32%
+Best Epoch [35]
+==> Preparing Data Loader...
+64
+[15284 15261 15248 ... 14084 14147 14108]
+[6573 6590 6599 ... 6072 6059 6065]
+Epoch: [64][0/347] lr:0.00000 Loss: 9.9963 (9.9963) rgb_proxy_loss: 9.9963 (9.9963) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [64][50/347] lr:0.00000 Loss: 10.0261 (10.0413) rgb_proxy_loss: 10.0261 (10.0413) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [64][100/347] lr:0.00000 Loss: 9.9993 (10.0411) rgb_proxy_loss: 9.9993 (10.0411) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [64][150/347] lr:0.00000 Loss: 10.0570 (10.0473) rgb_proxy_loss: 10.0570 (10.0473) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [64][200/347] lr:0.00000 Loss: 10.0825 (10.0505) rgb_proxy_loss: 10.0825 (10.0505) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [64][250/347] lr:0.00000 Loss: 10.0008 (10.0485) rgb_proxy_loss: 10.0008 (10.0485) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [64][300/347] lr:0.00000 Loss: 10.0786 (10.0509) rgb_proxy_loss: 10.0786 (10.0509) ir_proxy_loss: 0.0000 (0.0000)
+==> Preparing Data Loader...
+65
+[18968 18958 18959 ... 19145 19133 19142]
+[8569 8577 8576 ... 8759 8765 8755]
+Epoch: [65][0/347] lr:0.00000 Loss: 10.0579 (10.0579) rgb_proxy_loss: 10.0579 (10.0579) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [65][50/347] lr:0.00000 Loss: 10.1343 (10.0540) rgb_proxy_loss: 10.1343 (10.0540) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [65][100/347] lr:0.00000 Loss: 10.0968 (10.0518) rgb_proxy_loss: 10.0968 (10.0518) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [65][150/347] lr:0.00000 Loss: 10.0088 (10.0530) rgb_proxy_loss: 10.0088 (10.0530) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [65][200/347] lr:0.00000 Loss: 10.0464 (10.0518) rgb_proxy_loss: 10.0464 (10.0518) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [65][250/347] lr:0.00000 Loss: 10.0175 (10.0525) rgb_proxy_loss: 10.0175 (10.0525) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [65][300/347] lr:0.00000 Loss: 10.0671 (10.0499) rgb_proxy_loss: 10.0671 (10.0499) ir_proxy_loss: 0.0000 (0.0000)
+Test Epoch: 65
+Extracting Gallery Feature...
+Extracting Time:	 1.592
+Extracting Query Feature...
+Extracting Time:	 9.689
+Evaluation Time:	 5.867
+[0.14593741 0.21772285 0.26794636 0.30817777 0.34104654 0.37154877
+ 0.40336576 0.4322903  0.45595583 0.47304758 0.48803577 0.50539047
+ 0.52143043 0.53615564 0.5471996  0.56166184 0.5740205  0.5884828
+ 0.6034709  0.6142519 ]
+POOL:   Rank-1: 14.59% | Rank-5: 34.10% | Rank-10: 47.30%| Rank-20: 61.43%| mAP: 14.75%| mINP: 6.87%
+FC:   Rank-1: 9.57% | Rank-5: 23.98% | Rank-10: 38.08%| Rank-20: 57.40%| mAP: 10.11%| mINP: 4.53%
+Best Epoch [35]
+==> Preparing Data Loader...
+66
+[19443 19437 19449 ... 13233 13144 13210]
+[9055 9055 9056 ... 5668 5661 5682]
+Epoch: [66][0/347] lr:0.00000 Loss: 10.0312 (10.0312) rgb_proxy_loss: 10.0312 (10.0312) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [66][50/347] lr:0.00000 Loss: 9.9302 (10.0392) rgb_proxy_loss: 9.9302 (10.0392) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [66][100/347] lr:0.00000 Loss: 10.0595 (10.0440) rgb_proxy_loss: 10.0595 (10.0440) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [66][150/347] lr:0.00000 Loss: 9.9837 (10.0472) rgb_proxy_loss: 9.9837 (10.0472) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [66][200/347] lr:0.00000 Loss: 10.0318 (10.0467) rgb_proxy_loss: 10.0318 (10.0467) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [66][250/347] lr:0.00000 Loss: 10.0071 (10.0460) rgb_proxy_loss: 10.0071 (10.0460) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [66][300/347] lr:0.00000 Loss: 10.1072 (10.0495) rgb_proxy_loss: 10.1072 (10.0495) ir_proxy_loss: 0.0000 (0.0000)
+==> Preparing Data Loader...
+67
+[19459 19471 19453 ... 20712 20710 20707]
+[ 9085  9071  9082 ... 10331 10355 10328]
+Epoch: [67][0/347] lr:0.00000 Loss: 10.0861 (10.0861) rgb_proxy_loss: 10.0861 (10.0861) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [67][50/347] lr:0.00000 Loss: 10.0678 (10.0548) rgb_proxy_loss: 10.0678 (10.0548) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [67][100/347] lr:0.00000 Loss: 10.1290 (10.0547) rgb_proxy_loss: 10.1290 (10.0547) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [67][150/347] lr:0.00000 Loss: 9.9800 (10.0517) rgb_proxy_loss: 9.9800 (10.0517) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [67][200/347] lr:0.00000 Loss: 10.0605 (10.0515) rgb_proxy_loss: 10.0605 (10.0515) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [67][250/347] lr:0.00000 Loss: 10.0488 (10.0509) rgb_proxy_loss: 10.0488 (10.0509) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [67][300/347] lr:0.00000 Loss: 10.0391 (10.0513) rgb_proxy_loss: 10.0391 (10.0513) ir_proxy_loss: 0.0000 (0.0000)
+Test Epoch: 67
+Extracting Gallery Feature...
+Extracting Time:	 1.565
+Extracting Query Feature...
+Extracting Time:	 9.493
+Evaluation Time:	 5.815
+[0.14251906 0.2132527  0.26321325 0.30817777 0.34472784 0.37838548
+ 0.41046542 0.4354457  0.45884827 0.47751775 0.49750197 0.5164344
+ 0.5298449  0.54246646 0.5595583  0.5698133  0.58322376 0.59821194
+ 0.6095188  0.6226663 ]
+POOL:   Rank-1: 14.25% | Rank-5: 34.47% | Rank-10: 47.75%| Rank-20: 62.27%| mAP: 14.66%| mINP: 6.88%
+FC:   Rank-1: 9.10% | Rank-5: 23.22% | Rank-10: 36.21%| Rank-20: 56.25%| mAP: 9.81%| mINP: 4.45%
+Best Epoch [35]
+==> Preparing Data Loader...
+68
+[17988 17982 17988 ... 20082 20081 20075]
+[7775 7803 7773 ... 9695 9693 9688]
+Epoch: [68][0/347] lr:0.00000 Loss: 10.0529 (10.0529) rgb_proxy_loss: 10.0529 (10.0529) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [68][50/347] lr:0.00000 Loss: 10.0246 (10.0368) rgb_proxy_loss: 10.0246 (10.0368) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [68][100/347] lr:0.00000 Loss: 10.0100 (10.0433) rgb_proxy_loss: 10.0100 (10.0433) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [68][150/347] lr:0.00000 Loss: 10.1868 (10.0456) rgb_proxy_loss: 10.1868 (10.0456) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [68][200/347] lr:0.00000 Loss: 10.0306 (10.0446) rgb_proxy_loss: 10.0306 (10.0446) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [68][250/347] lr:0.00000 Loss: 10.0762 (10.0437) rgb_proxy_loss: 10.0762 (10.0437) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [68][300/347] lr:0.00000 Loss: 10.0479 (10.0444) rgb_proxy_loss: 10.0479 (10.0444) ir_proxy_loss: 0.0000 (0.0000)
+==> Preparing Data Loader...
+69
+[20225 20224 20233 ... 20499 20489 20495]
+[ 9859  9866  9853 ... 10108 10109 10108]
+Epoch: [69][0/347] lr:0.00000 Loss: 10.0490 (10.0490) rgb_proxy_loss: 10.0490 (10.0490) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [69][50/347] lr:0.00000 Loss: 10.0631 (10.0557) rgb_proxy_loss: 10.0631 (10.0557) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [69][100/347] lr:0.00000 Loss: 10.0359 (10.0514) rgb_proxy_loss: 10.0359 (10.0514) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [69][150/347] lr:0.00000 Loss: 10.0884 (10.0520) rgb_proxy_loss: 10.0884 (10.0520) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [69][200/347] lr:0.00000 Loss: 9.9930 (10.0523) rgb_proxy_loss: 9.9930 (10.0523) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [69][250/347] lr:0.00000 Loss: 9.9874 (10.0531) rgb_proxy_loss: 9.9874 (10.0531) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [69][300/347] lr:0.00000 Loss: 10.0265 (10.0526) rgb_proxy_loss: 10.0265 (10.0526) ir_proxy_loss: 0.0000 (0.0000)
+Test Epoch: 69
+Extracting Gallery Feature...
+Extracting Time:	 1.533
+Extracting Query Feature...
+Extracting Time:	 9.462
+Evaluation Time:	 5.863
+[0.14383382 0.2174599  0.27162766 0.3163292  0.3507757  0.37917432
+ 0.41178018 0.4386011  0.46226662 0.48382854 0.4998685  0.51617146
+ 0.53194845 0.54535896 0.5582435  0.5740205  0.58374965 0.59821194
+ 0.61398894 0.6284512 ]
+POOL:   Rank-1: 14.38% | Rank-5: 35.08% | Rank-10: 48.38%| Rank-20: 62.85%| mAP: 14.77%| mINP: 6.85%
+FC:   Rank-1: 9.97% | Rank-5: 25.59% | Rank-10: 38.68%| Rank-20: 58.35%| mAP: 10.52%| mINP: 4.65%
+Best Epoch [69]
+==> Preparing Data Loader...
+70
+[  456   400   387 ... 15156 15183 15117]
+[ 180  163  169 ... 6540 6565 6566]
+Epoch: [70][0/347] lr:0.00000 Loss: 10.0870 (10.0870) rgb_proxy_loss: 10.0870 (10.0870) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [70][50/347] lr:0.00000 Loss: 10.0480 (10.0442) rgb_proxy_loss: 10.0480 (10.0442) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [70][100/347] lr:0.00000 Loss: 9.9338 (10.0462) rgb_proxy_loss: 9.9338 (10.0462) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [70][150/347] lr:0.00000 Loss: 10.0588 (10.0432) rgb_proxy_loss: 10.0588 (10.0432) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [70][200/347] lr:0.00000 Loss: 10.0239 (10.0435) rgb_proxy_loss: 10.0239 (10.0435) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [70][250/347] lr:0.00000 Loss: 10.0605 (10.0442) rgb_proxy_loss: 10.0605 (10.0442) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [70][300/347] lr:0.00000 Loss: 10.0541 (10.0441) rgb_proxy_loss: 10.0541 (10.0441) ir_proxy_loss: 0.0000 (0.0000)
+==> Preparing Data Loader...
+71
+[21348 21364 21357 ... 10214 10200 10213]
+[11023 11017 11019 ...  4377  4381  4383]
+Epoch: [71][0/347] lr:0.00000 Loss: 10.1101 (10.1101) rgb_proxy_loss: 10.1101 (10.1101) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [71][50/347] lr:0.00000 Loss: 10.0327 (10.0408) rgb_proxy_loss: 10.0327 (10.0408) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [71][100/347] lr:0.00000 Loss: 10.0863 (10.0426) rgb_proxy_loss: 10.0863 (10.0426) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [71][150/347] lr:0.00000 Loss: 10.0599 (10.0427) rgb_proxy_loss: 10.0599 (10.0427) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [71][200/347] lr:0.00000 Loss: 10.0227 (10.0419) rgb_proxy_loss: 10.0227 (10.0419) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [71][250/347] lr:0.00000 Loss: 10.0362 (10.0412) rgb_proxy_loss: 10.0362 (10.0412) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [71][300/347] lr:0.00000 Loss: 10.0902 (10.0414) rgb_proxy_loss: 10.0902 (10.0414) ir_proxy_loss: 0.0000 (0.0000)
+Test Epoch: 71
+Extracting Gallery Feature...
+Extracting Time:	 1.576
+Extracting Query Feature...
+Extracting Time:	 9.484
+Evaluation Time:	 5.866
+[0.14804102 0.222193   0.27320537 0.31922168 0.35051274 0.37838548
+ 0.40652117 0.4317644  0.45779648 0.47699186 0.4961872  0.51617146
+ 0.5295819  0.5456219  0.55719167 0.5708651  0.58743095 0.5990008
+ 0.6105706  0.62345517]
+POOL:   Rank-1: 14.80% | Rank-5: 35.05% | Rank-10: 47.70%| Rank-20: 62.35%| mAP: 14.99%| mINP: 7.03%
+FC:   Rank-1: 9.49% | Rank-5: 25.32% | Rank-10: 38.50%| Rank-20: 57.43%| mAP: 10.24%| mINP: 4.66%
+Best Epoch [69]
+==> Preparing Data Loader...
+72
+[17552 17589 17531 ... 20714 20714 20712]
+[ 7603  7575  7569 ... 10355 10341 10350]
+Epoch: [72][0/347] lr:0.00000 Loss: 10.0966 (10.0966) rgb_proxy_loss: 10.0966 (10.0966) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [72][50/347] lr:0.00000 Loss: 9.9915 (10.0546) rgb_proxy_loss: 9.9915 (10.0546) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [72][100/347] lr:0.00000 Loss: 10.0834 (10.0478) rgb_proxy_loss: 10.0834 (10.0478) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [72][150/347] lr:0.00000 Loss: 9.9984 (10.0440) rgb_proxy_loss: 9.9984 (10.0440) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [72][200/347] lr:0.00000 Loss: 9.9640 (10.0416) rgb_proxy_loss: 9.9640 (10.0416) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [72][250/347] lr:0.00000 Loss: 10.0460 (10.0410) rgb_proxy_loss: 10.0460 (10.0410) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [72][300/347] lr:0.00000 Loss: 10.0305 (10.0413) rgb_proxy_loss: 10.0305 (10.0413) ir_proxy_loss: 0.0000 (0.0000)
+==> Preparing Data Loader...
+73
+[20920 20915 20904 ... 20087 20098 20101]
+[10580 10575 10582 ...  9712  9719  9724]
+Epoch: [73][0/347] lr:0.00000 Loss: 10.0855 (10.0855) rgb_proxy_loss: 10.0855 (10.0855) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [73][50/347] lr:0.00000 Loss: 10.0675 (10.0479) rgb_proxy_loss: 10.0675 (10.0479) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [73][100/347] lr:0.00000 Loss: 10.0103 (10.0495) rgb_proxy_loss: 10.0103 (10.0495) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [73][150/347] lr:0.00000 Loss: 9.9925 (10.0434) rgb_proxy_loss: 9.9925 (10.0434) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [73][200/347] lr:0.00000 Loss: 10.0325 (10.0438) rgb_proxy_loss: 10.0325 (10.0438) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [73][250/347] lr:0.00000 Loss: 9.9534 (10.0441) rgb_proxy_loss: 9.9534 (10.0441) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [73][300/347] lr:0.00000 Loss: 9.9853 (10.0425) rgb_proxy_loss: 9.9853 (10.0425) ir_proxy_loss: 0.0000 (0.0000)
+Test Epoch: 73
+Extracting Gallery Feature...
+Extracting Time:	 1.592
+Extracting Query Feature...
+Extracting Time:	 9.452
+Evaluation Time:	 5.803
+[0.14620037 0.21772285 0.26926112 0.3115961  0.3455167  0.37680778
+ 0.40389165 0.4301867  0.4533263  0.47383645 0.49198002 0.51249015
+ 0.5264265  0.5400999  0.5524586  0.5627136  0.58006835 0.59269
+ 0.6053116  0.61688143]
+POOL:   Rank-1: 14.62% | Rank-5: 34.55% | Rank-10: 47.38%| Rank-20: 61.69%| mAP: 14.64%| mINP: 6.75%
+FC:   Rank-1: 9.36% | Rank-5: 24.48% | Rank-10: 37.58%| Rank-20: 56.40%| mAP: 9.96%| mINP: 4.40%
+Best Epoch [69]
+==> Preparing Data Loader...
+74
+[22150 22146 22157 ... 19891 19900 19891]
+[11807 11791 11793 ...  9514  9521  9517]
+Epoch: [74][0/347] lr:0.00000 Loss: 10.0509 (10.0509) rgb_proxy_loss: 10.0509 (10.0509) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [74][50/347] lr:0.00000 Loss: 10.0183 (10.0391) rgb_proxy_loss: 10.0183 (10.0391) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [74][100/347] lr:0.00000 Loss: 9.9788 (10.0351) rgb_proxy_loss: 9.9788 (10.0351) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [74][150/347] lr:0.00000 Loss: 10.0101 (10.0378) rgb_proxy_loss: 10.0101 (10.0378) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [74][200/347] lr:0.00000 Loss: 10.0112 (10.0370) rgb_proxy_loss: 10.0112 (10.0370) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [74][250/347] lr:0.00000 Loss: 10.0585 (10.0378) rgb_proxy_loss: 10.0585 (10.0378) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [74][300/347] lr:0.00000 Loss: 10.0168 (10.0374) rgb_proxy_loss: 10.0168 (10.0374) ir_proxy_loss: 0.0000 (0.0000)
+==> Preparing Data Loader...
+75
+[10279 10228 10307 ... 13082 13106 13066]
+[4430 4411 4415 ... 5616 5640 5608]
+Epoch: [75][0/347] lr:0.00000 Loss: 10.0873 (10.0873) rgb_proxy_loss: 10.0873 (10.0873) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [75][50/347] lr:0.00000 Loss: 10.0527 (10.0378) rgb_proxy_loss: 10.0527 (10.0378) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [75][100/347] lr:0.00000 Loss: 10.0545 (10.0389) rgb_proxy_loss: 10.0545 (10.0389) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [75][150/347] lr:0.00000 Loss: 9.9784 (10.0398) rgb_proxy_loss: 9.9784 (10.0398) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [75][200/347] lr:0.00000 Loss: 9.9936 (10.0371) rgb_proxy_loss: 9.9936 (10.0371) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [75][250/347] lr:0.00000 Loss: 9.9827 (10.0397) rgb_proxy_loss: 9.9827 (10.0397) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [75][300/347] lr:0.00000 Loss: 10.0385 (10.0400) rgb_proxy_loss: 10.0385 (10.0400) ir_proxy_loss: 0.0000 (0.0000)
+Test Epoch: 75
+Extracting Gallery Feature...
+Extracting Time:	 1.562
+Extracting Query Feature...
+Extracting Time:	 9.432
+Evaluation Time:	 5.727
+[0.15198527 0.22455956 0.27373126 0.31185907 0.3449908  0.3741783
+ 0.402051   0.42834604 0.45095977 0.4751512  0.49171707 0.5074941
+ 0.52353406 0.5414147  0.5548251  0.5711281  0.58269787 0.59453064
+ 0.6089929  0.62082565]
+POOL:   Rank-1: 15.20% | Rank-5: 34.50% | Rank-10: 47.52%| Rank-20: 62.08%| mAP: 14.86%| mINP: 6.83%
+FC:   Rank-1: 10.18% | Rank-5: 26.01% | Rank-10: 39.18%| Rank-20: 58.24%| mAP: 10.56%| mINP: 4.63%
+Best Epoch [75]
+==> Preparing Data Loader...
+76
+[21574 21586 21587 ...  4598  4628  4543]
+[11239 11239 11229 ...  2005  1975  2003]
+Epoch: [76][0/347] lr:0.00000 Loss: 10.0193 (10.0193) rgb_proxy_loss: 10.0193 (10.0193) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [76][50/347] lr:0.00000 Loss: 10.0259 (10.0367) rgb_proxy_loss: 10.0259 (10.0367) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [76][100/347] lr:0.00000 Loss: 9.9876 (10.0394) rgb_proxy_loss: 9.9876 (10.0394) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [76][150/347] lr:0.00000 Loss: 10.0485 (10.0412) rgb_proxy_loss: 10.0485 (10.0412) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [76][200/347] lr:0.00000 Loss: 10.0747 (10.0422) rgb_proxy_loss: 10.0747 (10.0422) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [76][250/347] lr:0.00000 Loss: 10.1927 (10.0410) rgb_proxy_loss: 10.1927 (10.0410) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [76][300/347] lr:0.00000 Loss: 10.0653 (10.0409) rgb_proxy_loss: 10.0653 (10.0409) ir_proxy_loss: 0.0000 (0.0000)
+==> Preparing Data Loader...
+77
+[22032 22032 22034 ... 16960 17012 16980]
+[11677 11680 11670 ...  7302  7327  7310]
+Epoch: [77][0/347] lr:0.00000 Loss: 10.0211 (10.0211) rgb_proxy_loss: 10.0211 (10.0211) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [77][50/347] lr:0.00000 Loss: 10.0261 (10.0449) rgb_proxy_loss: 10.0261 (10.0449) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [77][100/347] lr:0.00000 Loss: 10.0551 (10.0496) rgb_proxy_loss: 10.0551 (10.0496) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [77][150/347] lr:0.00000 Loss: 10.0833 (10.0449) rgb_proxy_loss: 10.0833 (10.0449) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [77][200/347] lr:0.00000 Loss: 10.0993 (10.0439) rgb_proxy_loss: 10.0993 (10.0439) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [77][250/347] lr:0.00000 Loss: 10.0873 (10.0423) rgb_proxy_loss: 10.0873 (10.0423) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [77][300/347] lr:0.00000 Loss: 10.0599 (10.0415) rgb_proxy_loss: 10.0599 (10.0415) ir_proxy_loss: 0.0000 (0.0000)
+Test Epoch: 77
+Extracting Gallery Feature...
+Extracting Time:	 1.581
+Extracting Query Feature...
+Extracting Time:	 9.472
+Evaluation Time:	 5.863
+[0.1406784  0.2127268  0.26584277 0.3079148  0.33683935 0.36865634
+ 0.39284775 0.42334998 0.44517487 0.4667368  0.48750985 0.50512755
+ 0.5190639  0.5369445  0.55009204 0.56166184 0.57533526 0.5892716
+ 0.6053116  0.61688143]
+POOL:   Rank-1: 14.07% | Rank-5: 33.68% | Rank-10: 46.67%| Rank-20: 61.69%| mAP: 14.55%| mINP: 6.85%
+FC:   Rank-1: 9.47% | Rank-5: 25.30% | Rank-10: 38.13%| Rank-20: 56.69%| mAP: 10.05%| mINP: 4.46%
+Best Epoch [75]
+==> Preparing Data Loader...
+78
+[19723 19718 19720 ... 19648 19646 19644]
+[9332 9331 9337 ... 9286 9282 9280]
+Epoch: [78][0/347] lr:0.00000 Loss: 10.0633 (10.0633) rgb_proxy_loss: 10.0633 (10.0633) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [78][50/347] lr:0.00000 Loss: 10.0177 (10.0370) rgb_proxy_loss: 10.0177 (10.0370) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [78][100/347] lr:0.00000 Loss: 10.0231 (10.0393) rgb_proxy_loss: 10.0231 (10.0393) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [78][150/347] lr:0.00000 Loss: 10.0228 (10.0404) rgb_proxy_loss: 10.0228 (10.0404) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [78][200/347] lr:0.00000 Loss: 10.0468 (10.0400) rgb_proxy_loss: 10.0468 (10.0400) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [78][250/347] lr:0.00000 Loss: 10.0412 (10.0399) rgb_proxy_loss: 10.0412 (10.0399) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [78][300/347] lr:0.00000 Loss: 10.1464 (10.0406) rgb_proxy_loss: 10.1464 (10.0406) ir_proxy_loss: 0.0000 (0.0000)
+==> Preparing Data Loader...
+79
+[18659 18653 18663 ... 20985 20968 20967]
+[ 8275  8284  8287 ... 10638 10639 10642]
+Epoch: [79][0/347] lr:0.00000 Loss: 10.0974 (10.0974) rgb_proxy_loss: 10.0974 (10.0974) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [79][50/347] lr:0.00000 Loss: 10.0652 (10.0334) rgb_proxy_loss: 10.0652 (10.0334) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [79][100/347] lr:0.00000 Loss: 10.0811 (10.0308) rgb_proxy_loss: 10.0811 (10.0308) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [79][150/347] lr:0.00000 Loss: 10.0867 (10.0341) rgb_proxy_loss: 10.0867 (10.0341) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [79][200/347] lr:0.00000 Loss: 10.1156 (10.0375) rgb_proxy_loss: 10.1156 (10.0375) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [79][250/347] lr:0.00000 Loss: 10.0876 (10.0389) rgb_proxy_loss: 10.0876 (10.0389) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [79][300/347] lr:0.00000 Loss: 10.0002 (10.0397) rgb_proxy_loss: 10.0002 (10.0397) ir_proxy_loss: 0.0000 (0.0000)
+Test Epoch: 79
+Extracting Gallery Feature...
+Extracting Time:	 1.654
+Extracting Query Feature...
+Extracting Time:	 9.531
+Evaluation Time:	 5.814
+[0.15067053 0.22245595 0.27714962 0.31580332 0.35103866 0.37864843
+ 0.40783593 0.433868   0.45753354 0.47751775 0.49697608 0.51275307
+ 0.5280042  0.54614776 0.5598212  0.57323164 0.5845385  0.5953195
+ 0.6108335  0.62450695]
+POOL:   Rank-1: 15.07% | Rank-5: 35.10% | Rank-10: 47.75%| Rank-20: 62.45%| mAP: 15.03%| mINP: 6.98%
+FC:   Rank-1: 10.04% | Rank-5: 25.93% | Rank-10: 39.00%| Rank-20: 57.48%| mAP: 10.55%| mINP: 4.63%
+Best Epoch [75]
+==> Preparing Data Loader...
+80
+[ 1160  1157  1213 ... 10867 10833 10897]
+[ 494  470  464 ... 4661 4674 4686]
+Epoch: [80][0/347] lr:0.00000 Loss: 10.0302 (10.0302) rgb_proxy_loss: 10.0302 (10.0302) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [80][50/347] lr:0.00000 Loss: 9.9988 (10.0390) rgb_proxy_loss: 9.9988 (10.0390) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [80][100/347] lr:0.00000 Loss: 10.0561 (10.0430) rgb_proxy_loss: 10.0561 (10.0430) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [80][150/347] lr:0.00000 Loss: 10.0481 (10.0414) rgb_proxy_loss: 10.0481 (10.0414) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [80][200/347] lr:0.00000 Loss: 10.0113 (10.0392) rgb_proxy_loss: 10.0113 (10.0392) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [80][250/347] lr:0.00000 Loss: 10.0141 (10.0392) rgb_proxy_loss: 10.0141 (10.0392) ir_proxy_loss: 0.0000 (0.0000)
+Epoch: [80][300/347] lr:0.00000 Loss: 10.0905 (10.0397) rgb_proxy_loss: 10.0905 (10.0397) ir_proxy_loss: 0.0000 (0.0000)

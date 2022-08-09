@@ -1,0 +1,1 @@
+{"train_loss": 22.632567750996557, "_timestamp": 1658395593, "_runtime": 11814, "rgb_proxy_loss": 11.267066530797674, "ir_proxy_loss": 11.2933682655466, "uni_proxy_loss": 0.07213299939858503, "_step": 68, "_wandb": {"runtime": 11858}}

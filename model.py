@@ -156,12 +156,6 @@ class base_resnet(nn.Module):
                     m.weight.requires_grad_(False)
                     m.bias.requires_grad_(False)
                     
-    def forward(self, x):
-        x = self.base.layer1(x)
-        x = self.base.layer2(x)
-        x = self.base.layer3(x)
-        x = self.base.layer4(x)
-        return x
     
     def l2_norm(self,input):
         input_size = input.size()
@@ -197,6 +191,57 @@ class base_resnet(nn.Module):
     def _initialize_weights(self):
         init.kaiming_normal_(self.model.embedding.weight, mode='fan_out')
         init.constant_(self.model.embedding.bias, 0)
+        
+class base_resnet_v2(nn.Module):
+    def __init__(self, embedding_size, arch='resnet50', pretrained=True, is_norm=True, bn_freeze=True):
+        super(base_resnet_v2, self).__init__()
+        
+        self.model = resnet50(pretrained)
+        self.is_norm = is_norm
+        self.embedding_size = embedding_size
+        self.num_ftrs = self.model.fc.in_features
+        self.model.gap = nn.AdaptiveAvgPool2d(1)
+        self.model.gmp = nn.AdaptiveMaxPool2d(1)
+        
+        
+        if bn_freeze:
+            for m in self.model.modules():
+                if isinstance(m, nn.BatchNorm2d):
+                    m.eval()
+                    m.weight.requires_grad_(False)
+                    m.bias.requires_grad_(False)
+                    
+    
+    def l2_norm(self,input):
+        input_size = input.size()
+        buffer = torch.pow(input, 2)
+
+        normp = torch.sum(buffer, 1).add_(1e-12)
+        norm = torch.sqrt(normp)
+
+        _output = torch.div(input, norm.view(-1, 1).expand_as(input))
+
+        output = _output.view(input_size)
+
+        return output
+    
+    def forward(self, x):
+        x = self.model.layer1(x)
+        x = self.model.layer2(x)
+        x = self.model.layer3(x)
+        x = self.model.layer4(x)
+
+        avg_x = self.model.gap(x)
+        
+
+        x = avg_x
+        x = x.view(x.size(0), -1)
+        
+        if self.is_norm:
+            x = self.l2_norm(x)
+        
+        return x
+    
 
 class ChannelAttention(nn.Module): ##modified
     def __init__(self, channel, reduction=16):
@@ -285,8 +330,10 @@ class embed_net(nn.Module):
         self.visible_module = visible_module(arch=arch)
         
         if self.syn:
-            self.synthetic_module = synthetic(arch=arch)
-            self.synthesizing_module = Synthesizing()
+            self.relu = nn.ReLU()
+            self.incep = nn.Conv2d(64,64,1)
+            # self.synthetic_module = synthetic(arch=arch)
+            # self.synthesizing_module = Synthesizing()
             
             
         self.base_resnet = base_resnet(embedding_size=self.embedding_size, arch=arch)
@@ -325,17 +372,15 @@ class embed_net(nn.Module):
 
     def forward(self, x1=None, x2=None, modal=0):
         if modal == 0:
+            x1 = self.visible_module(x1)
+            x2 = self.thermal_module(x2)
+            
             if self.syn:
-                x3 = self.synthesizing_module(x1)
-                x3 = self.synthetic_module(x3)
-                
-                
-                x3_ca = x3 * self.ca(x3) + x3
-                x3 = x3_ca * self.sa(x3) + x3_ca
+                x3 = self.relu(x1 * x2)
+                x3 = self.incep(x3)
                 
             
-            x1 = self.visible_module(x1)
-            x2 = self.thermal_module(x2)            
+                        
             
             if self.local_attn:            
                 x1_ca = x1 * self.ca(x1) + x1
@@ -351,13 +396,15 @@ class embed_net(nn.Module):
         elif modal == 1:
             x = self.visible_module(x1)
             if self.syn:    
-                x_ca = x * self.ca(x) + x
-                x = x_ca * self.sa(x) + x_ca
+                pass
+                # x_ca = x * self.ca(x) + x
+                # x = x_ca * self.sa(x) + x_ca
         elif modal == 2:
             x = self.thermal_module(x2)
             if self.syn:
-                x_ca = x * self.ca(x) + x
-                x = x_ca * self.sa(x) + x_ca
+                pass
+                # x_ca = x * self.ca(x) + x
+                # x = x_ca * self.sa(x) + x_ca
 
         # shared block
         if self.non_local == 'on':
@@ -420,3 +467,77 @@ class embed_net(nn.Module):
                 return x_pool, feat
             else:
                 return self.l2norm(x_pool), self.l2norm(feat)
+            
+class embed_net_v2(nn.Module):
+    def __init__(self,  class_num, no_local= 'on', gm_pool = 'on', arch='resnet50', embed_size = 512, syn=False, local_attn=False, proxy=False):
+        super(embed_net_v2, self).__init__()
+        self.syn = syn
+        self.local_attn = local_attn
+        self.proxy = proxy
+        self.embedding_size = embed_size
+        self.pool_dim = 2048
+        self.class_num = class_num
+
+        self.thermal_module = thermal_module(arch=arch)
+        self.visible_module = visible_module(arch=arch)
+        
+            
+        self.base_resnet = base_resnet_v2(embedding_size=self.embedding_size, arch=arch)
+        self.non_local = no_local
+        
+        # self.rgb_linear = nn.Linear(self.pool_dim, self.class_num)
+        # self.ir_linear = nn.Linear(self.pool_dim, self.class_num)
+        self.mono_linear = nn.Linear(self.pool_dim, self.class_num)
+
+        
+        self.l2norm = Normalize(2)
+        self.bottleneck = nn.BatchNorm1d(self.pool_dim)
+        self.bottleneck.bias.requires_grad_(False)  # no shift
+        
+        
+        
+        self.ca = ChannelAttention(64) 
+        self.sa = SpatialAttnetion(64) 
+
+        #self.classifier = nn.Linear(pool_dim, class_num, bias=False)
+
+        self.bottleneck.apply(weights_init_kaiming)
+        self._initialize_weights()
+        
+        self.gm_pool = gm_pool
+
+    def _initialize_weights(self):
+        # init.kaiming_normal_(self.rgb_linear.weight, mode='fan_out')
+        # init.constant_(self.rgb_linear.bias, 0)
+        
+        # init.kaiming_normal_(self.ir_linear.weight, mode='fan_out')
+        # init.constant_(self.ir_linear.bias, 0)
+        
+        init.kaiming_normal_(self.mono_linear.weight, mode='fan_out')
+        init.constant_(self.mono_linear.bias, 0)
+        
+        
+    def forward(self, x1=None, x2=None, modal=0):
+        
+        if modal == 0:
+            x1 = self.visible_module(x1)
+            x2 = self.thermal_module(x2)
+            
+            x = torch.cat((x1, x2), 0)
+        elif modal == 1:
+            x = self.visible_module(x1)
+            
+        elif modal == 2:
+            x = self.thermal_module(x2)
+        
+        x = self.base_resnet(x)
+                
+        x_pool = x
+        
+        feat = self.bottleneck(x_pool)
+
+        if self.training:
+            return self.mono_linear(feat)
+            
+        else:
+            return x_pool, feat

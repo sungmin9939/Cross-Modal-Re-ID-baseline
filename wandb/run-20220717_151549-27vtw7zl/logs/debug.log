@@ -1,0 +1,24 @@
+2022-07-17 15:15:49,128 INFO    MainThread:10612 [wandb_setup.py:_flush():76] Configure stats pid to 10612
+2022-07-17 15:15:49,128 INFO    MainThread:10612 [wandb_setup.py:_flush():76] Loading settings from /root/.config/wandb/settings
+2022-07-17 15:15:49,129 INFO    MainThread:10612 [wandb_setup.py:_flush():76] Loading settings from /data/Cross-Modal-Re-ID-baseline/wandb/settings
+2022-07-17 15:15:49,129 INFO    MainThread:10612 [wandb_setup.py:_flush():76] Loading settings from environment variables: {}
+2022-07-17 15:15:49,129 INFO    MainThread:10612 [wandb_setup.py:_flush():76] Inferring run settings from compute environment: {'program_relpath': 'train.py', 'program': 'train.py'}
+2022-07-17 15:15:49,129 INFO    MainThread:10612 [wandb_init.py:_log_setup():461] Logging user logs to /data/Cross-Modal-Re-ID-baseline/wandb/run-20220717_151549-27vtw7zl/logs/debug.log
+2022-07-17 15:15:49,129 INFO    MainThread:10612 [wandb_init.py:_log_setup():462] Logging internal logs to /data/Cross-Modal-Re-ID-baseline/wandb/run-20220717_151549-27vtw7zl/logs/debug-internal.log
+2022-07-17 15:15:49,130 INFO    MainThread:10612 [wandb_init.py:init():495] calling init triggers
+2022-07-17 15:15:49,130 INFO    MainThread:10612 [wandb_init.py:init():499] wandb.init called with sweep_config: {}
+config: {}
+2022-07-17 15:15:49,130 INFO    MainThread:10612 [wandb_init.py:init():548] starting backend
+2022-07-17 15:15:49,130 INFO    MainThread:10612 [backend.py:_multiprocessing_setup():99] multiprocessing start_methods=fork,spawn,forkserver, using: spawn
+2022-07-17 15:15:49,141 INFO    MainThread:10612 [backend.py:ensure_launched():217] starting backend process...
+2022-07-17 15:15:49,150 INFO    MainThread:10612 [backend.py:ensure_launched():222] started backend process with pid: 10826
+2022-07-17 15:15:49,152 INFO    MainThread:10612 [wandb_init.py:init():558] backend started and connected
+2022-07-17 15:15:49,156 INFO    MainThread:10612 [wandb_init.py:init():634] updated telemetry
+2022-07-17 15:15:49,156 INFO    MainThread:10612 [wandb_init.py:init():666] communicating run to backend with 30 second timeout
+2022-07-17 15:16:19,158 INFO    MainThread:10612 [interface_shared.py:_communicate_run():326] couldn't get run from backend
+2022-07-17 15:16:19,158 ERROR   MainThread:10612 [wandb_init.py:init():674] backend process timed out
+2022-07-17 15:16:19,159 ERROR   MainThread:10612 [wandb_init.py:init():685] encountered error: Error communicating with wandb process
+try: wandb.init(settings=wandb.Settings(start_method='fork'))
+or:  wandb.init(settings=wandb.Settings(start_method='thread'))
+For more info see: https://docs.wandb.ai/library/init#init-start-error
+2022-07-17 15:16:54,763 INFO    MainThread:10612 [wandb_init.py:teardown():302] tearing down wandb.init

@@ -1,0 +1,79 @@
+
+==> Loading data..
+Dataset sysu statistics:
+  ------------------------------
+  subset   | # ids | # images
+  ------------------------------
+  visible  |   395 |    22258
+  thermal  |   395 |    11909
+  ------------------------------
+  query    |    96 |     3803
+  gallery  |    96 |      301
+  ------------------------------
+Data Loading Time:	 15.983
+==> Building model..
+==> Start Training...
+==> Preparing Data Loader...
+0
+[20927 20945 20945 ...  4515  4467  4490]
+[10597 10605 10597 ...  1932  1948  1928]
+Epoch: [0][0/347] lr:0.00010 Loss: 47.9736 (47.9736) rgb_proxy_loss: 13.3523 (13.3523) ir_proxy_loss: 13.8259 (13.8259) rgb_proxy_R_loss: 13.4690 (13.4690)ir_proxy_R_loss: 13.3068 (13.3068)KLD_loss: -5.980450 (-5.980450)
+/data/Cross-Modal-Re-ID-baseline/loss.py:113: UserWarning: This overload of nonzero is deprecated:
+	nonzero(Tensor input, *, Tensor out)
+Consider using one of the following signatures instead:
+	nonzero(Tensor input, *, bool as_tuple) (Triggered internally at  /opt/conda/conda-bld/pytorch_1595629403081/work/torch/csrc/utils/python_arg_parser.cpp:766.)
+  with_pos_proxies = torch.nonzero(P_one_hot.sum(dim = 0) != 0).squeeze(dim = 1)   # The set of positive proxies of data in the batch
+train.py:379: UserWarning: Implicit dimension choice for softmax has been deprecated. Change the call to include dim=X as an argument.
+  loss_KLD = criterion_KLD(F.softmax(logit_m_), F.softmax(logit_m))
+train.py:379: UserWarning: Implicit dimension choice for softmax has been deprecated. Change the call to include dim=X as an argument.
+  loss_KLD = criterion_KLD(F.softmax(logit_m_), F.softmax(logit_m))
+train.py:379: UserWarning: Implicit dimension choice for softmax has been deprecated. Change the call to include dim=X as an argument.
+  loss_KLD = criterion_KLD(F.softmax(logit_m_), F.softmax(logit_m))
+train.py:379: UserWarning: Implicit dimension choice for softmax has been deprecated. Change the call to include dim=X as an argument.
+  loss_KLD = criterion_KLD(F.softmax(logit_m_), F.softmax(logit_m))
+train.py:379: UserWarning: Implicit dimension choice for softmax has been deprecated. Change the call to include dim=X as an argument.
+  loss_KLD = criterion_KLD(F.softmax(logit_m_), F.softmax(logit_m))
+train.py:379: UserWarning: Implicit dimension choice for softmax has been deprecated. Change the call to include dim=X as an argument.
+  loss_KLD = criterion_KLD(F.softmax(logit_m_), F.softmax(logit_m))
+train.py:379: UserWarning: Implicit dimension choice for softmax has been deprecated. Change the call to include dim=X as an argument.
+  loss_KLD = criterion_KLD(F.softmax(logit_m_), F.softmax(logit_m))
+train.py:379: UserWarning: Implicit dimension choice for softmax has been deprecated. Change the call to include dim=X as an argument.
+  loss_KLD = criterion_KLD(F.softmax(logit_m_), F.softmax(logit_m))
+train.py:379: UserWarning: Implicit dimension choice for softmax has been deprecated. Change the call to include dim=X as an argument.
+  loss_KLD = criterion_KLD(F.softmax(logit_m_), F.softmax(logit_m))
+train.py:379: UserWarning: Implicit dimension choice for softmax has been deprecated. Change the call to include dim=X as an argument.
+  loss_KLD = criterion_KLD(F.softmax(logit_m_), F.softmax(logit_m))
+train.py:379: UserWarning: Implicit dimension choice for softmax has been deprecated. Change the call to include dim=X as an argument.
+  loss_KLD = criterion_KLD(F.softmax(logit_m_), F.softmax(logit_m))
+train.py:379: UserWarning: Implicit dimension choice for softmax has been deprecated. Change the call to include dim=X as an argument.
+  loss_KLD = criterion_KLD(F.softmax(logit_m_), F.softmax(logit_m))
+train.py:379: UserWarning: Implicit dimension choice for softmax has been deprecated. Change the call to include dim=X as an argument.
+  loss_KLD = criterion_KLD(F.softmax(logit_m_), F.softmax(logit_m))
+train.py:379: UserWarning: Implicit dimension choice for softmax has been deprecated. Change the call to include dim=X as an argument.
+  loss_KLD = criterion_KLD(F.softmax(logit_m_), F.softmax(logit_m))
+train.py:379: UserWarning: Implicit dimension choice for softmax has been deprecated. Change the call to include dim=X as an argument.
+  loss_KLD = criterion_KLD(F.softmax(logit_m_), F.softmax(logit_m))
+train.py:379: UserWarning: Implicit dimension choice for softmax has been deprecated. Change the call to include dim=X as an argument.
+  loss_KLD = criterion_KLD(F.softmax(logit_m_), F.softmax(logit_m))
+train.py:379: UserWarning: Implicit dimension choice for softmax has been deprecated. Change the call to include dim=X as an argument.
+  loss_KLD = criterion_KLD(F.softmax(logit_m_), F.softmax(logit_m))
+train.py:379: UserWarning: Implicit dimension choice for softmax has been deprecated. Change the call to include dim=X as an argument.
+  loss_KLD = criterion_KLD(F.softmax(logit_m_), F.softmax(logit_m))
+train.py:379: UserWarning: Implicit dimension choice for softmax has been deprecated. Change the call to include dim=X as an argument.
+  loss_KLD = criterion_KLD(F.softmax(logit_m_), F.softmax(logit_m))
+train.py:379: UserWarning: Implicit dimension choice for softmax has been deprecated. Change the call to include dim=X as an argument.
+  loss_KLD = criterion_KLD(F.softmax(logit_m_), F.softmax(logit_m))
+train.py:379: UserWarning: Implicit dimension choice for softmax has been deprecated. Change the call to include dim=X as an argument.
+  loss_KLD = criterion_KLD(F.softmax(logit_m_), F.softmax(logit_m))
+Traceback (most recent call last):
+  File "train.py", line 555, in <module>
+    train(epoch)
+  File "train.py", line 362, in train
+    loss_rgb, logit_r = criterion_proxy_rgb(out0[:batch_size][:], labels[:batch_size][:])
+  File "/opt/conda/lib/python3.7/site-packages/torch/nn/modules/module.py", line 722, in _call_impl
+    result = self.forward(*input, **kwargs)
+  File "/data/Cross-Modal-Re-ID-baseline/loss.py", line 107, in forward
+    P_one_hot = binarize(T = T, nb_classes = self.nb_classes)
+  File "/data/Cross-Modal-Re-ID-baseline/loss.py", line 11, in binarize
+    T = T.cpu().numpy()
+KeyboardInterrupt

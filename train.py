@@ -7,6 +7,7 @@ import sys
 import time
 import torch
 import torch.nn as nn
+from torch.nn import functional as F
 import torch.optim as optim
 import torch.backends.cudnn as cudnn
 from torch.autograd import Variable
@@ -18,7 +19,8 @@ from data_manager import *
 from eval_metrics import eval_sysu, eval_regdb
 from model import embed_net
 from utils import *
-from loss import OriTripletLoss, TripletLoss_WRT, two_level_Proxy_Anchor, Proxy_Anchor, Proxy_Anchor_linear
+from loss import OriTripletLoss, TripletLoss_WRT, two_level_Proxy_Anchor, Proxy_Anchor, Proxy_Anchor_linear, hardest_intra
+import wandb
 from tensorboardX import SummaryWriter
 
 parser = argparse.ArgumentParser(description='PyTorch Cross-Modality Training')
@@ -51,8 +53,7 @@ parser.add_argument('--batch-size', default=16, type=int,
 parser.add_argument('--test-batch', default=64, type=int,
                     metavar='tb', help='testing batch size')
 
-parser.add_argument('--margin', default=0.3, type=float,
-                    metavar='margin', help='triplet loss margin')
+
 parser.add_argument('--num_pos', default=4, type=int,
                     help='num of pos per identity in each modality')
 parser.add_argument('--trial', default=1, type=int,
@@ -63,9 +64,17 @@ parser.add_argument('--gpu', default='0', type=str,
                     help='gpu device ids for CUDA_VISIBLE_DEVICES')
 parser.add_argument('--mode', default='all', type=str, help='all or indoor')
 
+parser.add_argument('--syn', default=False, type=bool)
+parser.add_argument('--proxy', default=False, type=bool)
+parser.add_argument('--exp', default=4, type=int)
 parser.add_argument('--warm', default=0, type=int)
+parser.add_argument('--multi', default= False, type=bool, help= 'whether setting seperate proxies or not')
+parser.add_argument('--uni', default=0, type=int, help= 'epoch number that starts unifying proxies with same identity')
+parser.add_argument('--local-attn', default=False, type=bool)
+parser.add_argument('--alpha', default=32, type=int)
+parser.add_argument('--margin', default=0.1, type=float)
 
-parser.add_argument('--lr', default=1e-4 , type=float, help='learning rate, 0.00035 for adam')
+parser.add_argument('--lr', default=3.5e-4 , type=float, help='learning rate, 0.00035 for adam')
 parser.add_argument('--weight-decay', default = 1e-4, type =float, help = 'Weight decay setting')
 parser.add_argument('--lr-decay-step', default = 10, type =int, help = 'Learning decay step setting')
 parser.add_argument('--lr-decay-gamma', default = 0.5, type =float, help = 'Learning decay gamma setting')
@@ -76,9 +85,10 @@ parser.add_argument('--l2-norm', default = 1, type = int, help = 'L2 normlizatio
 parser.add_argument('--optim', default='Adam', type=str, help='optimizer')
 parser.add_argument('--method', default='base', type=str,
                     metavar='m', help='method type: base or agw')
-parser.add_argument('--local-attn', default=False, type=bool)
-parser.add_argument('--proxy', default=False, type=bool)
-parser.add_argument('--exp', default=4, type=int)
+
+
+
+parser.add_argument('--remark', default='')
 args = parser.parse_args()
 #os.environ['CUDA_VISIBLE_DEVICES'] = '0,1'
 
@@ -114,6 +124,8 @@ else:
 
 print(suffix)
 
+
+
 if not args.optim == 'sgd':
     suffix = suffix + '_' + args.optim
 
@@ -131,6 +143,10 @@ print("==========\nArgs:{}\n==========".format(args))
 device = 'cuda:0' if torch.cuda.is_available() else 'cpu'
 best_acc = 0  # best test accuracy
 start_epoch = 0
+
+# Wandb Initialization
+wandb.init(project=suffix, notes=log_path + suffix)
+wandb.config.update(args)
 
 print('==> Loading data..')
 # Data loading code
@@ -196,9 +212,9 @@ print('Data Loading Time:\t {:.3f}'.format(time.time() - end))
 
 print('==> Building model..')
 if args.method =='base':
-    net = embed_net(n_class, no_local= 'off', gm_pool =  'off', arch=args.arch, local_attn=args.local_attn, proxy=args.proxy)
+    net = embed_net(n_class, no_local= 'off', gm_pool =  'off', arch=args.arch, syn=args.syn, local_attn=args.local_attn, proxy=args.proxy)
 else:
-    net = embed_net(n_class, no_local= 'on', gm_pool = 'on', arch=args.arch, local_attn=args.local_attn, proxy=args.proxy)
+    net = embed_net(n_class, no_local= 'on', gm_pool = 'on', arch=args.arch, syn=args.syn, local_attn=args.local_attn, proxy=args.proxy)
 net.to(device)
 net = nn.DataParallel(net, device_ids=[0, 1, 2, 3])
 
@@ -218,16 +234,18 @@ if len(args.resume) > 0:
 
 # define loss function
 criterion_id = nn.CrossEntropyLoss().to(device)
+
 if args.method == 'agw':
     if args.proxy:
-        criterion_proxy_rgb = Proxy_Anchor(395, 512).to(device)
-        criterion_proxy_ir = Proxy_Anchor(395, 512).to(device)
+        criterion_proxy_rgb = Proxy_Anchor(395, 512, mrg=float(args.margin), alpha=int(args.alpha)).to(device)
+        criterion_proxy_ir = Proxy_Anchor(395, 512, mrg=float(args.margin), alpha=int(args.alpha)).to(device)
     else:
         criterion_tri = TripletLoss_WRT().to(device)
 else:
     if args.proxy:
-        criterion_proxy_rgb = Proxy_Anchor(395, 512).to(device)
-        criterion_proxy_ir = Proxy_Anchor(395, 512).to(device)
+        criterion_proxy_rgb = Proxy_Anchor(395, 512, mrg=float(args.margin), alpha=int(args.alpha)).to(device)
+        criterion_proxy_ir = Proxy_Anchor(395, 512, mrg=float(args.margin), alpha=int(args.alpha)).to(device)
+        criterion_hard = hardest_intra(args.num_pos).to(device)
     else:        
         loader_batch = args.batch_size * args.num_pos
         criterion_tri= OriTripletLoss(batch_size=loader_batch, margin=args.margin)
@@ -272,8 +290,11 @@ if args.optim == 'Adam':
         param_groups.append({'params': net.module.ca.parameters(), 'lr': args.lr})
         param_groups.append({'params': net.module.sa.parameters(), 'lr': args.lr})
     if args.proxy:
-        param_groups.append({'params': criterion_proxy_ir.parameters(), 'lr': float(args.lr) * 100})
-        param_groups.append({'params': criterion_proxy_rgb.parameters(), 'lr': float(args.lr) * 100})
+        if args.multi:    
+            param_groups.append({'params': criterion_proxy_ir.parameters(), 'lr': float(args.lr) * 100})
+            param_groups.append({'params': criterion_proxy_rgb.parameters(), 'lr': float(args.lr) * 100})
+        else:
+            param_groups.append({'params': criterion_proxy_rgb.parameters(), 'lr': float(args.lr) * 100})
         # param_groups.append({'params': net.module.embedding.parameters(), 'lr': args.lr * 10})
     else:
         param_groups.append({'params': net.module.classifier.parameters(), 'lr': args.lr})
@@ -304,13 +325,15 @@ def train(epoch):
 
     current_lr = optimizer.param_groups[0]['lr']
     train_loss = AverageMeter()
-    id_loss = AverageMeter()
-    tri_loss = AverageMeter()
-    p2p_loss = AverageMeter()
-    p2e_loss = AverageMeter()
-    data_time = AverageMeter()
-    batch_time = AverageMeter()
-    
+    rgb_proxy_loss = AverageMeter()
+    ir_proxy_loss = AverageMeter()
+    rgb_proxy_R_loss = AverageMeter()
+    ir_proxy_R_loss = AverageMeter()
+    proxy_loss = AverageMeter()
+    hard_loss = AverageMeter()
+    # id_loss = AverageMeter()
+    # tri_loss = AverageMeter()
+        
     bn_freeze = args.bn_freeze
     if bn_freeze:
         modules = net.module.base_resnet.modules()
@@ -318,16 +341,12 @@ def train(epoch):
             if isinstance(m, nn.BatchNorm2d):
                 m.eval()
     
-    correct = 0
-    total = 0
-
     # switch to train mode
     net.train()
-    end = time.time()
     
-    
-
     for batch_idx, (input1, input2, label1, label2) in enumerate(trainloader):
+        
+        batch_size = input1.size(0)
         
         labels = torch.cat((label1, label2), 0)
 
@@ -335,23 +354,61 @@ def train(epoch):
         input2 = Variable(input2.to(device))
         
         labels = Variable(labels.to(device))
-        data_time.update(time.time() - end)
 
         feat, out0, = net(input1, input2)
         
         if args.proxy:
+            if args.multi and not args.syn:
+                
+                loss = criterion_proxy_rgb(out0, labels)
+                
+                
+                '''
+                loss_rgb = criterion_proxy_rgb(out0[:batch_size][:], labels[:batch_size][:])
+                loss_ir = criterion_proxy_ir(out0[batch_size:][:], labels[batch_size:][:])
+                
+                rgb_proxy_loss.update(loss_rgb.item(), batch_size)
+                ir_proxy_loss.update(loss_ir.item(), batch_size)
+                
+                loss = loss_rgb + loss_ir
+                '''
+                
+                if epoch >= args.uni:
+                    loss_hard, R_term, I_term = criterion_hard(out0[:batch_size][:],out0[batch_size:][:])
+                    loss = loss + loss_hard
+                    hard_loss.update(loss_hard.item(), batch_size*2)
+                    
+                    
+                    
+                    '''
+                    loss_proxy_rgb_inst_ir = criterion_proxy_rgb(out0[batch_size:][:], labels[batch_size:][:])
+                    loss_proxy_ir_inst_rgb = criterion_proxy_ir(out0[:batch_size][:], labels[:batch_size][:])
+                    rgb_proxy_R_loss.update(loss_proxy_rgb_inst_ir)
+                    ir_proxy_R_loss.update(loss_proxy_ir_inst_rgb)
+                    
+                    
+                    
+                    loss = loss + loss_proxy_ir_inst_rgb + loss_proxy_rgb_inst_ir
+                    '''
+            elif args.multi and args.syn:
+                pass
+            else:
+                loss = criterion_proxy_rgb(out0, labels)
+                
+                if epoch >= args.uni:
+                    loss_hard, R_term, I_term = criterion_hard(out0[:batch_size][:],out0[batch_size:][:])
+                    loss = loss + loss_hard
+                    hard_loss.update(loss_hard.item(), batch_size*2)
+                
+                
             
-            loss_rgb = criterion_proxy_rgb(out0[:32][:], labels[:32][:])
-            loss_ir = criterion_proxy_ir(out0[32:][:], labels[32:][:])
-            loss = loss_rgb + loss_ir
+            
             
         else:
             loss_id = criterion_id(out0, labels)
             loss_tri, batch_acc = criterion_tri(feat, labels)
-            correct += (batch_acc / 2)
-            _, predicted = out0.max(1)
-            correct += (predicted.eq(labels).sum().item() / 2)
             
+            _, predicted = out0.max(1)            
             loss = loss_id + loss_tri
             
         #loss_p2p, loss_p2e = criterion_two(out0, labels)
@@ -370,38 +427,40 @@ def train(epoch):
 
         # update P
         if args.proxy:
-            train_loss.update(loss.item(), 2 * input1.size(0))
+            train_loss.update(loss.item(), 2 * batch_size)
         else:
             train_loss.update(loss.item(), 2 * input1.size(0))
-            id_loss.update(loss_id.item(), 2 * input1.size(0))
-            tri_loss.update(loss_tri.item(), 2 * input1.size(0))
+            
 
         #p2p_loss.update(loss_p2p.item(), 3 * input1.size(0))
         #p2e_loss.update(loss_p2e.item(), 3 * input1.size(0))
         
-        total += labels.size(0)
+        
 
         # measure elapsed time
-        batch_time.update(time.time() - end)
-        end = time.time()
+        
+        
         if batch_idx % 50 == 0:
+            
             print('Epoch: [{}][{}/{}] '
-                  'Time: {batch_time.val:.3f} ({batch_time.avg:.3f}) '
                   'lr:{:.5f} '
-                  'Loss: {train_loss.val:.4f} ({train_loss.avg:.4f}) '
-                  'iLoss: {id_loss.val:.4f} ({id_loss.avg:.4f}) '
-                  'TLoss: {tri_loss.val:.4f} ({tri_loss.avg:.4f}) '
-                  'p2eLoss: {p2e_loss.val:.4f} ({p2e_loss.avg:.4f}) '
-                  'p2pLoss: {p2p_loss.val:.4f} ({p2p_loss.avg:.4f}) '
-                  'Accu: {:.2f}'.format(
-                epoch, batch_idx, len(trainloader), current_lr,
-                100. * correct / total, batch_time=batch_time,
-                train_loss=train_loss, id_loss=id_loss, tri_loss=tri_loss, p2e_loss=p2e_loss, p2p_loss=p2p_loss))
+                  'Loss: {train_loss.val:.4f} ({train_loss.avg:.4f}) ' 
+                  'rgb_proxy_loss: {rgb_proxy_loss.val:.4f} ({rgb_proxy_loss.avg:.4f}) '
+                  'ir_proxy_loss: {ir_proxy_loss.val:.4f} ({ir_proxy_loss.avg:.4f}) '  
+                  'rgb_proxy_R_loss: {rgb_proxy_R_loss.val:.4f} ({rgb_proxy_R_loss.avg:.4f}) '
+                  'ir_proxy_R_loss: {ir_proxy_R_loss.val:.4f} ({ir_proxy_R_loss.avg:.4f}) '
+                  'hard_loss: {hard_loss.val:.4f} ({hard_loss.avg:.4f})'.format(
+                epoch, batch_idx, len(trainloader), current_lr, train_loss=train_loss, 
+                rgb_proxy_loss=rgb_proxy_loss, ir_proxy_loss=ir_proxy_loss, rgb_proxy_R_loss=rgb_proxy_R_loss,
+                ir_proxy_R_loss=ir_proxy_R_loss, hard_loss=hard_loss))
 
-    writer.add_scalar('total_loss', train_loss.avg, epoch)
-    writer.add_scalar('id_loss', id_loss.avg, epoch)
-    writer.add_scalar('tri_loss', tri_loss.avg, epoch)
-    writer.add_scalar('lr', current_lr, epoch)
+    wandb.log({'train_loss': train_loss.avg}, step=epoch)
+    wandb.log({'rgb_proxy_loss': rgb_proxy_loss.avg}, step=epoch)
+    wandb.log({'ir_proxy_loss': ir_proxy_loss.avg}, step=epoch)
+    wandb.log({'rgb_proxy_R_loss': rgb_proxy_R_loss.avg}, step=epoch)
+    wandb.log({'ir_proxy_R_loss': ir_proxy_R_loss.avg}, step=epoch)
+    wandb.log({'hard_loss': hard_loss.avg},step=epoch)
+    
     scheduler.step()
     #writer.add_scalar('p2p_loss', p2p_loss.avg, epoch)
     #writer.add_scalar('p2e_loss', p2e_loss.avg, epoch)
@@ -466,6 +525,8 @@ def test(epoch):
     writer.add_scalar('mAP_att', mAP_att, epoch)
     writer.add_scalar('mINP_att', mINP_att, epoch)
     
+    
+    
     # memory deallocation
     del input, label
     
@@ -514,7 +575,6 @@ for epoch in range(start_epoch, 81 - start_epoch):
 
         # testing
         cmc, mAP, mINP, cmc_att, mAP_att, mINP_att = test(epoch)
-        print(cmc)
         # save model
         if cmc_att[0] > best_acc:  # not the real best for sysu-mm01
             best_acc = cmc_att[0]
@@ -543,3 +603,9 @@ for epoch in range(start_epoch, 81 - start_epoch):
         print('FC:   Rank-1: {:.2%} | Rank-5: {:.2%} | Rank-10: {:.2%}| Rank-20: {:.2%}| mAP: {:.2%}| mINP: {:.2%}'.format(
             cmc_att[0], cmc_att[4], cmc_att[9], cmc_att[19], mAP_att, mINP_att))
         print('Best Epoch [{}]'.format(best_epoch))
+        
+        wandb.log({'rank1': cmc[0]}, step=epoch)
+        wandb.log({'rank5': cmc[4]}, step=epoch)
+        wandb.log({'rank10': cmc[9]}, step=epoch)
+        wandb.log({'rank20': cmc[19]}, step=epoch)
+        wandb.log({'mAP': mAP}, step=epoch)

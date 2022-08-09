@@ -1,0 +1,61 @@
+
+==> Loading data..
+Dataset sysu statistics:
+  ------------------------------
+  subset   | # ids | # images
+  ------------------------------
+  visible  |   395 |    22258
+  thermal  |   395 |    11909
+  ------------------------------
+  query    |    96 |     3803
+  gallery  |    96 |      301
+  ------------------------------
+Data Loading Time:	 16.229
+==> Building model..
+==> Start Training...
+==> Preparing Data Loader...
+0
+[20927 20945 20945 ...  4515  4467  4490]
+[10597 10605 10597 ...  1932  1948  1928]
+Epoch: [0][0/347] lr:0.00035 Loss: 30.5782 (30.5782) rgb_proxy_loss: 9.4069 (9.4069) ir_proxy_loss: 10.8608 (10.8608) mono_proxy_loss: 10.3105 (10.3105)
+Epoch: [0][50/347] lr:0.00035 Loss: 19.1361 (23.7633) rgb_proxy_loss: 6.1674 (8.0205) ir_proxy_loss: 6.3629 (7.7239) mono_proxy_loss: 6.6058 (8.0189)
+Epoch: [0][100/347] lr:0.00035 Loss: 18.8587 (21.4559) rgb_proxy_loss: 6.1481 (7.1134) ir_proxy_loss: 6.4132 (7.0933) mono_proxy_loss: 6.2974 (7.2491)
+Epoch: [0][150/347] lr:0.00035 Loss: 18.7725 (20.5593) rgb_proxy_loss: 5.9462 (6.7462) ir_proxy_loss: 6.2291 (6.8058) mono_proxy_loss: 6.5972 (7.0074)
+Epoch: [0][200/347] lr:0.00035 Loss: 17.6325 (19.9761) rgb_proxy_loss: 5.3302 (6.4813) ir_proxy_loss: 5.7368 (6.5946) mono_proxy_loss: 6.5655 (6.9001)
+Epoch: [0][250/347] lr:0.00035 Loss: 16.5890 (19.3917) rgb_proxy_loss: 5.0374 (6.2289) ir_proxy_loss: 5.2304 (6.3546) mono_proxy_loss: 6.3212 (6.8082)
+Epoch: [0][300/347] lr:0.00035 Loss: 14.6530 (18.7713) rgb_proxy_loss: 4.2264 (5.9662) ir_proxy_loss: 4.0979 (6.0812) mono_proxy_loss: 6.3287 (6.7239)
+==> Preparing Data Loader...
+1
+[22141 22148 22154 ... 21298 21292 21296]
+[11801 11797 11805 ... 10959 10962 10960]
+Epoch: [1][0/347] lr:0.00035 Loss: 14.6348 (14.6348) rgb_proxy_loss: 4.0232 (4.0232) ir_proxy_loss: 4.3652 (4.3652) mono_proxy_loss: 6.2464 (6.2464)
+Epoch: [1][50/347] lr:0.00035 Loss: 14.6039 (13.8029) rgb_proxy_loss: 4.0695 (3.6436) ir_proxy_loss: 4.2597 (3.7918) mono_proxy_loss: 6.2747 (6.3675)
+Epoch: [1][100/347] lr:0.00035 Loss: 12.9048 (13.3053) rgb_proxy_loss: 2.9559 (3.4089) ir_proxy_loss: 3.4989 (3.4937) mono_proxy_loss: 6.4500 (6.4027)
+Epoch: [1][150/347] lr:0.00035 Loss: 12.5167 (12.8768) rgb_proxy_loss: 3.1264 (3.1742) ir_proxy_loss: 3.0218 (3.2725) mono_proxy_loss: 6.3685 (6.4301)
+Epoch: [1][200/347] lr:0.00035 Loss: 11.5071 (12.4709) rgb_proxy_loss: 2.0476 (2.9613) ir_proxy_loss: 2.7767 (3.0692) mono_proxy_loss: 6.6828 (6.4404)
+Epoch: [1][250/347] lr:0.00035 Loss: 10.7219 (12.0668) rgb_proxy_loss: 1.8910 (2.7439) ir_proxy_loss: 2.2679 (2.8676) mono_proxy_loss: 6.5631 (6.4553)
+Epoch: [1][300/347] lr:0.00035 Loss: 8.2075 (11.6913) rgb_proxy_loss: 1.0524 (2.5515) ir_proxy_loss: 1.0451 (2.6787) mono_proxy_loss: 6.1100 (6.4611)
+Test Epoch: 1
+Extracting Gallery Feature...
+Extracting Time:	 5.315
+Extracting Query Feature...
+Extracting Time:	 11.520
+Evaluation Time:	 6.374
+POOL:   Rank-1: 2.16% | Rank-5: 9.05% | Rank-10: 16.20%| Rank-20: 27.82%| mAP: 4.21%| mINP: 2.46%
+FC:   Rank-1: 2.00% | Rank-5: 9.94% | Rank-10: 18.12%| Rank-20: 30.37%| mAP: 4.80%| mINP: 3.30%
+Best Epoch [1]
+==> Preparing Data Loader...
+2
+[14673 14693 14726 ... 20987 20993 20997]
+[ 6356  6351  6352 ... 10654 10663 10662]
+Epoch: [2][0/347] lr:0.00035 Loss: 10.0131 (10.0131) rgb_proxy_loss: 1.5293 (1.5293) ir_proxy_loss: 2.0414 (2.0414) mono_proxy_loss: 6.4424 (6.4424)
+Traceback (most recent call last):
+  File "train_v2.py", line 488, in <module>
+    train(epoch)
+  File "train_v2.py", line 365, in train
+    loss.backward()
+  File "/opt/conda/lib/python3.7/site-packages/torch/tensor.py", line 185, in backward
+    torch.autograd.backward(self, gradient, retain_graph, create_graph)
+  File "/opt/conda/lib/python3.7/site-packages/torch/autograd/__init__.py", line 127, in backward
+    allow_unreachable=True)  # allow_unreachable flag
+KeyboardInterrupt

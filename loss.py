@@ -1,3 +1,4 @@
+from turtle import forward
 import torch
 import numpy as np
 import torch.nn as nn
@@ -121,6 +122,77 @@ class Proxy_Anchor(torch.nn.Module):
         loss = pos_term + neg_term     
         
         return loss
+    
+class hardest_intra(nn.Module):
+    def __init__(self, num_pos, mrg=0.1, alpha=32):
+        super().__init__()
+        self.alpha = alpha
+        self.mrg = mrg
+        self.num_pos =num_pos
+        
+        
+    def forward(self, R, I):
+        cos = F.linear(l2_norm(R), l2_norm(I))
+        
+        num_slice = int(R.size(0) / self.num_pos)
+        
+        
+        hard_R_terms = []
+        hard_I_terms = []   
+        for i in range(num_slice):
+            start = i * self.num_pos
+            cos_slice = cos[start:start+4, start:start+4]
+            
+            avg_R = torch.mean(cos_slice, 1)
+            avg_I = torch.mean(cos_slice, 0)
+        
+            hard_R = R[torch.argsort(avg_R)[0]]
+            hard_I = I[torch.argsort(avg_I)[0]]
+            
+            hard_R = cos[torch.argsort(avg_R)[0],:]
+            hard_I = cos[:,torch.argsort(avg_I)[0]]
+            
+            hard_R_cost = torch.exp(-self.alpha * (hard_R - self.mrg)).sum()
+            hard_I_cost = torch.exp(-self.alpha * (hard_I - self.mrg)).sum()
+        
+            hard_R_term = torch.log(1 + hard_R_cost) / self.num_pos
+            hard_I_term = torch.log(1 + hard_I_cost) / self.num_pos
+            
+            hard_R_terms.append(hard_R_term)
+            hard_I_terms.append(hard_I_term)
+            
+        hard_R_terms = sum(hard_R_terms)
+        hard_I_terms = sum(hard_I_terms)
+        
+        loss = hard_R_terms + hard_I_terms
+        
+        return loss, hard_R_terms, hard_I_terms
+        
+    
+# class Proxy_Anchor_unifying(nn.Module):
+#     def __init__(self, nb_classes, mrg=0.1, alpha=32):
+#         super().__init__()
+#         self.nb_classes = nb_classes
+#         self.mrg = mrg
+#         self.alpha = alpha
+        
+#     def forward(self, P_R, P_I):
+#         cos = F.linear(l2_norm(P_R), l2_norm(P_I))
+        
+#         pos_exp = torch.exp(-self.alpha * (cos - self.mrg))
+#         neg_exp = torch.exp(self.alpha * (cos + self.mrg))
+        
+#         P_sim_sum = torch.diagonal(pos_exp, 0)
+#         N_sim_sum = torch.triu(neg_exp, diagonal=1).sum(dim=0)
+        
+        
+#         pos_term = torch.log(1 + P_sim_sum).sum() / len(P_sim_sum)
+#         neg_term = torch.log(1 + N_sim_sum).sum() / self.nb_classes
+        
+#         loss = pos_term + neg_term
+        
+#         return loss
+        
     
 class Proxy_Anchor_linear(torch.nn.Module):
     def __init__(self, nb_classes, sz_embed, mrg = 0.1, alpha = 32):

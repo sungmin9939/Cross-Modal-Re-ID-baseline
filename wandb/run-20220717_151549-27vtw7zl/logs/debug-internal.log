@@ -1,0 +1,17 @@
+2022-07-17 15:15:49,924 INFO    MainThread:10826 [internal.py:wandb_internal():93] W&B internal server running at pid: 10826, started at: 2022-07-17 15:15:49.923869
+2022-07-17 15:15:49,927 INFO    WriterThread:10826 [datastore.py:open_for_write():75] open: /data/Cross-Modal-Re-ID-baseline/wandb/run-20220717_151549-27vtw7zl/run-27vtw7zl.wandb
+2022-07-17 15:15:49,932 DEBUG   SenderThread:10826 [sender.py:send():236] send: header
+2022-07-17 15:15:49,932 DEBUG   SenderThread:10826 [sender.py:send():236] send: run
+2022-07-17 15:16:19,160 DEBUG   HandlerThread:10826 [handler.py:handle_request():140] handle_request: shutdown
+2022-07-17 15:16:19,161 INFO    HandlerThread:10826 [handler.py:finish():806] shutting down handler
+2022-07-17 15:16:19,935 INFO    WriterThread:10826 [datastore.py:close():279] close: /data/Cross-Modal-Re-ID-baseline/wandb/run-20220717_151549-27vtw7zl/run-27vtw7zl.wandb
+2022-07-17 15:16:21,672 INFO    SenderThread:10826 [dir_watcher.py:__init__():216] watching files in: /data/Cross-Modal-Re-ID-baseline/wandb/run-20220717_151549-27vtw7zl/files
+2022-07-17 15:16:21,673 INFO    SenderThread:10826 [sender.py:_start_run_threads():818] run started: 27vtw7zl with start time 1658070949
+2022-07-17 15:16:21,673 INFO    SenderThread:10826 [sender.py:finish():1114] shutting down sender
+2022-07-17 15:16:21,673 INFO    SenderThread:10826 [dir_watcher.py:finish():353] shutting down directory watcher
+2022-07-17 15:16:22,674 INFO    SenderThread:10826 [dir_watcher.py:finish():383] scan: /data/Cross-Modal-Re-ID-baseline/wandb/run-20220717_151549-27vtw7zl/files
+2022-07-17 15:16:22,674 INFO    SenderThread:10826 [dir_watcher.py:finish():397] scan save: /data/Cross-Modal-Re-ID-baseline/wandb/run-20220717_151549-27vtw7zl/files/config.yaml config.yaml
+2022-07-17 15:16:22,674 INFO    SenderThread:10826 [file_pusher.py:finish():171] shutting down file pusher
+2022-07-17 15:16:22,675 INFO    SenderThread:10826 [file_pusher.py:join():176] waiting for file pusher
+2022-07-17 15:16:43,535 INFO    Thread-9  :10826 [upload_job.py:push():138] Uploaded file /data/Cross-Modal-Re-ID-baseline/wandb/run-20220717_151549-27vtw7zl/files/config.yaml
+2022-07-17 15:16:54,587 INFO    MainThread:10826 [internal.py:handle_exit():80] Internal process exited

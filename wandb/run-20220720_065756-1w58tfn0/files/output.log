@@ -1,0 +1,35 @@
+
+==> Loading data..
+Downloading: "https://download.pytorch.org/models/resnet50-19c8e357.pth" to /root/.cache/torch/hub/checkpoints/resnet50-19c8e357.pth
+Dataset sysu statistics:
+  ------------------------------
+  subset   | # ids | # images
+  ------------------------------
+  visible  |   395 |    22258
+  thermal  |   395 |    11909
+  ------------------------------
+  query    |    96 |     3803
+  gallery  |    96 |      301
+  ------------------------------
+Data Loading Time:	 16.992
+==> Building model..
+
+
+100%|███████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 97.8M/97.8M [00:03<00:00, 33.2MB/s]
+==> Start Training...
+==> Preparing Data Loader...
+0
+[20927 20945 20945 ...  4515  4467  4490]
+[10597 10605 10597 ...  1932  1948  1928]
+Traceback (most recent call last):
+  File "train.py", line 538, in <module>
+    train(epoch)
+  File "train.py", line 360, in train
+    loss_rgb = criterion_proxy_rgb(out0[:batch_size][:], labels[:batch_size][:])
+  File "/opt/conda/lib/python3.7/site-packages/torch/nn/modules/module.py", line 722, in _call_impl
+    result = self.forward(*input, **kwargs)
+  File "/data/Cross-Modal-Re-ID-baseline/loss.py", line 107, in forward
+    P_one_hot = binarize(T = T, nb_classes = self.nb_classes)
+  File "/data/Cross-Modal-Re-ID-baseline/loss.py", line 12, in binarize
+    import sklearn.preprocessing
+ModuleNotFoundError: No module named 'sklearn'
