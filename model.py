@@ -146,51 +146,30 @@ class base_resnet(nn.Module):
         self.model.gap = nn.AdaptiveAvgPool2d(1)
         self.model.gmp = nn.AdaptiveMaxPool2d(1)
         
-        self.model.embedding = nn.Linear(self.num_ftrs, self.embedding_size)
-        self._initialize_weights()
+        # self.model.embedding = nn.Linear(self.num_ftrs, self.embedding_size)
+        # self._initialize_weights()
         
-        if bn_freeze:
-            for m in self.model.modules():
-                if isinstance(m, nn.BatchNorm2d):
-                    m.eval()
-                    m.weight.requires_grad_(False)
-                    m.bias.requires_grad_(False)
-                    
-    
-    def l2_norm(self,input):
-        input_size = input.size()
-        buffer = torch.pow(input, 2)
-
-        normp = torch.sum(buffer, 1).add_(1e-12)
-        norm = torch.sqrt(normp)
-
-        _output = torch.div(input, norm.view(-1, 1).expand_as(input))
-
-        output = _output.view(input_size)
-
-        return output
     
     def forward(self, x):
         x = self.model.layer1(x)
         x = self.model.layer2(x)
         x = self.model.layer3(x)
         x = self.model.layer4(x)
-
+        
+        '''
         avg_x = self.model.gap(x)
         max_x = self.model.gmp(x)
+
 
         x = max_x + avg_x
         x = x.view(x.size(0), -1)
         x = self.model.embedding(x)
-        
-        if self.is_norm:
-            x = self.l2_norm(x)
-        
+        '''
         return x
     
-    def _initialize_weights(self):
-        init.kaiming_normal_(self.model.embedding.weight, mode='fan_out')
-        init.constant_(self.model.embedding.bias, 0)
+    # def _initialize_weights(self):
+    #     init.kaiming_normal_(self.model.embedding.weight, mode='fan_out')
+    #     init.constant_(self.model.embedding.bias, 0)
         
 class base_resnet_v2(nn.Module):
     def __init__(self, embedding_size, arch='resnet50', pretrained=True, is_norm=True, bn_freeze=True):
@@ -328,6 +307,7 @@ class embed_net(nn.Module):
 
         self.thermal_module = thermal_module(arch=arch)
         self.visible_module = visible_module(arch=arch)
+        self.avgpool = nn.AdaptiveAvgPool2d(1)
         
         if self.syn:
             self.relu = nn.ReLU()
@@ -355,7 +335,8 @@ class embed_net(nn.Module):
             self.NL_4_idx = sorted([layers[3] - (i + 1) for i in range(non_layers[3])])
 
 
-        pool_dim = 512
+        pool_dim = 2048
+        
         self.l2norm = Normalize(2)
         self.bottleneck = nn.BatchNorm1d(pool_dim)
         self.bottleneck.bias.requires_grad_(False)  # no shift
@@ -363,7 +344,7 @@ class embed_net(nn.Module):
         self.ca = ChannelAttention(64) 
         self.sa = SpatialAttnetion(64) 
 
-        self.classifier = nn.Linear(pool_dim, class_num, bias=False)
+        self.classifier = nn.Linear(pool_dim, self.embedding_size, bias=False)
 
         self.bottleneck.apply(weights_init_kaiming)
         self.classifier.apply(weights_init_classifier)
@@ -374,20 +355,21 @@ class embed_net(nn.Module):
         if modal == 0:
             x1 = self.visible_module(x1)
             x2 = self.thermal_module(x2)
-            
+            '''
             if self.syn:
                 x3 = self.relu(x1 * x2)
                 x3 = self.incep(x3)
-                
+            '''    
             
                         
-            
+            '''
             if self.local_attn:            
                 x1_ca = x1 * self.ca(x1) + x1
                 x2_ca = x2 * self.ca(x2) + x2
                 
                 x1 = x1_ca * self.sa(x1) + x1_ca
                 x2 = x2_ca * self.sa(x2) + x2_ca
+            '''
             
             if self.syn:
                 x = torch.cat((x1, x2, x3), 0)
@@ -451,23 +433,18 @@ class embed_net(nn.Module):
             p = 3.0
             x_pool = (torch.mean(x**p, dim=-1) + 1e-12)**(1/p)
         else:
-            x_pool = x
-        #     x_pool = self.avgpool(x)
-        #     x_pool = x_pool.view(x_pool.size(0), x_pool.size(1))
+            x_pool = self.avgpool(x)
+            x_pool = x_pool.view(x_pool.size(0), x_pool.size(1))
+        
 
         feat = self.bottleneck(x_pool)
 
         if self.training:
-            if self.proxy:
-                return x_pool, feat
-            else:
-                return x_pool, self.classifier(feat)
+            return x_pool, self.classifier(feat) 
         else:
-            if self.proxy:            
-                return x_pool, feat
-            else:
-                return self.l2norm(x_pool), self.l2norm(feat)
-            
+            return self.l2norm(x_pool), self.l2norm(self.classifier(feat))
+
+
 class embed_net_v2(nn.Module):
     def __init__(self,  class_num, no_local= 'on', gm_pool = 'on', arch='resnet50', embed_size = 512, syn=False, local_attn=False, proxy=False):
         super(embed_net_v2, self).__init__()

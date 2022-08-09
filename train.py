@@ -282,8 +282,8 @@ if args.optim == 'sgd':
 
 if args.optim == 'Adam':
     param_groups = [
-        {'params': list(set(net.module.parameters()).difference(set(net.module.base_resnet.model.embedding.parameters())))},
-        {'params': net.module.base_resnet.model.embedding.parameters(), 'lr':float(args.lr) * 1},
+        {'params': list(set(net.module.parameters()).difference(set(net.module.classifier.parameters())))},
+        {'params': net.module.classifier.parameters(), 'lr':float(args.lr) * 1},
     ]
     
     if args.local_attn:
@@ -300,30 +300,23 @@ if args.optim == 'Adam':
         param_groups.append({'params': net.module.classifier.parameters(), 'lr': args.lr})
     
     
-    optimizer = optim.Adam(param_groups, weight_decay=args.weight_decay, lr=float(args.lr))
+    optimizer = optim.Adam(param_groups, weight_decay=5e-4, lr=float(args.lr))
 
-scheduler = torch.optim.lr_scheduler.StepLR(optimizer, step_size=args.lr_decay_step, gamma = args.lr_decay_gamma)
+# scheduler = torch.optim.lr_scheduler.StepLR(optimizer, step_size=args.lr_decay_step, gamma = args.lr_decay_gamma)
 def adjust_learning_rate(optimizer, epoch):
-    """Sets the learning rate to the initial LR decayed by 10 every 30 epochs"""
-    if epoch < 10:
-        lr = args.lr * (epoch + 1) / 10
-    elif epoch >= 10 and epoch < 20:
-        lr = args.lr
-    elif epoch >= 20 and epoch < 50:
-        lr = args.lr * 0.1
-    elif epoch >= 50:
-        lr = args.lr * 0.01
-
-    optimizer.param_groups[0]['lr'] = 0.1 * lr
-    for i in range(len(optimizer.param_groups) - 1):
-        optimizer.param_groups[i + 1]['lr'] = lr
-
-    return lr
+       
+    if epoch == 40 or epoch == 60:
+        optimizer.param_groups[0]['lr'] = 0.1 * optimizer.param_groups[0]['lr']
+        
+        for i in range(len(optimizer.param_groups) - 1):
+            optimizer.param_groups[i + 1]['lr'] = optimizer.param_groups[i + 1]['lr'] * 0.1
+            
+    return optimizer.param_groups[0]['lr']
 
 
 def train(epoch):
 
-    current_lr = optimizer.param_groups[0]['lr']
+    current_lr = adjust_learning_rate(optimizer, epoch)
     train_loss = AverageMeter()
     rgb_proxy_loss = AverageMeter()
     ir_proxy_loss = AverageMeter()
@@ -355,15 +348,11 @@ def train(epoch):
         
         labels = Variable(labels.to(device))
 
-        feat, out0, = net(input1, input2)
+        feat, out0, = net(input1, input2) #2048, 512 dimensions each
         
         if args.proxy:
-            if args.multi and not args.syn:
+            if args.multi:
                 
-                loss = criterion_proxy_rgb(out0, labels)
-                
-                
-                '''
                 loss_rgb = criterion_proxy_rgb(out0[:batch_size][:], labels[:batch_size][:])
                 loss_ir = criterion_proxy_ir(out0[batch_size:][:], labels[batch_size:][:])
                 
@@ -371,7 +360,7 @@ def train(epoch):
                 ir_proxy_loss.update(loss_ir.item(), batch_size)
                 
                 loss = loss_rgb + loss_ir
-                '''
+                
                 
                 if epoch >= args.uni:
                     loss_hard, R_term, I_term = criterion_hard(out0[:batch_size][:],out0[batch_size:][:])
@@ -390,14 +379,13 @@ def train(epoch):
                     
                     loss = loss + loss_proxy_ir_inst_rgb + loss_proxy_rgb_inst_ir
                     '''
-            elif args.multi and args.syn:
-                pass
             else:
                 loss = criterion_proxy_rgb(out0, labels)
+                rgb_proxy_loss.update(loss.item(), batch_size * 2)
                 
                 if epoch >= args.uni:
                     loss_hard, R_term, I_term = criterion_hard(out0[:batch_size][:],out0[batch_size:][:])
-                    loss = loss + loss_hard
+                    loss = loss + 0.1 * loss_hard
                     hard_loss.update(loss_hard.item(), batch_size*2)
                 
                 
@@ -461,7 +449,7 @@ def train(epoch):
     wandb.log({'ir_proxy_R_loss': ir_proxy_R_loss.avg}, step=epoch)
     wandb.log({'hard_loss': hard_loss.avg},step=epoch)
     
-    scheduler.step()
+    # scheduler.step()
     #writer.add_scalar('p2p_loss', p2p_loss.avg, epoch)
     #writer.add_scalar('p2e_loss', p2e_loss.avg, epoch)
     
@@ -475,7 +463,7 @@ def test(epoch):
     print('Extracting Gallery Feature...')
     start = time.time()
     ptr = 0
-    gall_feat = np.zeros((ngall, 512))
+    gall_feat = np.zeros((ngall, 2048))
     gall_feat_att = np.zeros((ngall, 512))
     with torch.no_grad():
         for batch_idx, (input, label) in enumerate(gall_loader):
@@ -492,7 +480,7 @@ def test(epoch):
     print('Extracting Query Feature...')
     start = time.time()
     ptr = 0
-    query_feat = np.zeros((nquery, 512))
+    query_feat = np.zeros((nquery, 2048))
     query_feat_att = np.zeros((nquery, 512))
     with torch.no_grad():
         for batch_idx, (input, label) in enumerate(query_loader):
